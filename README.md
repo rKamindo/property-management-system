@@ -5,6 +5,17 @@ Technologies:
 - Spring Boot
 - PostgreSQL
 
-To run this application, you need to create a database in PostgreSQL named "tenantmanager".
-Then in the application.properties file under the resources folder, 
-put the database access credentials in the corresponding fields
+How To Run This Application:
+- Create a database in PostgreSQL named "tenantmanager".
+- Put the database access credentials in the corresponding fields
+  in the application.properties file under the resources folder
+
+You can use Postman to POST tenants as a JSON object in the body following the example format:
+
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "apartmentNumber": "1",
+    "phoneNumber": 1112223333
+}
+
