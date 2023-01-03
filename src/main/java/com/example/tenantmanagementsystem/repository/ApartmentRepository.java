@@ -1,6 +1,6 @@
 package com.example.tenantmanagementsystem.repository;
 
-import com.example.tenantmanagementsystem.model.Tenant;
+import com.example.tenantmanagementsystem.model.Apartment;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,11 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 
-public interface TenantRepository extends JpaRepository<Tenant, Long> {
+public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
+    Optional<Apartment> findApartmentById(Long id);
 
-    Optional<Tenant> findTenantById(Long id);
 
-
-    void deleteTenantById(Long id);
-
+    void deleteApartmentById(Long id);
 }

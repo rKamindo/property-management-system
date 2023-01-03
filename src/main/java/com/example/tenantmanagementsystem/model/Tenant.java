@@ -1,5 +1,7 @@
 package com.example.tenantmanagementsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -14,28 +16,29 @@ public class Tenant implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
-
-    private String apartmentNumber;
     private String phoneNumber;
     @Column(nullable = false, updatable = false)
     private String tenantCode;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "apartment_id")
+    private Apartment apartment;
 
     public Tenant() {}
 
-    public Tenant(String firstName, String lastName, String apartmentNumber, String phoneNumber, String tenantCode) {
+    public Tenant(String firstName, String lastName, String phoneNumber, String tenantCode, Apartment apartment) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.apartmentNumber = apartmentNumber;
         this.phoneNumber = phoneNumber;
         this.tenantCode = tenantCode;
+        this.apartment = apartment;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long number) {
+        id = number;
     }
 
     public String getFirstName() {
@@ -54,14 +57,6 @@ public class Tenant implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getApartmentNumber() {
-        return apartmentNumber;
-    }
-
-    public void setApartmentNumber(String apartmentNumber) {
-        this.apartmentNumber = apartmentNumber;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -78,13 +73,23 @@ public class Tenant implements Serializable {
         this.tenantCode = tenantCode;
     }
 
+    public Apartment getApartment() {
+        return apartment;
+    }
+
+    public void setApartment(Apartment apartment) {
+        this.apartment = apartment;
+    }
+
     @Override
     public String toString() {
         return "Tenant{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", apartmentNumber='" + apartmentNumber + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", tenantCode='" + tenantCode + '\'' +
+                ", apartment=" + apartment +
                 '}';
     }
 }

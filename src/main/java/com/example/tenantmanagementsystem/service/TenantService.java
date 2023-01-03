@@ -3,6 +3,7 @@ package com.example.tenantmanagementsystem.service;
 import com.example.tenantmanagementsystem.exception.TenantNotFoundException;
 import com.example.tenantmanagementsystem.model.Tenant;
 import com.example.tenantmanagementsystem.repository.TenantRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +35,9 @@ public class TenantService {
                 .orElseThrow(() ->  new TenantNotFoundException("Tenant by id " + id + " was not found"));
     }
 
+    @Transactional
     public void deleteTenant(Long id) {
+        //tenantRepository.findTenantById(id).ifPresent((tenant -> tenant.setApartment(null)));
         tenantRepository.deleteTenantById(id);
     }
 

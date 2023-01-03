@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/tenant")
 public class TenantController {
@@ -36,7 +35,7 @@ public class TenantController {
         return new ResponseEntity<>(newTenant, HttpStatus.CREATED);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<Tenant> updateTenant(@RequestBody Tenant tenant) {
         Tenant updateTenant = tenantService.updateTenant(tenant);
         return new ResponseEntity<>(updateTenant, HttpStatus.OK);
