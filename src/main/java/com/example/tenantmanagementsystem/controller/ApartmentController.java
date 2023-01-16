@@ -1,8 +1,9 @@
 package com.example.tenantmanagementsystem.controller;
 
+import com.example.tenantmanagementsystem.dto.ApartmentDTO;
 import com.example.tenantmanagementsystem.model.Apartment;
 import com.example.tenantmanagementsystem.service.ApartmentService;
-import org.apache.coyote.Response;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/apartment")
+@RequestMapping("api/v1/apartment")
 public class ApartmentController {
     public ApartmentService apartmentService;
     public ApartmentController(ApartmentService apartmentService) {
@@ -24,9 +25,9 @@ public class ApartmentController {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Apartment> getApartmentById(@PathVariable("id") Long id) {
-        Apartment apartment = apartmentService.findApartmentById(id);
-        return new ResponseEntity<>(apartment, HttpStatus.OK);
+    public ResponseEntity<ApartmentDTO> getApartmentById(@PathVariable("id") Long id) {
+        ApartmentDTO apartmentDTO = apartmentService.findApartmentById(id);
+        return new ResponseEntity<>(apartmentDTO, HttpStatus.OK);
     }
 
     @PostMapping ("/add")

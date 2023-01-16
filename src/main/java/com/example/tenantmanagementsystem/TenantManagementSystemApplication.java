@@ -1,6 +1,7 @@
 package com.example.tenantmanagementsystem;
 
 import org.apache.catalina.filters.CorsFilter;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -28,5 +29,10 @@ public class TenantManagementSystemApplication {
 				registry.addMapping("/**");
 			}
 		};
+	}
+
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
 	}
 }

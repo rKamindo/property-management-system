@@ -1,30 +1,35 @@
+
+
 package com.example.tenantmanagementsystem.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-import java.io.Serializable;
+
+import java.util.List;
+
 
 @Entity
-public class Apartment implements Serializable {
+public class Apartment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String apartmentNumber;
-    private double rent;
-    @OneToOne(mappedBy = "apartment")
-    @JsonIgnore
-    private Tenant tenant;
+    private int numberOfRooms;
+    private String address;
+    private double rentalRate;
+    @OneToMany(mappedBy = "apartment")
+    private List<Tenant> tenants;
 
     public Apartment() {}
-    public Apartment(String apartmentNumber, double rent, Tenant tenant) {
+
+    public Apartment(Long id, String apartmentNumber, int numberOfRooms, String address, double rentalRate, List<Tenant> tenants) {
+        this.id = id;
         this.apartmentNumber = apartmentNumber;
-        this.rent = rent;
-        this.tenant = tenant;
+        this.numberOfRooms = numberOfRooms;
+        this.address = address;
+        this.rentalRate = rentalRate;
+        this.tenants = tenants;
     }
 
     public Long getId() {
@@ -43,20 +48,36 @@ public class Apartment implements Serializable {
         this.apartmentNumber = apartmentNumber;
     }
 
-    public double getRent() {
-        return rent;
+    public int getNumberOfRooms() {
+        return numberOfRooms;
     }
 
-    public void setRent(double rent) {
-        this.rent = rent;
+    public void setNumberOfRooms(int numberOfRooms) {
+        this.numberOfRooms = numberOfRooms;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public String getAddress() {
+        return address;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public double getRentalRate() {
+        return rentalRate;
+    }
+
+    public void setRentalRate(double rentalRate) {
+        this.rentalRate = rentalRate;
+    }
+
+    public List<Tenant> getTenants() {
+        return tenants;
+    }
+
+    public void setTenants(List<Tenant> tenant) {
+        this.tenants = tenant;
     }
 
     @Override
@@ -64,8 +85,10 @@ public class Apartment implements Serializable {
         return "Apartment{" +
                 "id=" + id +
                 ", apartmentNumber='" + apartmentNumber + '\'' +
-                ", rent=" + rent +
-                ", tenant=" + tenant +
+                ", rentalRate=" + rentalRate +
+                ", tenants=" + tenants +
                 '}';
     }
+
+
 }

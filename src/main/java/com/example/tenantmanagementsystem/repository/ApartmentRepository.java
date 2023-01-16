@@ -9,8 +9,5 @@ import java.util.Optional;
 
 
 public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
-    Optional<Apartment> findApartmentById(Long id);
 
-
-    void deleteApartmentById(Long id);
 }

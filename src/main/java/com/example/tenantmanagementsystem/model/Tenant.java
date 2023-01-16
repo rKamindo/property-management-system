@@ -1,44 +1,51 @@
 package com.example.tenantmanagementsystem.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
-import java.io.Serializable;
-
+import java.util.UUID;
 
 @Entity
-public class Tenant implements Serializable {
+public class Tenant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
+    private UUID uuid;
     private String firstName;
     private String lastName;
-    private String phoneNumber;
-    @Column(nullable = false, updatable = false)
-    private String tenantCode;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    private String email;
+    private String phone;
+    private String address;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "apartment_id")
     private Apartment apartment;
 
     public Tenant() {}
 
-    public Tenant(String firstName, String lastName, String phoneNumber, String tenantCode, Apartment apartment) {
+    public Tenant(UUID uuid, String firstName, String lastName, String email, String phone, String address, Apartment apartment) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.tenantCode = tenantCode;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
         this.apartment = apartment;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long number) {
-        id = number;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -57,20 +64,28 @@ public class Tenant implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getTenantCode() {
-        return tenantCode;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Apartment getApartment() {
@@ -85,10 +100,12 @@ public class Tenant implements Serializable {
     public String toString() {
         return "Tenant{" +
                 "id=" + id +
+                ", uuid=" + uuid +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", tenantCode='" + tenantCode + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
                 ", apartment=" + apartment +
                 '}';
     }
