@@ -4,6 +4,7 @@ import com.example.tenantmanagementsystem.model.Tenant;
 import com.example.tenantmanagementsystem.repository.ApartmentRepository;
 import com.example.tenantmanagementsystem.repository.TenantRepository;
 import net.bytebuddy.asm.Advice;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,12 +28,25 @@ class TenantServiceTest {
     private ModelMapper modelMapper;
 
     private TenantService underTest;
+    private Tenant tenant;
 
     @BeforeEach
     void setUp() {
         underTest = new TenantService(tenantRepository, apartmentRepository, modelMapper);
+        tenant = new Tenant(
+                new UUID(0,1),
+                "Jamila",
+                "Jones",
+                "jjones@gmail.com",
+                "1234567890",
+                "123 Home Dr",
+                null);
     }
 
+    @AfterEach
+    void tearDown() {
+
+    }
     @Test
     void canFindAllTenants() {
         //when
@@ -44,14 +58,6 @@ class TenantServiceTest {
     @Test
     void canAddTenant() {
         // when
-        Tenant tenant = new Tenant(
-                new UUID(0,1),
-                "Jamila",
-                "Jones",
-                "jjones@gmail.com",
-                "1234567890",
-                "123 Home Dr",
-                null);
         underTest.addTenant(tenant);
 
         // then
@@ -60,5 +66,12 @@ class TenantServiceTest {
 
         verify(tenantRepository)
                 .save(tenantArgumentCaptor.capture());
+    }
+
+    @Test
+    void canGetApartmentById() {
+        // when
+
+        // then
     }
 }

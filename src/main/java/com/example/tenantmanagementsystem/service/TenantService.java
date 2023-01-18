@@ -75,10 +75,9 @@ public class TenantService {
     }
 
     private Apartment getApartmentById(Long apartmentId) {
-        if (!apartmentRepository.existsById(apartmentId)) {
-            throw new ApartmentNotFoundException("Apartment by id " + apartmentId + " not found");
-        }
-        return apartmentRepository.findById(apartmentId).get();
+        Apartment apartment = apartmentRepository.findById(apartmentId)
+                .orElseThrow(() -> new ApartmentNotFoundException("Apartment by id " + apartmentId + " was not found"));
+        return apartment;
     }
 
     private TenantDTO mapTenantToDTO(Tenant tenant) {
