@@ -24,18 +24,18 @@ public class TenantController {
 
     @GetMapping("/all")
     public ResponseEntity<List<TenantDTO>> getAllTenants() {
-        List<TenantDTO> tenantDTOS = tenantService.findAllTenants();
+        List<TenantDTO> tenantDTOS = tenantService.getAllTenants();
         return new ResponseEntity<>(tenantDTOS, HttpStatus.OK);
     }
 
     @GetMapping("/find/{id}")
     public ResponseEntity<TenantDTO> getTenantById(@PathVariable("id") Long id) {
-        TenantDTO tenantDTO = tenantService.findTenantById(id);
+        TenantDTO tenantDTO = tenantService.getTenantById(id);
         return new ResponseEntity<>(tenantDTO, HttpStatus.OK);
     }
     @PostMapping("/create")
     public ResponseEntity<TenantDTO> createTenant(@RequestBody Tenant tenant) {
-        TenantDTO newTenantDTO = tenantService.createTenant(tenant);
+        TenantDTO newTenantDTO = tenantService.addTenant(tenant);
         return new ResponseEntity<>(newTenantDTO, HttpStatus.CREATED);
     }
 

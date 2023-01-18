@@ -1,7 +1,5 @@
 package com.example.tenantmanagementsystem.dto;
 
-import com.example.tenantmanagementsystem.model.Apartment;
-
 import java.util.List;
 
 public class ApartmentDTO {

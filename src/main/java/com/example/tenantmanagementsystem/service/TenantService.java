@@ -20,19 +20,22 @@ public class TenantService {
     private final ApartmentRepository apartmentRepository;
     private final ModelMapper modelMapper;
 
-    public TenantService(TenantRepository tenantRepository, ModelMapper modelMapper, ApartmentRepository apartmentRepository) {
+    public TenantService(TenantRepository tenantRepository, ApartmentRepository apartmentRepository, ModelMapper modelMapper) {
         this.tenantRepository = tenantRepository;
         this.modelMapper = modelMapper;
         this.apartmentRepository = apartmentRepository;
     }
 
-    public TenantDTO createTenant(Tenant tenant) {
+    public TenantDTO addTenant(Tenant tenant) {
         tenant.setUuid(UUID.randomUUID());
-        tenant.setApartment(getApartmentbyId(tenant.getApartment().getId()));
-        return mapTenantToDTO(tenantRepository.save(tenant));
+        if (tenant.getApartment() != null) {
+            tenant.setApartment(getApartmentById(tenant.getApartment().getId()));
+        }
+        TenantDTO tenantDTO = mapTenantToDTO(tenantRepository.save(tenant));
+        return tenantDTO;
     }
 
-    public List<TenantDTO> findAllTenants() {
+    public List<TenantDTO> getAllTenants() {
         List<Tenant> tenants = tenantRepository.findAll();
         List<TenantDTO> tenantDTOS = tenants.stream()
                 .map(tenant -> modelMapper.map(tenant, TenantDTO.class))
@@ -53,12 +56,14 @@ public class TenantService {
         // update apartment business logic
         if (tenantDetails.getApartment() != null) {
             Long apartmentId = tenantDetails.getApartment().getId();
-            updateTenant.setApartment(getApartmentbyId(apartmentId));
+            updateTenant.setApartment(getApartmentById(apartmentId));
         }
-        return mapTenantToDTO(tenantRepository.save(updateTenant));
+
+        TenantDTO tenantDTO = mapTenantToDTO(tenantRepository.save(updateTenant));
+        return tenantDTO;
     }
 
-    public TenantDTO findTenantById(Long id) {
+    public TenantDTO getTenantById(Long id) {
         Tenant tenant = tenantRepository.findById(id)
                 .orElseThrow(() ->  new TenantNotFoundException("Tenant by id " + id + " was not found"));
         TenantDTO tenantDTO = mapTenantToDTO(tenant);
@@ -69,7 +74,7 @@ public class TenantService {
         tenantRepository.deleteById(id);
     }
 
-    private Apartment getApartmentbyId(Long apartmentId) {
+    private Apartment getApartmentById(Long apartmentId) {
         if (!apartmentRepository.existsById(apartmentId)) {
             throw new ApartmentNotFoundException("Apartment by id " + apartmentId + " not found");
         }

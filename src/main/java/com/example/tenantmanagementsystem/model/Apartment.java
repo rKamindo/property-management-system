@@ -1,10 +1,6 @@
-
-
 package com.example.tenantmanagementsystem.model;
 
 import jakarta.persistence.*;
-
-
 import java.util.List;
 
 
@@ -23,8 +19,7 @@ public class Apartment {
 
     public Apartment() {}
 
-    public Apartment(Long id, String apartmentNumber, int numberOfRooms, String address, double rentalRate, List<Tenant> tenants) {
-        this.id = id;
+    public Apartment(String apartmentNumber, int numberOfRooms, String address, double rentalRate, List<Tenant> tenants) {
         this.apartmentNumber = apartmentNumber;
         this.numberOfRooms = numberOfRooms;
         this.address = address;

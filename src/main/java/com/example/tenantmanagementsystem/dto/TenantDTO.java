@@ -1,7 +1,5 @@
 package com.example.tenantmanagementsystem.dto;
 
-import com.example.tenantmanagementsystem.model.Tenant;
-
 import java.util.UUID;
 
 public class TenantDTO {

@@ -1,6 +1,10 @@
 package com.example.tenantmanagementsystem.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
 import java.util.UUID;
 
 @Entity
@@ -11,10 +15,18 @@ public class Tenant {
     private Long id;
     @Column(unique = true)
     private UUID uuid;
+    @NotBlank(message = "First name is required")
     private String firstName;
+    @NotBlank(message = "Last name is required")
     private String lastName;
+    @Email(message = "Invalid email address")
+    @NotBlank(message = "Email is required")
+    @Column(unique = true)
     private String email;
+    @Pattern(regexp = "^\\d{10}$", message = "Invalid phone number")
+    @NotBlank(message = "Phone is required")
     private String phone;
+    @NotBlank(message = "Address is required")
     private String address;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
