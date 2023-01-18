@@ -60,7 +60,5 @@ class TenantServiceTest {
 
         verify(tenantRepository)
                 .save(tenantArgumentCaptor.capture());
-
-
     }
 }
