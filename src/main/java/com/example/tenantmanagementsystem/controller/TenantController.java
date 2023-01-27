@@ -22,30 +22,30 @@ public class TenantController {
         this.tenantRepository = tenantRepository;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<TenantDTO>> getAllTenants() {
         List<TenantDTO> tenantDTOS = tenantService.getAllTenants();
         return new ResponseEntity<>(tenantDTOS, HttpStatus.OK);
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<TenantDTO> getTenantById(@PathVariable("id") Long id) {
         TenantDTO tenantDTO = tenantService.getTenantById(id);
         return new ResponseEntity<>(tenantDTO, HttpStatus.OK);
     }
-    @PostMapping("/create")
-    public ResponseEntity<TenantDTO> addTenant(@RequestBody Tenant tenant) {
+    @PostMapping
+    public ResponseEntity<TenantDTO> createTenant(@RequestBody Tenant tenant) {
         TenantDTO newTenantDTO = tenantService.addTenant(tenant);
         return new ResponseEntity<>(newTenantDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<TenantDTO> updateTenant(@PathVariable("id") Long id, @RequestBody Tenant tenantDetails) {
         TenantDTO updateTenantDTO = tenantService.updateTenant(id, tenantDetails);
         return new ResponseEntity<>(updateTenantDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<?> deleteTenant(@PathVariable("id") Long id) {
         tenantService.deleteTenant(id);
         return new ResponseEntity<>(HttpStatus.OK);

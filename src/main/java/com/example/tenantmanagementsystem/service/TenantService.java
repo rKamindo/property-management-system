@@ -2,6 +2,7 @@ package com.example.tenantmanagementsystem.service;
 
 import com.example.tenantmanagementsystem.dto.TenantDTO;
 import com.example.tenantmanagementsystem.exception.ApartmentNotFoundException;
+import com.example.tenantmanagementsystem.exception.BadRequestException;
 import com.example.tenantmanagementsystem.exception.TenantNotFoundException;
 import com.example.tenantmanagementsystem.model.Apartment;
 import com.example.tenantmanagementsystem.model.Tenant;
@@ -26,21 +27,38 @@ public class TenantService {
         this.apartmentRepository = apartmentRepository;
     }
 
-    public TenantDTO addTenant(Tenant tenant) {
-        tenant.setUuid(UUID.randomUUID());
-        if (tenant.getApartment() != null) {
-            tenant.setApartment(getApartmentById(tenant.getApartment().getId()));
-        }
-        TenantDTO tenantDTO = mapTenantToDTO(tenantRepository.save(tenant));
+    public List<TenantDTO> getAllTenants() {
+        List<Tenant> tenants = tenantRepository.findAll();
+        List<TenantDTO> tenantDTOs = tenants.stream()
+                .map(tenant -> modelMapper.map(tenant, TenantDTO.class))
+                .collect(Collectors.toList());
+        return tenantDTOs;
+    }
+
+    public TenantDTO getTenantById(Long id) {
+        Tenant tenant = tenantRepository.findById(id)
+                .orElseThrow(() ->  new TenantNotFoundException("Tenant by id " + id + " was not found"));
+        TenantDTO tenantDTO = mapTenantToDTO(tenant);
         return tenantDTO;
     }
 
-    public List<TenantDTO> getAllTenants() {
-        List<Tenant> tenants = tenantRepository.findAll();
-        List<TenantDTO> tenantDTOS = tenants.stream()
-                .map(tenant -> modelMapper.map(tenant, TenantDTO.class))
-                .collect(Collectors.toList());
-        return tenantDTOS;
+    private boolean existsEmail(String email) {
+        boolean existsEmail = tenantRepository.existsByEmail(email);
+        if (existsEmail)
+            throw new BadRequestException("Email " + email + " taken");
+        return false;
+    }
+
+    public TenantDTO addTenant(Tenant tenant) {
+        if (!existsEmail(tenant.getEmail())) {
+            tenant.setUuid(UUID.randomUUID());
+            if (tenant.getApartment() != null) {
+                Long apartmentId = tenant.getApartment().getId();
+                tenant.setApartment(getApartmentById(apartmentId));
+            }
+        }
+        TenantDTO tenantDTO = mapTenantToDTO(tenantRepository.save(tenant));
+        return tenantDTO;
     }
 
     public TenantDTO updateTenant(Long id, Tenant tenantDetails) {
@@ -63,12 +81,7 @@ public class TenantService {
         return tenantDTO;
     }
 
-    public TenantDTO getTenantById(Long id) {
-        Tenant tenant = tenantRepository.findById(id)
-                .orElseThrow(() ->  new TenantNotFoundException("Tenant by id " + id + " was not found"));
-        TenantDTO tenantDTO = mapTenantToDTO(tenant);
-        return tenantDTO;
-    }
+
 
     public void deleteTenant(Long id) {
         tenantRepository.deleteById(id);
