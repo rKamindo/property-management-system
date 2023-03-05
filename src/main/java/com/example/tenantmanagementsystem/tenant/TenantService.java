@@ -1,9 +1,7 @@
 package com.example.tenantmanagementsystem.tenant;
 
-import com.example.tenantmanagementsystem.exception.ApartmentNotFoundException;
 import com.example.tenantmanagementsystem.exception.DuplicateResourceException;
-import com.example.tenantmanagementsystem.exception.TenantNotFoundException;
-import com.example.tenantmanagementsystem.apartment.Apartment;
+import com.example.tenantmanagementsystem.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,7 +28,7 @@ public class TenantService {
     public TenantDTO getTenant(Long id) {
         return tenantRepository.findById(id)
                 .map(tenantDTOMapper)
-                .orElseThrow(() -> new TenantNotFoundException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "tenant with id [%s] not found".formatted(id)
                 ));
     }
@@ -50,7 +48,7 @@ public class TenantService {
 
     public void updateTenant(Long id, Tenant updateRequest) {
         Tenant tenant = tenantRepository.findById(id)
-                .orElseThrow(() -> new TenantNotFoundException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "tenant with id [%s] not found".formatted(id)
                         ));
 
@@ -64,16 +62,11 @@ public class TenantService {
 
             tenantRepository.save(tenant);
         }
-
-
-
     }
-
-
 
     public void deleteTenantById(Long id) {
         if (!tenantRepository.existsById(id)) {
-            throw new TenantNotFoundException(
+            throw new ResourceNotFoundException(
                     "tenant with id [%s] not found".formatted(id)
             );
         }
