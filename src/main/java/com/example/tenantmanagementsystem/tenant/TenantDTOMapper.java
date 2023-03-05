@@ -15,6 +15,5 @@ public class TenantDTOMapper implements Function<Tenant, TenantDTO> {
                 tenant.getGender(),
                 tenant.getApartment().getApartmentNumber()
         );
-    }}
     }
 }

@@ -1,6 +1,5 @@
 package com.example.tenantmanagementsystem.apartment;
 
-import com.example.tenantmanagementsystem.tenant.TenantLightDTO;
 import com.example.tenantmanagementsystem.exception.ApartmentNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
