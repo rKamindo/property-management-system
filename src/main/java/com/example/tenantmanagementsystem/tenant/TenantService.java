@@ -47,11 +47,16 @@ public class TenantService {
     }
 
     public void updateTenant(Long id, Tenant updateRequest) {
+        // todo - use a TenantUpdateRequest record that only has updatable fields
+
+        // check if it exists
         Tenant tenant = tenantRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "tenant with id [%s] not found".formatted(id)
                         ));
+        // update name
 
+        // update email
         if (updateRequest.getEmail() != null && !updateRequest.getEmail().equals(tenant.getEmail())) {
             if (tenantRepository.existsTenantByEmail(updateRequest.getEmail())) {
                 throw new DuplicateResourceException(
@@ -59,9 +64,15 @@ public class TenantService {
                 );
             }
             tenant.setEmail(updateRequest.getEmail());
-
-            tenantRepository.save(tenant);
         }
+
+        // update phone
+
+        // update apartment using apartmentNumber
+
+
+        // update existing tenant
+        tenantRepository.save(tenant);
     }
 
     public void deleteTenantById(Long id) {

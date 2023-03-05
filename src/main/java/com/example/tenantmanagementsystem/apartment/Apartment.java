@@ -2,7 +2,7 @@ package com.example.tenantmanagementsystem.apartment;
 
 import com.example.tenantmanagementsystem.tenant.Tenant;
 import jakarta.persistence.*;
-import java.util.List;
+
 import java.util.Objects;
 
 
@@ -24,24 +24,24 @@ public class Apartment {
     @Column(nullable = false)
     private int numberOfRooms;
     @Column(nullable = false)
-    private double apartmentRentalRate;
+    private double rent;
     @OneToOne(mappedBy = "apartment")
     private Tenant tenant;
 
     public Apartment() {}
 
-    public Apartment(Long id, String apartmentNumber, int numberOfRooms, double rentalRate, Tenant tenant) {
+    public Apartment(Long id, String apartmentNumber, int numberOfRooms, double rent, Tenant tenant) {
         this.id = id;
         this.apartmentNumber = apartmentNumber;
         this.numberOfRooms = numberOfRooms;
-        this.apartmentRentalRate = rentalRate;
+        this.rent = rent;
         this.tenant = tenant;
     }
 
-    public Apartment(String apartmentNumber, int numberOfRooms, double rentalRate, Tenant tenant) {
+    public Apartment(String apartmentNumber, int numberOfRooms, double rent, Tenant tenant) {
         this.apartmentNumber = apartmentNumber;
         this.numberOfRooms = numberOfRooms;
-        this.apartmentRentalRate = rentalRate;
+        this.rent = rent;
         this.tenant = tenant;
     }
 
@@ -69,12 +69,12 @@ public class Apartment {
         this.numberOfRooms = numberOfRooms;
     }
 
-    public double getApartmentRentalRate() {
-        return apartmentRentalRate;
+    public double getRent() {
+        return rent;
     }
 
-    public void setApartmentRentalRate(double apartmentRentalRate) {
-        this.apartmentRentalRate = apartmentRentalRate;
+    public void setRent(double rent) {
+        this.rent = rent;
     }
 
     public Tenant getTenant() {
@@ -90,12 +90,12 @@ public class Apartment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Apartment apartment = (Apartment) o;
-        return numberOfRooms == apartment.numberOfRooms && Double.compare(apartment.apartmentRentalRate, apartmentRentalRate) == 0 && Objects.equals(id, apartment.id) && Objects.equals(apartmentNumber, apartment.apartmentNumber) && Objects.equals(tenant, apartment.tenant);
+        return numberOfRooms == apartment.numberOfRooms && Double.compare(apartment.rent, rent) == 0 && Objects.equals(id, apartment.id) && Objects.equals(apartmentNumber, apartment.apartmentNumber) && Objects.equals(tenant, apartment.tenant);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, apartmentNumber, numberOfRooms, apartmentRentalRate, tenant);
+        return Objects.hash(id, apartmentNumber, numberOfRooms, rent, tenant);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class Apartment {
                 "id=" + id +
                 ", apartmentNumber='" + apartmentNumber + '\'' +
                 ", numberOfRooms=" + numberOfRooms +
-                ", apartmentRentalRate=" + apartmentRentalRate +
+                ", rent=" + rent +
                 ", tenant=" + tenant +
                 '}';
     }

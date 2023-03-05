@@ -2,9 +2,11 @@ package com.example.tenantmanagementsystem.apartment;
 
 import com.example.tenantmanagementsystem.tenant.Tenant;
 import com.example.tenantmanagementsystem.tenant.TenantDTOMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.function.Function;
 
+@Service
 public class ApartmentDTOMapper implements Function<Apartment, ApartmentDTO> {
 
     private final TenantDTOMapper tenantDTOMapper;
@@ -15,23 +17,14 @@ public class ApartmentDTOMapper implements Function<Apartment, ApartmentDTO> {
 
     @Override
     public ApartmentDTO apply(Apartment apartment) {
-        Tenant tenant = apartment.getTenant();
-        if (tenant == null) {
+
             return new ApartmentDTO(
                     apartment.getId(),
                     apartment.getApartmentNumber(),
                     apartment.getNumberOfRooms(),
-                    apartment.getApartmentRentalRate(),
-                    null
-            );
-        } else {
-            return new ApartmentDTO(
-                    apartment.getId(),
-                    apartment.getApartmentNumber(),
-                    apartment.getNumberOfRooms(),
-                    apartment.getApartmentRentalRate(),
-                    tenantDTOMapper.apply(apartment.getTenant())
+                    apartment.getRent(),
+                    apartment.getTenant() == null ?
+                            null : tenantDTOMapper.apply(apartment.getTenant())
             );
         }
-    }
 }

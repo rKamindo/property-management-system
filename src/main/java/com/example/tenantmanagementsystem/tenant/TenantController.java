@@ -37,6 +37,8 @@ public class TenantController {
     public void updateTenant(
             @PathVariable("id") Long tenantId,
             @RequestBody Tenant updateRequest) {
+        // todo - use a TenantUpdateRequest record that only has updatable fields
+
         tenantService.updateTenant(tenantId, updateRequest);
     }
 

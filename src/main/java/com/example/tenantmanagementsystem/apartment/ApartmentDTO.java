@@ -6,7 +6,7 @@ public record ApartmentDTO (
         Long id,
         String apartmentNumber,
         int numberOfRooms,
-        double apartmentRentalRate,
+        double rent,
         TenantDTO tenantDTO
 ) {
 

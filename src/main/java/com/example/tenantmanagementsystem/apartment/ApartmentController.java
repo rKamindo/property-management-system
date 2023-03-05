@@ -15,33 +15,28 @@ public class ApartmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ApartmentDTO>> getAllApartments() {
-        List<ApartmentDTO> apartments = apartmentService.getAllApartments();
-        return new ResponseEntity<>(apartments, HttpStatus.OK);
+    public List<ApartmentDTO> getAllApartments() {
+        return apartmentService.getAllApartments();
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ApartmentDTO> getApartmentById(@PathVariable("id") Long id) {
-        ApartmentDTO apartmentDTO = apartmentService.findApartmentById(id);
-        return new ResponseEntity<>(apartmentDTO, HttpStatus.OK);
+    public ApartmentDTO getApartment(@PathVariable("id") Long id) {
+        return apartmentService.getApartment(id);
     }
 
     @PostMapping
-    public ResponseEntity<ApartmentDTO> createApartment(@RequestBody Apartment apartment) {
-        ApartmentDTO newApartment = apartmentService.addApartment(apartment);
-        return new ResponseEntity<>(newApartment, HttpStatus.CREATED);
+    public void createApartment(@RequestBody Apartment apartment) {
+        apartmentService.addApartment(apartment);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ApartmentDTO> updateApartment(@PathVariable("id") Long id, @RequestBody Apartment apartmentDetails) {
-        ApartmentDTO updateApartment = apartmentService.updateApartment(id, apartmentDetails);
-        return new ResponseEntity<>(updateApartment, HttpStatus.OK);
+    public void updateApartment(@PathVariable("id") Long id, @RequestBody Apartment updateRequest) {
+        apartmentService.updateApartment(id, updateRequest);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteApartment(@PathVariable("id") Long id) {
+    public void deleteApartment(@PathVariable("id") Long id) {
         apartmentService.deleteApartment(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

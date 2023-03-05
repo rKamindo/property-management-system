@@ -13,7 +13,8 @@ public class TenantDTOMapper implements Function<Tenant, TenantDTO> {
                 tenant.getName(),
                 tenant.getEmail(),
                 tenant.getGender(),
-                tenant.getApartment().getApartmentNumber()
+                tenant.getApartment() == null ?
+                        null : tenant.getApartment().getApartmentNumber()
         );
     }
 }
