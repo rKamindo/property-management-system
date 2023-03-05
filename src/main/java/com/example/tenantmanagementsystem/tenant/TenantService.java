@@ -1,6 +1,7 @@
 package com.example.tenantmanagementsystem.tenant;
 
 import com.example.tenantmanagementsystem.exception.ApartmentNotFoundException;
+import com.example.tenantmanagementsystem.exception.DuplicateResourceException;
 import com.example.tenantmanagementsystem.exception.TenantNotFoundException;
 import com.example.tenantmanagementsystem.apartment.Apartment;
 import org.springframework.stereotype.Service;
@@ -11,22 +12,24 @@ import java.util.stream.Collectors;
 @Service
 public class TenantService {
     private final TenantRepository tenantRepository;
+    private final TenantDTOMapper tenantDTOMapper;
 
 
-    public TenantService(TenantRepository tenantRepository) {
+    public TenantService(TenantRepository tenantRepository, TenantDTOMapper tenantDTOMapper) {
         this.tenantRepository = tenantRepository;
+        this.tenantDTOMapper = tenantDTOMapper;
     }
 
     public List<TenantDTO> getAllTenants() {
         return tenantRepository.findAll()
                 .stream()
-                .map(TenantDTOMapper)
+                .map(tenantDTOMapper)
                 .collect(Collectors.toList());
     }
 
     public TenantDTO getTenant(Long id) {
         return tenantRepository.findById(id)
-                .map(TenantDTOMapper)
+                .map(tenantDTOMapper)
                 .orElseThrow(() -> new TenantNotFoundException(
                         "tenant with id [%s] not found".formatted(id)
                 ));

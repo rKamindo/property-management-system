@@ -4,7 +4,7 @@ public record TenantDTO (
         Long id,
         String name,
         String email,
-        String gender,
+        Gender gender,
         String apartmentNumber
 )
 {}
