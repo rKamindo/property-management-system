@@ -1,7 +1,8 @@
 package com.example.tenantmanagementsystem.repository;
 
 
-import com.example.tenantmanagementsystem.model.Tenant;
+import com.example.tenantmanagementsystem.tenant.Tenant;
+import com.example.tenantmanagementsystem.tenant.TenantRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

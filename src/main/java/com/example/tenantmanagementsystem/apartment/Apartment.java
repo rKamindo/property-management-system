@@ -1,5 +1,6 @@
-package com.example.tenantmanagementsystem.model;
+package com.example.tenantmanagementsystem.apartment;
 
+import com.example.tenantmanagementsystem.tenant.Tenant;
 import jakarta.persistence.*;
 import java.util.List;
 

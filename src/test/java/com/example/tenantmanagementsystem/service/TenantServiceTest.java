@@ -1,14 +1,11 @@
 package com.example.tenantmanagementsystem.service;
 
-import com.example.tenantmanagementsystem.exception.ApartmentNotFoundException;
-import com.example.tenantmanagementsystem.exception.BadRequestException;
-import com.example.tenantmanagementsystem.model.Apartment;
-import com.example.tenantmanagementsystem.model.Tenant;
-import com.example.tenantmanagementsystem.repository.ApartmentRepository;
-import com.example.tenantmanagementsystem.repository.TenantRepository;
-import net.bytebuddy.asm.Advice;
+import com.example.tenantmanagementsystem.apartment.Apartment;
+import com.example.tenantmanagementsystem.tenant.Tenant;
+import com.example.tenantmanagementsystem.apartment.ApartmentRepository;
+import com.example.tenantmanagementsystem.tenant.TenantRepository;
+import com.example.tenantmanagementsystem.tenant.TenantService;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,12 +14,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)

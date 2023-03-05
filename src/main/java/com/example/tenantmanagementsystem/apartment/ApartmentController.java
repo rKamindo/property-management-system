@@ -1,8 +1,5 @@
-package com.example.tenantmanagementsystem.controller;
+package com.example.tenantmanagementsystem.apartment;
 
-import com.example.tenantmanagementsystem.dto.ApartmentDTO;
-import com.example.tenantmanagementsystem.model.Apartment;
-import com.example.tenantmanagementsystem.service.ApartmentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

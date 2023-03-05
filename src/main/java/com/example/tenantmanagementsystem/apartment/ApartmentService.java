@@ -1,10 +1,7 @@
-package com.example.tenantmanagementsystem.service;
+package com.example.tenantmanagementsystem.apartment;
 
-import com.example.tenantmanagementsystem.dto.ApartmentDTO;
-import com.example.tenantmanagementsystem.dto.TenantLightDTO;
+import com.example.tenantmanagementsystem.tenant.TenantLightDTO;
 import com.example.tenantmanagementsystem.exception.ApartmentNotFoundException;
-import com.example.tenantmanagementsystem.model.Apartment;
-import com.example.tenantmanagementsystem.repository.ApartmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

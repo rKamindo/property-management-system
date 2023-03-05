@@ -1,4 +1,6 @@
-package com.example.tenantmanagementsystem.dto;
+package com.example.tenantmanagementsystem.apartment;
+
+import com.example.tenantmanagementsystem.tenant.TenantLightDTO;
 
 import java.util.List;
 
