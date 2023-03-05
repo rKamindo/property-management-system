@@ -19,6 +19,7 @@ To-do -
 
 Backend:
 - Complete update resource functionality
+- Request Validation
 - Unit tests
 - Integration tests
 - Security, (user logins)
