@@ -1,21 +1,36 @@
-# tenant-manager
-This is a back-end application that manages tenant.
+# tenant-manager web application
+This will be a full working web application, with React for the front end.
+
+Backend -
+
 Technologies:
 - Java
 - Spring Boot
 - PostgreSQL
+- Maven
 
-How To Run This Application:
-- Create a database in PostgreSQL named "tenantmanager".
-- Put the database access credentials in the corresponding fields
-  in the application.properties file under the resources folder
+Features:
+- REST API
+- Error Handling
+- Duplicate Resource Check
+- DTO's for optimizing reponse data
 
-You can use Postman to POST tenant as a JSON object in the body following the example format:
+To-do -
 
-{
-    "firstName": "John",
-    "lastName": "Doe",
-    "apartmentNumber": "1",
-    "phoneNumber": 1112223333
-}
+Backend:
+- Complete update resource functionality
+- Unit tests
+- Integration tests
+- Security, (user logins)
+
+Frontend:
+- BootStrap React and Chakra UI
+- Login
+
+DevOps:
+- Docker
+- AWS Elasticbeanstalk
+- CI/CD with Github Actions
+- Slack Integration
+
 
