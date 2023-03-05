@@ -24,25 +24,25 @@ public class Apartment {
     @Column(nullable = false)
     private int numberOfRooms;
     @Column(nullable = false)
-    private double rentalRate;
-    @OneToMany(mappedBy = "apartment")
-    private List<Tenant> tenants;
+    private double apartmentRentalRate;
+    @OneToOne(mappedBy = "apartment")
+    private Tenant tenant;
 
     public Apartment() {}
 
-    public Apartment(Long id, String apartmentNumber, int numberOfRooms, double rentalRate, List<Tenant> tenants) {
+    public Apartment(Long id, String apartmentNumber, int numberOfRooms, double rentalRate, Tenant tenant) {
         this.id = id;
         this.apartmentNumber = apartmentNumber;
         this.numberOfRooms = numberOfRooms;
-        this.rentalRate = rentalRate;
-        this.tenants = tenants;
+        this.apartmentRentalRate = rentalRate;
+        this.tenant = tenant;
     }
 
-    public Apartment(String apartmentNumber, int numberOfRooms, double rentalRate, List<Tenant> tenants) {
+    public Apartment(String apartmentNumber, int numberOfRooms, double rentalRate, Tenant tenant) {
         this.apartmentNumber = apartmentNumber;
         this.numberOfRooms = numberOfRooms;
-        this.rentalRate = rentalRate;
-        this.tenants = tenants;
+        this.apartmentRentalRate = rentalRate;
+        this.tenant = tenant;
     }
 
     public Long getId() {
@@ -69,20 +69,20 @@ public class Apartment {
         this.numberOfRooms = numberOfRooms;
     }
 
-    public double getRentalRate() {
-        return rentalRate;
+    public double getApartmentRentalRate() {
+        return apartmentRentalRate;
     }
 
-    public void setRentalRate(double rentalRate) {
-        this.rentalRate = rentalRate;
+    public void setApartmentRentalRate(double apartmentRentalRate) {
+        this.apartmentRentalRate = apartmentRentalRate;
     }
 
-    public List<Tenant> getTenants() {
-        return tenants;
+    public Tenant getTenant() {
+        return tenant;
     }
 
-    public void setTenants(List<Tenant> tenants) {
-        this.tenants = tenants;
+    public void setTenant(Tenant tenant) {
+        this.tenant = tenant;
     }
 
     @Override
@@ -90,12 +90,12 @@ public class Apartment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Apartment apartment = (Apartment) o;
-        return numberOfRooms == apartment.numberOfRooms && Double.compare(apartment.rentalRate, rentalRate) == 0 && Objects.equals(id, apartment.id) && Objects.equals(apartmentNumber, apartment.apartmentNumber) && Objects.equals(tenants, apartment.tenants);
+        return numberOfRooms == apartment.numberOfRooms && Double.compare(apartment.apartmentRentalRate, apartmentRentalRate) == 0 && Objects.equals(id, apartment.id) && Objects.equals(apartmentNumber, apartment.apartmentNumber) && Objects.equals(tenant, apartment.tenant);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, apartmentNumber, numberOfRooms, rentalRate, tenants);
+        return Objects.hash(id, apartmentNumber, numberOfRooms, apartmentRentalRate, tenant);
     }
 
     @Override
@@ -104,8 +104,8 @@ public class Apartment {
                 "id=" + id +
                 ", apartmentNumber='" + apartmentNumber + '\'' +
                 ", numberOfRooms=" + numberOfRooms +
-                ", rentalRate=" + rentalRate +
-                ", tenants=" + tenants +
+                ", apartmentRentalRate=" + apartmentRentalRate +
+                ", tenant=" + tenant +
                 '}';
     }
 }

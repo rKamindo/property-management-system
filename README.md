@@ -1,5 +1,5 @@
 # tenant-manager
-This is a back-end application that manages tenants.
+This is a back-end application that manages tenant.
 Technologies:
 - Java
 - Spring Boot
@@ -10,7 +10,7 @@ How To Run This Application:
 - Put the database access credentials in the corresponding fields
   in the application.properties file under the resources folder
 
-You can use Postman to POST tenants as a JSON object in the body following the example format:
+You can use Postman to POST tenant as a JSON object in the body following the example format:
 
 {
     "firstName": "John",

@@ -1,6 +1,5 @@
 package com.example.tenantmanagementsystem.apartment;
 
-import com.example.tenantmanagementsystem.apartment.Apartment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

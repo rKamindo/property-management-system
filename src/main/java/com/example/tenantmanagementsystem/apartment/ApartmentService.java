@@ -1,7 +1,6 @@
 package com.example.tenantmanagementsystem.apartment;
 
 import com.example.tenantmanagementsystem.exception.ApartmentNotFoundException;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,11 +9,9 @@ import java.util.stream.Collectors;
 @Service
 public class ApartmentService {
     private final ApartmentRepository apartmentRepository;
-    private final ModelMapper modelMapper;
 
-    public ApartmentService(ApartmentRepository apartmentRepository, ModelMapper modelMapper) {
+    public ApartmentService(ApartmentRepository apartmentRepositor) {
         this.apartmentRepository = apartmentRepository;
-        this.modelMapper = modelMapper;
     }
 
     public List<ApartmentDTO> getAllApartments() {
@@ -42,8 +39,8 @@ public class ApartmentService {
         updateApartment.setApartmentNumber(apartmentDetails.getApartmentNumber());
         updateApartment.setNumberOfRooms(apartmentDetails.getNumberOfRooms());
         updateApartment.setAddress(apartmentDetails.getAddress());
-        updateApartment.setRentalRate(apartmentDetails.getRentalRate());
-        updateApartment.setTenants(apartmentDetails.getTenants());
+        updateApartment.setApartmentRentalRate(apartmentDetails.getApartmentRentalRate());
+        updateApartment.setTenant(apartmentDetails.getTenant());
         ApartmentDTO apartmentDTO = mapApartmentToDTO(apartmentRepository.save(updateApartment));
         return apartmentDTO;
     }
@@ -55,9 +52,9 @@ public class ApartmentService {
     private ApartmentDTO mapApartmentToDTO(Apartment apartment) {
         ApartmentDTO apartmentDTO = modelMapper.map(apartment, ApartmentDTO.class);
 
-        if (apartment.getTenants() != null) {
+        if (apartment.getTenant() != null) {
             // map List<Tenant> to List<TenantLightDTO>
-            List<TenantLightDTO> tenantLightDTOS = apartment.getTenants()
+            List<TenantLightDTO> tenantLightDTOS = apartment.getTenant()
                     .stream()
                     .map(tenant -> modelMapper.map(tenant, TenantLightDTO.class))
                     .collect(Collectors.toList());
