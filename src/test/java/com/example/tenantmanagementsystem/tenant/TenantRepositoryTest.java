@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 class TenantRepositoryTest {
@@ -19,7 +19,7 @@ class TenantRepositoryTest {
     }
 
     @Test
-    void itShouldCheckIfTenantExistsByEmail() {
+    void existsTenantByEmail() {
         // given
         String email = "jane@gmail.com";
         Tenant tenant = new Tenant(
@@ -35,11 +35,11 @@ class TenantRepositoryTest {
         boolean expected = underTest.existsTenantByEmail(email);
 
         // then
-        assertTrue(expected);
+        assertThat(expected).isTrue();
     }
 
     @Test
-    void itShouldCheckIfStudentsEmailDoesNotExist() {
+    void existsTenantByEmailFailWhenEmailNotPresent() {
         // given
         String email = "jane@gmail.com";
 
@@ -47,6 +47,6 @@ class TenantRepositoryTest {
         boolean expected = underTest.existsTenantByEmail(email);
 
         // then
-        assertFalse(expected);
+        assertThat(expected).isFalse();
     }
 }

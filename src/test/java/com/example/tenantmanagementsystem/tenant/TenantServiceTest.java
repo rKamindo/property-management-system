@@ -8,9 +8,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.BDDAssumptions.given;
+
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @ExtendWith(MockitoExtension.class)
 public class TenantServiceTest {
@@ -26,7 +27,16 @@ public class TenantServiceTest {
     }
 
     @Test
-    void canAddTenant() {
+    void canGetAllTenants() {
+        // when
+        underTest.getAllTenants();
+
+        // then
+        verify(tenantRepository).findAll();
+    }
+
+    @Test
+    void addTenant() {
         // given
         Tenant tenant = new Tenant(
                 "Jane",
@@ -48,7 +58,7 @@ public class TenantServiceTest {
 
         Tenant capturedTenant = tenantArgumentCaptor.getValue();
 
-        assertEquals(tenant, capturedTenant);
+        assertThat(capturedTenant).isEqualTo(tenant);
     }
 
     @Test
@@ -67,8 +77,12 @@ public class TenantServiceTest {
                 .thenReturn(true);
 
         // then
-        assertThrows(
-                DuplicateResourceException.class,
-                () -> underTest.addTenant(tenant));
+        assertThatThrownBy(() -> underTest.addTenant(tenant))
+                .isInstanceOf(DuplicateResourceException.class)
+                        .hasMessage("email already taken");
+
+        verify(tenantRepository, never()).save(any());
     }
+
+
 }
