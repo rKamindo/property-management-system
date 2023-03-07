@@ -1,6 +1,7 @@
 package com.example.tenantmanagementsystem.tenant;
 
 import com.example.tenantmanagementsystem.exception.DuplicateResourceException;
+import com.example.tenantmanagementsystem.exception.RequestValidationException;
 import com.example.tenantmanagementsystem.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
