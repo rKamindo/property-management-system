@@ -31,4 +31,16 @@ class TenantRepositoryTest {
         // then
         assertTrue(expected);
     }
+
+    @Test
+    void itShouldCheckIfStudentsEmailDoesNotExist() {
+        // given
+        String email = "jane@gmail.com";
+
+        // when
+        boolean expected = underTest.existsTenantByEmail(email);
+
+        // then
+        assertFalse(expected);
+    }
 }
