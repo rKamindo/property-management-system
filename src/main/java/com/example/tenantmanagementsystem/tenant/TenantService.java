@@ -38,7 +38,7 @@ public class TenantService {
         String email = tenant.getEmail();
         if (tenantRepository.existsTenantByEmail(email)) {
             throw new DuplicateResourceException(
-                    "email already taken"
+                   "Email " + email + " taken"
             );
         }
 
