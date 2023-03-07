@@ -1,6 +1,7 @@
 package com.example.tenantmanagementsystem.tenant;
 
 import com.example.tenantmanagementsystem.exception.DuplicateResourceException;
+import com.example.tenantmanagementsystem.exception.RequestValidationException;
 import com.example.tenantmanagementsystem.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -55,9 +56,12 @@ public class TenantService {
                         "tenant with id [%s] not found".formatted(id)
                         ));
 
+        boolean changes = false;
+
         // update name
         if (updateRequest.name() != null && !updateRequest.name().equals(tenant.getName())) {
             tenant.setName(updateRequest.name());
+            changes = true;
         }
 
         // update email
@@ -68,15 +72,21 @@ public class TenantService {
                 );
             }
             tenant.setEmail(updateRequest.email());
+            changes = true;
         }
 
         // update phone
         if (updateRequest.phone() != null && !updateRequest.phone().equals(tenant.getPhone())) {
             tenant.setPhone(updateRequest.phone());
+            changes = true;
         }
 
         // update apartment using apartmentNumber?
 
+        if (!changes)
+            throw new RequestValidationException(
+                    "no data changes found"
+            );
         // update existing tenant
         Tenant updatedTenant = tenantRepository.save(tenant);
         return tenantDTOMapper.apply(updatedTenant);
