@@ -39,7 +39,7 @@ public class TenantController {
     @PutMapping("{id}")
     public ResponseEntity<TenantDTO> updateTenant(
             @PathVariable("id") Long tenantId,
-            @RequestBody Tenant updateRequest) {
+            @RequestBody TenantUpdateRequest updateRequest) {
         // todo - use a TenantUpdateRequest record that only has updatable fields
 
         TenantDTO tenantDTO = tenantService.updateTenant(tenantId, updateRequest);

@@ -47,7 +47,7 @@ public class TenantService {
         return tenantDTOMapper.apply(savedTenant);
     }
 
-    public TenantDTO updateTenant(Long id, Tenant updateRequest) {
+    public TenantDTO updateTenant(Long id, TenantUpdateRequest updateRequest) {
         // todo - use a TenantUpdateRequest record that only has updatable fields
 
         // check if it exists
@@ -55,22 +55,28 @@ public class TenantService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "tenant with id [%s] not found".formatted(id)
                         ));
+
         // update name
+        if (updateRequest.name() != null && !updateRequest.name().equals(tenant.getName())) {
+            tenant.setName(updateRequest.name());
+        }
 
         // update email
-        if (updateRequest.getEmail() != null && !updateRequest.getEmail().equals(tenant.getEmail())) {
-            if (tenantRepository.existsTenantByEmail(updateRequest.getEmail())) {
+        if (updateRequest.email() != null && !updateRequest.email().equals(tenant.getEmail())) {
+            if (tenantRepository.existsTenantByEmail(updateRequest.email())) {
                 throw new DuplicateResourceException(
                         "email already taken"
                 );
             }
-            tenant.setEmail(updateRequest.getEmail());
+            tenant.setEmail(updateRequest.email());
         }
 
         // update phone
+        if (updateRequest.phone() != null && !updateRequest.phone().equals(tenant.getPhone())) {
+            tenant.setPhone(updateRequest.phone());
+        }
 
-        // update apartment using apartmentNumber
-
+        // update apartment using apartmentNumber?
 
         // update existing tenant
         Tenant updatedTenant = tenantRepository.save(tenant);

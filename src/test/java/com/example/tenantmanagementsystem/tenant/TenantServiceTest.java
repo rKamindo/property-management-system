@@ -122,4 +122,24 @@ public class TenantServiceTest {
 
         verify(tenantRepository, never()).save(any());
     }
+
+    @Test
+    void deleteTenantById() {
+        // given
+
+        // when
+
+        // then
+
+    }
+
+    @Test
+    void willThrowDeleteTenantByIdNotExists() {
+
+    }
+
+    @Test
+    void canUpdateAllTenantProperties() {
+
+    }
 }
