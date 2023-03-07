@@ -26,11 +26,11 @@ public class TenantService {
     }
 
     public TenantDTO getTenant(Long id) {
-        return tenantRepository.findById(id)
-                .map(tenantDTOMapper)
+        Tenant tenant = tenantRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "tenant with id [%s] not found".formatted(id)
                 ));
+        return tenantDTOMapper.apply(tenant);
     }
 
     public TenantDTO addTenant(Tenant tenant) {
