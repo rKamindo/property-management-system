@@ -48,7 +48,6 @@ public class TenantService {
     }
 
     public TenantDTO updateTenant(Long id, TenantUpdateRequest updateRequest) {
-        // todo - use a TenantUpdateRequest record that only has updatable fields
 
         // check if it exists
         Tenant tenant = tenantRepository.findById(id)

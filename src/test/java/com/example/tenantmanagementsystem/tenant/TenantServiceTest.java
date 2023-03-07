@@ -126,20 +126,211 @@ public class TenantServiceTest {
     @Test
     void deleteTenantById() {
         // given
+        long id = 10;
+
+        when(tenantRepository.existsById(id)).thenReturn(true);
 
         // when
+        underTest.deleteTenantById(id);
 
         // then
-
+        verify(tenantRepository).deleteById(id);
     }
 
     @Test
     void willThrowDeleteTenantByIdNotExists() {
+        // given
+        long id = 10;
 
+        when(tenantRepository.existsById(id)).thenReturn(false);
+
+        // when
+        assertThatThrownBy(() -> underTest.deleteTenantById(id))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessage("tenant with id [%s] not found".formatted(id));
+
+        // then
+        verify(tenantRepository, never()).deleteById(id);
     }
 
     @Test
     void canUpdateAllTenantProperties() {
+        // given
+        long id = 10;
+        Tenant tenant = new Tenant(
+                id,
+                "John",
+                "john@gmail.com",
+                "5555555555",
+                Gender.MALE,
+                null);
+        when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
 
+        String newEmail = "johnson@yahoo.com";
+
+        TenantUpdateRequest updateRequest = new TenantUpdateRequest(
+                "Johnson", newEmail, "6667778888");
+
+        when(tenantRepository.existsTenantByEmail(newEmail)).thenReturn(false);
+
+        // when
+        underTest.updateTenant(id, updateRequest);
+
+        // then
+        ArgumentCaptor<Tenant> tenantArgumentCaptor =
+                ArgumentCaptor.forClass(Tenant.class);
+
+        verify(tenantRepository).save(tenantArgumentCaptor.capture());
+        Tenant capturedTenant = tenantArgumentCaptor.getValue();
+
+        assertThat(capturedTenant.getName()).isEqualTo(updateRequest.name());
+        assertThat(capturedTenant.getEmail()).isEqualTo(updateRequest.email());
+        assertThat(capturedTenant.getPhone()).isEqualTo(updateRequest.phone());
+    }
+
+    @Test
+    void canUpdateOnlyTenantName() {
+        // given
+        long id = 10;
+        Tenant tenant = new Tenant(
+                id,
+                "John",
+                "john@gmail.com",
+                "5555555555",
+                Gender.MALE,
+                null);
+        when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
+
+        TenantUpdateRequest updateRequest = new TenantUpdateRequest(
+                "Johnson", null, null);
+
+        // when
+        underTest.updateTenant(id, updateRequest);
+
+        // then
+        ArgumentCaptor<Tenant> tenantArgumentCaptor =
+        ArgumentCaptor.forClass(Tenant.class);
+
+        verify(tenantRepository).save(tenantArgumentCaptor.capture());
+        Tenant capturedTenant = tenantArgumentCaptor.getValue();
+
+        assertThat(capturedTenant.getName()).isEqualTo(updateRequest.name());
+        assertThat(capturedTenant.getEmail()).isEqualTo(tenant.getEmail());
+        assertThat(capturedTenant.getPhone()).isEqualTo(tenant.getPhone());
+    }
+
+    @Test
+    void canUpdateOnlyPhone() {
+        // given
+        long id = 10;
+        Tenant tenant = new Tenant(
+                id,
+                "John",
+                "john@gmail.com",
+                "5555555555",
+                Gender.MALE,
+                null);
+        when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
+
+        TenantUpdateRequest updateRequest = new TenantUpdateRequest(
+                null, null, "6667778888");
+
+        // when
+        underTest.updateTenant(id, updateRequest);
+
+        // then
+        ArgumentCaptor<Tenant> tenantArgumentCaptor =
+                ArgumentCaptor.forClass(Tenant.class);
+
+        verify(tenantRepository).save(tenantArgumentCaptor.capture());
+        Tenant capturedTenant = tenantArgumentCaptor.getValue();
+
+        assertThat(capturedTenant.getName()).isEqualTo(tenant.getName());
+        assertThat(capturedTenant.getEmail()).isEqualTo(tenant.getEmail());
+        assertThat(capturedTenant.getPhone()).isEqualTo(updateRequest.phone());
+    }
+
+    @Test
+    void canUpdateOnlyEmail() {
+        // given
+        long id = 10;
+        Tenant tenant = new Tenant(
+                id,
+                "John",
+                "john@gmail.com",
+                "5555555555",
+                Gender.MALE,
+                null);
+        when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
+
+        TenantUpdateRequest updateRequest = new TenantUpdateRequest(
+                null, "johnson@yahoo.com", null);
+
+        // when
+        underTest.updateTenant(id, updateRequest);
+
+        // then
+        ArgumentCaptor<Tenant> tenantArgumentCaptor =
+                ArgumentCaptor.forClass(Tenant.class);
+
+        verify(tenantRepository).save(tenantArgumentCaptor.capture());
+        Tenant capturedTenant = tenantArgumentCaptor.getValue();
+
+        assertThat(capturedTenant.getName()).isEqualTo(tenant.getName());
+        assertThat(capturedTenant.getEmail()).isEqualTo(updateRequest.email());
+        assertThat(capturedTenant.getPhone()).isEqualTo(tenant.getPhone());
+    }
+
+    @Test
+    void willThrowWhenTryingToUpdateTenantEmailWhenEmailTaken() {
+        // given
+        long id = 10;
+        Tenant tenant = new Tenant(
+                id,
+                "John",
+                "john@gmail.com",
+                "5555555555",
+                Gender.MALE,
+                null);
+        when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
+
+        String newEmail = "johnson@yahoo.com";
+
+        TenantUpdateRequest updateRequest = new TenantUpdateRequest(
+                null, newEmail, null);
+
+        when(tenantRepository.existsTenantByEmail(newEmail)).thenReturn(true);
+
+        // when
+        assertThatThrownBy(() -> underTest.updateTenant(id, updateRequest))
+                .isInstanceOf(DuplicateResourceException.class)
+                .hasMessage("email already taken");
+
+        // then
+        verify(tenantRepository, never()).save(any());
+    }
+
+    @Test
+    void willThrowWhenTenantUpdateHasNoChanges() {
+        long id = 10;
+        Tenant tenant = new Tenant(
+                id,
+                "John",
+                "john@gmail.com",
+                "5555555555",
+                Gender.MALE,
+                null);
+        when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
+
+        TenantUpdateRequest updateRequest = new TenantUpdateRequest(
+                tenant.getName(), tenant.getEmail(), tenant.getPhone());
+
+        // when
+        assertThatThrownBy(() -> underTest.updateTenant(id, updateRequest))
+                .isInstanceOf(RequestValidationException.class)
+                .hasMessage("no data changes found");
+
+        // then
+        verify(tenantRepository, never()).save(any());
     }
 }
