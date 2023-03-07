@@ -3,7 +3,6 @@ package com.example.tenantmanagementsystem.tenant;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -15,31 +14,36 @@ public class TenantController {
     }
 
     @GetMapping
-    public List<TenantDTO> getTenants() {
-        return tenantService.getAllTenants();
+    public ResponseEntity<List<TenantDTO>> getTenants() {
+        List<TenantDTO> tenantDTOS = tenantService.getAllTenants();
+        return new ResponseEntity<>(tenantDTOS, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public TenantDTO getTenant(@PathVariable("id") Long tenantId) {
-        return tenantService.getTenant(tenantId);
+    public ResponseEntity<TenantDTO> getTenant(@PathVariable("id") Long tenantId) {
+        TenantDTO tenant = tenantService.getTenant(tenantId);
+        return new ResponseEntity<>(tenant, HttpStatus.OK);
     }
     @PostMapping
-    public void createTenant(@RequestBody Tenant tenant) {
-        tenantService.addTenant(tenant);
+    public ResponseEntity<TenantDTO> createTenant(@RequestBody Tenant tenant) {
+        TenantDTO tenantDTO = tenantService.addTenant(tenant);
+        return new ResponseEntity<>(tenantDTO, HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id}")
-    public void deleteTenant(@PathVariable("id") Long tenantId) {
+    public ResponseEntity<?> deleteTenant(@PathVariable("id") Long tenantId) {
         tenantService.deleteTenantById(tenantId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("{id}")
-    public void updateTenant(
+    public ResponseEntity<TenantDTO> updateTenant(
             @PathVariable("id") Long tenantId,
             @RequestBody Tenant updateRequest) {
         // todo - use a TenantUpdateRequest record that only has updatable fields
 
-        tenantService.updateTenant(tenantId, updateRequest);
+        TenantDTO tenantDTO = tenantService.updateTenant(tenantId, updateRequest);
+        return new ResponseEntity<>(tenantDTO, HttpStatus.OK);
     }
 
 

@@ -33,7 +33,7 @@ public class TenantService {
                 ));
     }
 
-    public void addTenant(Tenant tenant) {
+    public TenantDTO addTenant(Tenant tenant) {
         // check if email exists
         String email = tenant.getEmail();
         if (tenantRepository.existsTenantByEmail(email)) {
@@ -43,10 +43,11 @@ public class TenantService {
         }
 
         // add
-        tenantRepository.save(tenant);
+        Tenant savedTenant = tenantRepository.save(tenant);
+        return tenantDTOMapper.apply(savedTenant);
     }
 
-    public void updateTenant(Long id, Tenant updateRequest) {
+    public TenantDTO updateTenant(Long id, Tenant updateRequest) {
         // todo - use a TenantUpdateRequest record that only has updatable fields
 
         // check if it exists
@@ -72,7 +73,8 @@ public class TenantService {
 
 
         // update existing tenant
-        tenantRepository.save(tenant);
+        Tenant updatedTenant = tenantRepository.save(tenant);
+        return tenantDTOMapper.apply(updatedTenant);
     }
 
     public void deleteTenantById(Long id) {
