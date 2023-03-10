@@ -1,5 +1,7 @@
 package com.example.tenantmanagementsystem.tenant;
 
+import com.example.tenantmanagementsystem.apartment.Apartment;
+import com.example.tenantmanagementsystem.apartment.ApartmentService;
 import com.example.tenantmanagementsystem.exception.DuplicateResourceException;
 import com.example.tenantmanagementsystem.exception.RequestValidationException;
 import com.example.tenantmanagementsystem.exception.ResourceNotFoundException;
@@ -12,11 +14,13 @@ import java.util.stream.Collectors;
 public class TenantService {
     private final TenantRepository tenantRepository;
     private final TenantDTOMapper tenantDTOMapper;
+    private final ApartmentService apartmentService;
 
 
-    public TenantService(TenantRepository tenantRepository, TenantDTOMapper tenantDTOMapper) {
+    public TenantService(TenantRepository tenantRepository, TenantDTOMapper tenantDTOMapper, ApartmentService apartmentService) {
         this.tenantRepository = tenantRepository;
         this.tenantDTOMapper = tenantDTOMapper;
+        this.apartmentService = apartmentService;
     }
 
     public List<TenantDTO> getAllTenants() {
@@ -34,15 +38,27 @@ public class TenantService {
         return tenantDTOMapper.apply(tenant);
     }
 
-    public TenantDTO addTenant(Tenant tenant) {
+    public TenantDTO addTenant(TenantCreateRequest tenantCreateRequest) {
         // check if email exists
-        String email = tenant.getEmail();
+        String email = tenantCreateRequest.email();
         if (tenantRepository.existsTenantByEmail(email)) {
             throw new DuplicateResourceException(
-                   "email already taken"
+                    "email already taken"
             );
         }
 
+        // create tenant
+        Tenant tenant = new Tenant(
+                tenantCreateRequest.name(),
+                tenantCreateRequest.email(),
+                tenantCreateRequest.phone(),
+                tenantCreateRequest.gender(),
+                null
+        );
+
+        // set apartment
+        Long apartmentId = tenantCreateRequest.apartmentId();
+        setApartmentForTenant(tenant, apartmentId);
         // add
         Tenant savedTenant = tenantRepository.save(tenant);
         return tenantDTOMapper.apply(savedTenant);
@@ -54,7 +70,7 @@ public class TenantService {
         Tenant tenant = tenantRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "tenant with id [%s] not found".formatted(id)
-                        ));
+                ));
 
         boolean changes = false;
 
@@ -81,7 +97,13 @@ public class TenantService {
             changes = true;
         }
 
-        // update apartment using apartmentNumber?
+        // update apartment using apartmentId
+        Long apartmentId = updateRequest.apartmentId();
+        if (apartmentId != null &&
+                !updateRequest.apartmentId().equals(tenant.getApartment().getId())) {
+            setApartmentForTenant(tenant, apartmentId);
+            changes = true;
+        }
 
         if (!changes)
             throw new RequestValidationException(
@@ -99,5 +121,12 @@ public class TenantService {
             );
         }
         tenantRepository.deleteById(id);
+    }
+
+    public void setApartmentForTenant(Tenant tenant, Long apartmentId) {
+        if (apartmentId != null && apartmentService.existsApartmentById(apartmentId)) {
+            Apartment apartment = apartmentService.getApartmentById(apartmentId);
+            tenant.setApartment(apartment);
+        }
     }
 }

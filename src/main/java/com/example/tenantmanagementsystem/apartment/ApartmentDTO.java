@@ -7,7 +7,9 @@ public record ApartmentDTO (
         String apartmentNumber,
         int numberOfRooms,
         double rent,
-        TenantDTO tenantDTO
+        TenantDTO tenantDTO,
+        boolean isAvailable,
+        boolean isOccupied
 ) {
 
 }

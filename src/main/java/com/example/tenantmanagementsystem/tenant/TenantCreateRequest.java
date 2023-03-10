@@ -5,6 +5,6 @@ public record TenantCreateRequest(
         String email,
         String phone,
         Gender gender,
-        String apartmentId
+        Long apartmentId
 ) {
 }

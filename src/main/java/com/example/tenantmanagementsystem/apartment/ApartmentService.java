@@ -1,5 +1,6 @@
 package com.example.tenantmanagementsystem.apartment;
 
+import com.example.tenantmanagementsystem.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import java.lang.module.ResolutionException;
 import java.util.List;
@@ -23,11 +24,9 @@ public class ApartmentService {
     }
 
     public ApartmentDTO getApartment(Long id) {
-        return apartmentRepository.findById(id)
-                .map(apartmentDTOMapper)
-                .orElseThrow(() -> new ResolutionException(
-                        "apartment with id [%s] not found".formatted(id)
-                ));
+        Apartment apartment = getApartmentById(id);
+        return apartmentDTOMapper.apply(apartment);
+
     }
 
     public void addApartment(Apartment apartment) {
@@ -48,5 +47,16 @@ public class ApartmentService {
 
     public void deleteApartment(Long id) {
         apartmentRepository.deleteById(id);
+    }
+
+    public boolean existsApartmentById(Long id) {
+        return apartmentRepository.existsById(id);
+    }
+
+    public Apartment getApartmentById(Long id) {
+        return apartmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "apartment with id [%s] not found".formatted(id)
+                ));
     }
 }

@@ -1,5 +1,7 @@
 package com.example.tenantmanagementsystem.tenant;
 
+import com.example.tenantmanagementsystem.apartment.Apartment;
+import com.example.tenantmanagementsystem.apartment.ApartmentService;
 import com.example.tenantmanagementsystem.exception.DuplicateResourceException;
 import com.example.tenantmanagementsystem.exception.RequestValidationException;
 import com.example.tenantmanagementsystem.exception.ResourceNotFoundException;
@@ -20,12 +22,14 @@ public class TenantServiceTest {
     @Mock
     private TenantRepository tenantRepository;
     @Mock
+    private ApartmentService apartmentService;
+    @Mock
     private TenantDTOMapper tenantDTOMapper;
     private TenantService underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new TenantService(tenantRepository, tenantDTOMapper);
+        underTest = new TenantService(tenantRepository, tenantDTOMapper, apartmentService);
     }
 
     @Test
@@ -78,7 +82,7 @@ public class TenantServiceTest {
     @Test
     void addTenant() {
         // given
-        Tenant tenant = new Tenant(
+        TenantCreateRequest request = new TenantCreateRequest(
                 "Jane",
                 "jane@gmail.com",
                 "1112223333",
@@ -87,7 +91,7 @@ public class TenantServiceTest {
         );
 
         // when
-        underTest.addTenant(tenant);
+        underTest.addTenant(request);
 
         // then
         ArgumentCaptor<Tenant> tenantArgumentCaptor =
@@ -98,22 +102,64 @@ public class TenantServiceTest {
 
         Tenant capturedTenant = tenantArgumentCaptor.getValue();
 
-        assertThat(capturedTenant).isEqualTo(tenant);
+        assertThat(capturedTenant.getId()).isNull();
+        assertThat(capturedTenant.getName()).isEqualTo(request.name());
+        assertThat(capturedTenant.getEmail()).isEqualTo(request.email());
+        assertThat(capturedTenant.getPhone()).isEqualTo(request.phone());
+        assertThat(capturedTenant.getGender()).isEqualTo(request.gender());
     }
 
+    // test that TenantCreateRequest with apartmentId 1L, adds Tenant and sets their apartment to the Apartment with id 1?
     @Test
-    void willThrowWhenEmailIsTaken() {
+    void willSetTenantApartmentIfIdGiven() {
         // given
-        Tenant tenant = new Tenant(
+        Long apartmentId = 1L;
+        Apartment apartment = new Apartment(
+                apartmentId,
+                "100",
+                2,
+                200.0,
+                null,
+                true,
+                false
+        );
+        apartmentService.addApartment(apartment);
+        TenantCreateRequest request = new TenantCreateRequest(
                 "Jane",
                 "jane@gmail.com",
                 "1112223333",
                 Gender.FEMALE,
-                null
+                apartmentId
         );
 
         // when
-        when(tenantRepository.existsTenantByEmail(tenant.getEmail()))
+        when(apartmentService.existsApartmentById(apartmentId)).thenReturn(true);
+        when(apartmentService.getApartmentById(apartmentId)).thenReturn(apartment);
+        underTest.addTenant(request);
+
+
+        // then
+        ArgumentCaptor<Tenant> tenantArgumentCaptor =
+                ArgumentCaptor.forClass(Tenant.class);
+        verify(tenantRepository)
+                .save(tenantArgumentCaptor.capture());
+        Tenant capturedTenant = tenantArgumentCaptor.getValue();
+
+        assertThat(capturedTenant.getApartment()).isEqualTo(apartment);
+    }
+    @Test
+    void willThrowWhenEmailIsTaken() {
+        // given
+        TenantCreateRequest tenant = new TenantCreateRequest(
+                "Jane",
+                "jane@gmail.com",
+                "1112223333",
+                Gender.FEMALE,
+                1L
+        );
+
+        // when
+        when(tenantRepository.existsTenantByEmail(tenant.email()))
                 .thenReturn(true);
 
         // then
@@ -170,7 +216,7 @@ public class TenantServiceTest {
         String newEmail = "johnson@yahoo.com";
 
         TenantUpdateRequest updateRequest = new TenantUpdateRequest(
-                "Johnson", newEmail, "6667778888");
+                "Johnson", newEmail, "6667778888", 1L);
 
         when(tenantRepository.existsTenantByEmail(newEmail)).thenReturn(false);
 
@@ -203,7 +249,7 @@ public class TenantServiceTest {
         when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
 
         TenantUpdateRequest updateRequest = new TenantUpdateRequest(
-                "Johnson", null, null);
+                "Johnson", null, null, null);
 
         // when
         underTest.updateTenant(id, updateRequest);
@@ -234,7 +280,7 @@ public class TenantServiceTest {
         when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
 
         TenantUpdateRequest updateRequest = new TenantUpdateRequest(
-                null, null, "6667778888");
+                null, null, "6667778888", null);
 
         // when
         underTest.updateTenant(id, updateRequest);
@@ -265,7 +311,7 @@ public class TenantServiceTest {
         when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
 
         TenantUpdateRequest updateRequest = new TenantUpdateRequest(
-                null, "johnson@yahoo.com", null);
+                null, "johnson@yahoo.com", null, null);
 
         // when
         underTest.updateTenant(id, updateRequest);
@@ -298,7 +344,7 @@ public class TenantServiceTest {
         String newEmail = "johnson@yahoo.com";
 
         TenantUpdateRequest updateRequest = new TenantUpdateRequest(
-                null, newEmail, null);
+                null, newEmail, null, null);
 
         when(tenantRepository.existsTenantByEmail(newEmail)).thenReturn(true);
 
@@ -314,17 +360,18 @@ public class TenantServiceTest {
     @Test
     void willThrowWhenTenantUpdateHasNoChanges() {
         long id = 10;
+        Apartment apartment = new Apartment(1L, "100", 2, 200.0, null, true, false);
         Tenant tenant = new Tenant(
                 id,
                 "John",
                 "john@gmail.com",
                 "5555555555",
                 Gender.MALE,
-                null);
+                apartment);
         when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
 
         TenantUpdateRequest updateRequest = new TenantUpdateRequest(
-                tenant.getName(), tenant.getEmail(), tenant.getPhone());
+                tenant.getName(), tenant.getEmail(), tenant.getPhone(), tenant.getApartment().getId());
 
         // when
         assertThatThrownBy(() -> underTest.updateTenant(id, updateRequest))

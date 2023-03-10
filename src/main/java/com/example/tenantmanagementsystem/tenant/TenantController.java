@@ -25,8 +25,8 @@ public class TenantController {
         return new ResponseEntity<>(tenant, HttpStatus.OK);
     }
     @PostMapping
-    public ResponseEntity<TenantDTO> createTenant(@RequestBody Tenant tenant) {
-        TenantDTO tenantDTO = tenantService.addTenant(tenant);
+    public ResponseEntity<TenantDTO> createTenant(@RequestBody TenantCreateRequest request) {
+        TenantDTO tenantDTO = tenantService.addTenant(request);
         return new ResponseEntity<>(tenantDTO, HttpStatus.CREATED);
     }
 

@@ -24,7 +24,9 @@ public class ApartmentDTOMapper implements Function<Apartment, ApartmentDTO> {
                     apartment.getNumberOfRooms(),
                     apartment.getRent(),
                     apartment.getTenant() == null ?
-                            null : tenantDTOMapper.apply(apartment.getTenant())
+                            null : tenantDTOMapper.apply(apartment.getTenant()),
+                    apartment.isAvailable(),
+                    apartment.isOccupied()
             );
         }
 }
