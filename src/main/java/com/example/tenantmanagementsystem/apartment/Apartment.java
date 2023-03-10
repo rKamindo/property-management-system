@@ -25,24 +25,31 @@ public class Apartment {
     private int numberOfRooms;
     @Column(nullable = false)
     private double rent;
+
+    private boolean isAvailable;
+    private boolean isOccupied;
     @OneToOne(mappedBy = "apartment")
     private Tenant tenant;
 
     public Apartment() {}
 
-    public Apartment(Long id, String apartmentNumber, int numberOfRooms, double rent, Tenant tenant) {
+    public Apartment(Long id, String apartmentNumber, int numberOfRooms, double rent, Tenant tenant, boolean isAvailable, boolean isOccupied) {
         this.id = id;
         this.apartmentNumber = apartmentNumber;
         this.numberOfRooms = numberOfRooms;
         this.rent = rent;
         this.tenant = tenant;
+        this.isAvailable = isAvailable;
+        this.isOccupied = isOccupied;
     }
 
-    public Apartment(String apartmentNumber, int numberOfRooms, double rent, Tenant tenant) {
+    public Apartment(String apartmentNumber, int numberOfRooms, double rent, Tenant tenant, boolean isAvailable, boolean isOccupied) {
         this.apartmentNumber = apartmentNumber;
         this.numberOfRooms = numberOfRooms;
         this.rent = rent;
         this.tenant = tenant;
+        this.isAvailable = isAvailable;
+        this.isOccupied = isOccupied;
     }
 
     public Long getId() {
@@ -85,17 +92,33 @@ public class Apartment {
         this.tenant = tenant;
     }
 
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+    public boolean isOccupied() {
+        return isOccupied;
+    }
+
+    public void setOccupied(boolean occupied) {
+        isOccupied = occupied;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Apartment apartment = (Apartment) o;
-        return numberOfRooms == apartment.numberOfRooms && Double.compare(apartment.rent, rent) == 0 && Objects.equals(id, apartment.id) && Objects.equals(apartmentNumber, apartment.apartmentNumber) && Objects.equals(tenant, apartment.tenant);
+        return numberOfRooms == apartment.numberOfRooms && Double.compare(apartment.rent, rent) == 0 && isAvailable == apartment.isAvailable && isOccupied == apartment.isOccupied && Objects.equals(id, apartment.id) && Objects.equals(apartmentNumber, apartment.apartmentNumber) && Objects.equals(tenant, apartment.tenant);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, apartmentNumber, numberOfRooms, rent, tenant);
+        return Objects.hash(id, apartmentNumber, numberOfRooms, rent, isAvailable, isOccupied, tenant);
     }
 
     @Override
@@ -105,6 +128,8 @@ public class Apartment {
                 ", apartmentNumber='" + apartmentNumber + '\'' +
                 ", numberOfRooms=" + numberOfRooms +
                 ", rent=" + rent +
+                ", isAvailable=" + isAvailable +
+                ", isOccupied=" + isOccupied +
                 ", tenant=" + tenant +
                 '}';
     }
