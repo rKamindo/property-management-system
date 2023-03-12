@@ -28,8 +28,7 @@ public class Tenant {
     private String phone;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "apartment_id")
+    @OneToOne(mappedBy = "tenant")
     private Apartment apartment;
 
     public Tenant() {

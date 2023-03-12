@@ -1,7 +1,5 @@
 package com.example.tenantmanagementsystem.tenant;
 
-import com.example.tenantmanagementsystem.apartment.Apartment;
-import com.example.tenantmanagementsystem.apartment.ApartmentService;
 import com.example.tenantmanagementsystem.exception.DuplicateResourceException;
 import com.example.tenantmanagementsystem.exception.RequestValidationException;
 import com.example.tenantmanagementsystem.exception.ResourceNotFoundException;
@@ -11,6 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -21,23 +21,31 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class TenantServiceTest {
     @Mock
     private TenantRepository tenantRepository;
-    @Mock
-    private ApartmentService apartmentService;
-    @Mock
-    private TenantDTOMapper tenantDTOMapper;
     private TenantService underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new TenantService(tenantRepository, tenantDTOMapper, apartmentService);
+        underTest = new TenantService(tenantRepository);
     }
 
     @Test
     void getAllTenants() {
+        Tenant tenant = new Tenant(
+                "John",
+                "john@gmail.com",
+                "1112223333",
+                Gender.MALE,
+                null);
+        List<Tenant> tenants = List.of(tenant);
+        when(tenantRepository.findAll()).thenReturn(tenants);
+
         // when
-        underTest.getAllTenants();
+        List<Tenant> result = underTest.getAllTenants();
 
         // then
+        assertThat(result.size()).isEqualTo(1);
+        assertThat(result.get(0)).isEqualTo(tenant);
+        assertThat(result).isEqualTo(tenants);
         verify(tenantRepository).findAll();
     }
 
@@ -56,13 +64,11 @@ public class TenantServiceTest {
 
         when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
 
-        TenantDTO expected = tenantDTOMapper.apply(tenant);
-
         // when
-        TenantDTO actual = underTest.getTenant(id);
+        Tenant actual = underTest.getTenant(id);
 
         // then
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isEqualTo(tenant);
     }
 
     @Test
@@ -86,8 +92,7 @@ public class TenantServiceTest {
                 "Jane",
                 "jane@gmail.com",
                 "1112223333",
-                Gender.FEMALE,
-                null
+                Gender.FEMALE
         );
 
         // when
@@ -109,44 +114,6 @@ public class TenantServiceTest {
         assertThat(capturedTenant.getGender()).isEqualTo(request.gender());
     }
 
-    // test that TenantCreateRequest with apartmentId 1L, adds Tenant and sets their apartment to the Apartment with id 1?
-    @Test
-    void willSetTenantApartmentIfIdGiven() {
-        // given
-        Long apartmentId = 1L;
-        Apartment apartment = new Apartment(
-                apartmentId,
-                "100",
-                2,
-                200.0,
-                null,
-                true,
-                false
-        );
-        apartmentService.addApartment(apartment);
-        TenantCreateRequest request = new TenantCreateRequest(
-                "Jane",
-                "jane@gmail.com",
-                "1112223333",
-                Gender.FEMALE,
-                apartmentId
-        );
-
-        // when
-        when(apartmentService.existsApartmentById(apartmentId)).thenReturn(true);
-        when(apartmentService.getApartmentById(apartmentId)).thenReturn(apartment);
-        underTest.addTenant(request);
-
-
-        // then
-        ArgumentCaptor<Tenant> tenantArgumentCaptor =
-                ArgumentCaptor.forClass(Tenant.class);
-        verify(tenantRepository)
-                .save(tenantArgumentCaptor.capture());
-        Tenant capturedTenant = tenantArgumentCaptor.getValue();
-
-        assertThat(capturedTenant.getApartment()).isEqualTo(apartment);
-    }
     @Test
     void willThrowWhenEmailIsTaken() {
         // given
@@ -154,8 +121,7 @@ public class TenantServiceTest {
                 "Jane",
                 "jane@gmail.com",
                 "1112223333",
-                Gender.FEMALE,
-                1L
+                Gender.FEMALE
         );
 
         // when
@@ -216,7 +182,7 @@ public class TenantServiceTest {
         String newEmail = "johnson@yahoo.com";
 
         TenantUpdateRequest updateRequest = new TenantUpdateRequest(
-                "Johnson", newEmail, "6667778888", 1L);
+                "Johnson", newEmail, "6667778888");
 
         when(tenantRepository.existsTenantByEmail(newEmail)).thenReturn(false);
 
@@ -249,7 +215,7 @@ public class TenantServiceTest {
         when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
 
         TenantUpdateRequest updateRequest = new TenantUpdateRequest(
-                "Johnson", null, null, null);
+                "Johnson", null, null);
 
         // when
         underTest.updateTenant(id, updateRequest);
@@ -280,7 +246,7 @@ public class TenantServiceTest {
         when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
 
         TenantUpdateRequest updateRequest = new TenantUpdateRequest(
-                null, null, "6667778888", null);
+                null, null, "6667778888");
 
         // when
         underTest.updateTenant(id, updateRequest);
@@ -311,7 +277,7 @@ public class TenantServiceTest {
         when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
 
         TenantUpdateRequest updateRequest = new TenantUpdateRequest(
-                null, "johnson@yahoo.com", null, null);
+                null, "johnson@yahoo.com", null);
 
         // when
         underTest.updateTenant(id, updateRequest);
@@ -344,7 +310,7 @@ public class TenantServiceTest {
         String newEmail = "johnson@yahoo.com";
 
         TenantUpdateRequest updateRequest = new TenantUpdateRequest(
-                null, newEmail, null, null);
+                null, newEmail, null);
 
         when(tenantRepository.existsTenantByEmail(newEmail)).thenReturn(true);
 
@@ -359,19 +325,18 @@ public class TenantServiceTest {
 
     @Test
     void willThrowWhenTenantUpdateHasNoChanges() {
-        long id = 10;
-        Apartment apartment = new Apartment(1L, "100", 2, 200.0, null, true, false);
+        Long id = 10L;
         Tenant tenant = new Tenant(
                 id,
                 "John",
                 "john@gmail.com",
                 "5555555555",
                 Gender.MALE,
-                apartment);
+                null);
         when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
 
         TenantUpdateRequest updateRequest = new TenantUpdateRequest(
-                tenant.getName(), tenant.getEmail(), tenant.getPhone(), tenant.getApartment().getId());
+                tenant.getName(), tenant.getEmail(), tenant.getPhone());
 
         // when
         assertThatThrownBy(() -> underTest.updateTenant(id, updateRequest))

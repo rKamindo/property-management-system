@@ -4,11 +4,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02ea24f2-92ea-4a2a-86d8-6d9487831ca5" name="Changes" comment="" />
+    <list default="true" id="02ea24f2-92ea-4a2a-86d8-6d9487831ca5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentCreateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/Apartment.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/Apartment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/Tenant.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/Tenant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantCreateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantDTOMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantDTOMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantUpdateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/example/tenantmanagementsystem/tenant/TenantServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/example/tenantmanagementsystem/tenant/TenantServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/Tenant.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/Tenant.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/components/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/components/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/components/Sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/layouts/RootLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/layouts/RootLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/main.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/pages/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/pages/Dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/services/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/services/client.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JavaScript File" />
+        <option value="Record" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -31,22 +67,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "spring.configuration.checksum": "b48a12f4c902e46c12df9d67bbb829a4",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/randy/intellij_projects/tenant-management-system&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.28571427&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;b48a12f4c902e46c12df9d67bbb829a4&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\randy\intellij_projects\tenant-management-system\frontend\react\src\components" />
+      <recent name="C:\Users\randy\intellij_projects\tenant-management-system\frontend\react\src" />
       <recent name="C:\Users\randy\intellij_projects\tenant-management-system\backend\target" />
       <recent name="C:\Users\randy\intellij_projects\tenant-management-system" />
     </key>
@@ -56,7 +104,7 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.TenantManagementSystemApplication">
+  <component name="RunManager" selected="Spring Boot.TenantManagementSystemApplication">
     <configuration name="TenantManagementSystemApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="17" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -73,6 +121,37 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TenantServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tenant-management-system" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tenantmanagementsystem.tenant.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.tenantmanagementsystem.tenant" />
+      <option name="MAIN_CLASS_NAME" value="com.example.tenantmanagementsystem.tenant.TenantServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TenantServiceTest.getAllTenants" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tenant-management-system" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.tenantmanagementsystem.tenant.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.tenantmanagementsystem.tenant" />
+      <option name="MAIN_CLASS_NAME" value="com.example.tenantmanagementsystem.tenant.TenantServiceTest" />
+      <option name="METHOD_NAME" value="getAllTenants" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TenantManagementSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="tenant-management-system" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.tenantmanagementsystem.TenantManagementSystemApplication" />
@@ -80,6 +159,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TenantServiceTest" />
+        <item itemvalue="JUnit.TenantServiceTest.getAllTenants" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -92,7 +177,15 @@
       <workItem from="1678489305757" duration="210000" />
       <workItem from="1678489536503" duration="1265000" />
       <workItem from="1678490872743" duration="1062000" />
-      <workItem from="1678492112307" duration="322000" />
+      <workItem from="1678492112307" duration="8320000" />
+      <workItem from="1678558853792" duration="677000" />
+      <workItem from="1678574382586" duration="14012000" />
+      <workItem from="1678634433810" duration="4858000" />
+      <workItem from="1678641823493" duration="2309000" />
+      <workItem from="1678645805185" duration="629000" />
+      <workItem from="1678652018950" duration="1333000" />
+      <workItem from="1678658745868" duration="263000" />
+      <workItem from="1678659184829" duration="308000" />
     </task>
     <servers />
   </component>

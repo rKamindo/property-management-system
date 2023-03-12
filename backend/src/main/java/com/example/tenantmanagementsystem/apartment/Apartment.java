@@ -28,7 +28,8 @@ public class Apartment {
 
     private boolean isAvailable;
     private boolean isOccupied;
-    @OneToOne(mappedBy = "apartment")
+    @JoinColumn(name = "tenant_id")
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Tenant tenant;
 
     public Apartment() {}
@@ -89,6 +90,14 @@ public class Apartment {
     }
 
     public void setTenant(Tenant tenant) {
+        if (tenant == null) {
+            if (this.tenant != null) {
+                this.tenant.setApartment(null);
+            }
+        }
+        else {
+            tenant.setApartment(this);
+        }
         this.tenant = tenant;
     }
 
