@@ -5,32 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02ea24f2-92ea-4a2a-86d8-6d9487831ca5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentCreateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentUpdateRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/Apartment.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/Apartment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/Tenant.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/Tenant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantCreateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantDTOMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantDTOMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantUpdateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/example/tenantmanagementsystem/tenant/TenantServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/example/tenantmanagementsystem/tenant/TenantServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/Tenant.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/Tenant.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/components/Navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/components/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/components/Sidebar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/layouts/RootLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/layouts/RootLayout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/main.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/pages/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/pages/Dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/services/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/services/client.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +72,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.tenantmanagementsystem.apartment" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\randy\intellij_projects\tenant-management-system\frontend\react\src\components" />
       <recent name="C:\Users\randy\intellij_projects\tenant-management-system\frontend\react\src" />
@@ -185,7 +168,7 @@
       <workItem from="1678645805185" duration="629000" />
       <workItem from="1678652018950" duration="1333000" />
       <workItem from="1678658745868" duration="263000" />
-      <workItem from="1678659184829" duration="308000" />
+      <workItem from="1678659184829" duration="2715000" />
     </task>
     <servers />
   </component>

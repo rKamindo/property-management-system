@@ -20,31 +20,28 @@ public class ApartmentController {
     @GetMapping
     public ResponseEntity<List<ApartmentDTO>> getAllApartments() {
         List<ApartmentDTO> apartmentDTOS = apartmentService.getAllApartments()
-                .stream().map(apartment -> apartmentDTOMapper.apply(apartment))
+                .stream()
+                .map(apartmentDTOMapper::apply)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(apartmentDTOS, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<ApartmentDTO> getApartment(@PathVariable("id") Long id) {
-        ApartmentDTO apartmentDTO = apartmentDTOMapper
-                .apply(apartmentService.getApartment(id));
-        return new ResponseEntity<>(apartmentDTO, HttpStatus.OK);
+        Apartment apartment = apartmentService.getApartment(id);
+        return new ResponseEntity<>(apartmentDTOMapper.apply(apartment), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<ApartmentDTO> createApartment(@RequestBody ApartmentCreateRequest request) {
-        ApartmentDTO apartmentDTO = apartmentDTOMapper
-                .apply(apartmentService.addApartment(request));
-        return new ResponseEntity<>(apartmentDTO, HttpStatus.CREATED);
+        Apartment apartment = apartmentService.addApartment(request);
+        return new ResponseEntity<>(apartmentDTOMapper.apply(apartment), HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public void updateApartment(@PathVariable("id") Long id, @RequestBody Apartment updateRequest) {
-        // TODO
-//        ApartmentDTO apartmentDTO = apartmentDTOMapper
-//                .apply(apartmentService.updateApartment(id, updateRequest));
-//        return new ResponseEntity<>()
+    public ResponseEntity<ApartmentDTO> updateApartment(@PathVariable("id") Long id, @RequestBody ApartmentUpdateRequest updateRequest) {
+        Apartment apartment = apartmentService.updateApartment(id, updateRequest);
+        return new ResponseEntity<>(apartmentDTOMapper.apply(apartment), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
@@ -55,10 +52,13 @@ public class ApartmentController {
     @PutMapping("{apartmentId}/tenant/{tenantId}")
     public ResponseEntity<ApartmentDTO> putTenantInApartment(@PathVariable Long apartmentId, @PathVariable Long tenantId) {
         // logic to assign the specified tenant to the specified apartment
-        Apartment apartment = apartmentService.setTenantForApartment(apartmentId, tenantId);
+        Apartment apartment = apartmentService.putTenantInApartment(apartmentId, tenantId);
         return new ResponseEntity<>(apartmentDTOMapper.apply(apartment), HttpStatus.OK);
     }
 
-
-
+    @DeleteMapping("{apartmentId}/tenant")
+    public ResponseEntity<ApartmentDTO> removeTenantFromApartment(@PathVariable Long apartmentId) {
+        Apartment apartment = apartmentService.removeTenantFromApartment(apartmentId);
+        return new ResponseEntity<>(apartmentDTOMapper.apply(apartment), HttpStatus.OK);
+    }
 }

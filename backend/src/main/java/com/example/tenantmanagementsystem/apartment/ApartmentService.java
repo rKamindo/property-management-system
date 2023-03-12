@@ -1,5 +1,6 @@
 package com.example.tenantmanagementsystem.apartment;
 
+import com.example.tenantmanagementsystem.exception.DuplicateResourceException;
 import com.example.tenantmanagementsystem.exception.ResourceNotFoundException;
 import com.example.tenantmanagementsystem.tenant.Tenant;
 import com.example.tenantmanagementsystem.tenant.TenantService;
@@ -10,11 +11,9 @@ import java.util.List;
 public class ApartmentService {
     private final ApartmentRepository apartmentRepository;
     private final TenantService tenantService;
-    private final ApartmentDTOMapper apartmentDTOMapper;
 
-    public ApartmentService(ApartmentRepository apartmentRepository, ApartmentDTOMapper apartmentDTOMapper, TenantService tenantService) {
+    public ApartmentService(ApartmentRepository apartmentRepository, TenantService tenantService) {
         this.apartmentRepository = apartmentRepository;
-        this.apartmentDTOMapper = apartmentDTOMapper;
         this.tenantService = tenantService;
     }
 
@@ -43,25 +42,37 @@ public class ApartmentService {
         return apartmentRepository.save(apartment);
     }
 
-    public void updateApartment(Long id, Apartment updateRequest) {
+    public Apartment updateApartment(Long id, ApartmentUpdateRequest updateRequest) {
         // check if apartment exists
-
+        Apartment apartment = apartmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "apartment with id [%s] not found".formatted(id)
+                ));
         // check if apartment number is duplicate
-
-        // update apartment's tenant
+        if (updateRequest.apartmentNumber() == apartment.getApartmentNumber()) {
+            throw new DuplicateResourceException(
+                    "apartment number already taken"
+            );
+        }
 
         // update apartment
-
+        return apartmentRepository.save(apartment);
     }
 
     public void deleteApartment(Long id) {
         apartmentRepository.deleteById(id);
     }
 
-    public Apartment setTenantForApartment(Long apartmentId, Long tenantId) {
+    public Apartment putTenantInApartment(Long apartmentId, Long tenantId) {
         Apartment apartment = getApartment(apartmentId);
         Tenant tenant = tenantService.getTenant(tenantId);
         apartment.setTenant(tenant);
+        return apartmentRepository.save(apartment);
+    }
+
+    public Apartment removeTenantFromApartment(Long apartmentId) {
+        Apartment apartment = getApartment(apartmentId);
+        apartment.setTenant(null);
         return apartmentRepository.save(apartment);
     }
 }

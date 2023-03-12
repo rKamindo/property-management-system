@@ -45,7 +45,6 @@ public class TenantController {
     public ResponseEntity<TenantDTO> updateTenant(
             @PathVariable("id") Long tenantId,
             @RequestBody TenantUpdateRequest updateRequest) {
-
         Tenant tenant = tenantService.updateTenant(tenantId, updateRequest);
         return new ResponseEntity<>(tenantDTOMapper.apply(tenant), HttpStatus.OK);
     }

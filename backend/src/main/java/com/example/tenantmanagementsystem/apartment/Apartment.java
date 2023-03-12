@@ -93,10 +93,12 @@ public class Apartment {
         if (tenant == null) {
             if (this.tenant != null) {
                 this.tenant.setApartment(null);
+                isOccupied = false;
             }
         }
         else {
             tenant.setApartment(this);
+            isOccupied = true;
         }
         this.tenant = tenant;
     }
