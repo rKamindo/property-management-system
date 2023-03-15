@@ -5,12 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02ea24f2-92ea-4a2a-86d8-6d9487831ca5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/react/src/components/CreateTenantDrawer.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/react/src/components/CreateTenantForm.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/react/src/components/TenantCard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/Apartment.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/Apartment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/example/tenantmanagementsystem/tenant/TenantServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/example/tenantmanagementsystem/tenant/TenantServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/Tenant.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/Tenant.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/components/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/components/Sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/layouts/RootLayout.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/pages/Create.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/pages/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/pages/Dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/pages/Profile.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/services/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/services/client.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +30,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="JavaScript File" />
         <option value="Record" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -47,30 +56,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/randy/intellij_projects/tenant-management-system&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.28571427&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;b48a12f4c902e46c12df9d67bbb829a4&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/randy/intellij_projects/tenant-management-system",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.28571427",
+    "settings.editor.selected.configurable": "configurable.group.editor",
+    "spring.configuration.checksum": "b48a12f4c902e46c12df9d67bbb829a4",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.example.tenantmanagementsystem.apartment" />
@@ -168,7 +177,11 @@
       <workItem from="1678645805185" duration="629000" />
       <workItem from="1678652018950" duration="1333000" />
       <workItem from="1678658745868" duration="263000" />
-      <workItem from="1678659184829" duration="2715000" />
+      <workItem from="1678659184829" duration="3741000" />
+      <workItem from="1678713111606" duration="13000" />
+      <workItem from="1678813374930" duration="11153000" />
+      <workItem from="1678835993547" duration="16000" />
+      <workItem from="1678837533370" duration="5212000" />
     </task>
     <servers />
   </component>

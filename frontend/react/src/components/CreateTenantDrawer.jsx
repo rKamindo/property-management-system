@@ -1,0 +1,49 @@
+import {
+    Box,
+    Button,
+    Drawer, DrawerBody,
+    DrawerCloseButton,
+    DrawerContent, DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay, FormLabel, Input, InputGroup, InputLeftAddon, InputRightAddon, Select, Spacer, Stack, Textarea,
+    useDisclosure
+} from "@chakra-ui/react";
+import {AddIcon} from "@chakra-ui/icons";
+import React from "react";
+import CreateTenantForm from "./CreateTenantForm.jsx";
+
+const CreateTenantDrawer = ({fetchTenants}) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const firstField = React.useRef()
+
+    return (
+        <>
+            <Button leftIcon={<AddIcon/>} colorScheme='teal' onClick={onOpen}>
+                Create Tenant
+            </Button>
+            <Drawer
+                size={'md'}
+                isOpen={isOpen}
+                placement='right'
+                initialFocusRef={firstField}
+                onClose={onClose}
+            >
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerCloseButton />
+                    <DrawerHeader borderBottomWidth='1px'>
+                        Create a new tenant
+                    </DrawerHeader>
+                    <DrawerBody>
+                        <CreateTenantForm
+                            onSuccess={fetchTenants}
+                        />
+                    </DrawerBody>
+                </DrawerContent>
+            </Drawer>
+        </>
+
+    )
+}
+
+export default CreateTenantDrawer;

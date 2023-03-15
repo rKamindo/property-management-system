@@ -1,11 +1,8 @@
-import {SimpleGrid} from "@chakra-ui/react";
 import Tenant from "../Tenant.jsx";
+import {SimpleGrid} from "@chakra-ui/react";
 
 export default function Dashboard() {
-
     return (
-        <SimpleGrid p={10} columns={4} spacing={10} minChildWidth={300}>
-            <Tenant />
-        </SimpleGrid>
+        <Tenant/>
     )
 }

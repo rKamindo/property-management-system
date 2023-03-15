@@ -10,6 +10,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,45 +31,49 @@ public class TenantServiceTest {
 
     @Test
     void getAllTenants() {
-        Tenant tenant = new Tenant(
-                "John",
-                "john@gmail.com",
-                "1112223333",
+        List<Tenant> tenants = new ArrayList<>();
+        tenants.add(new Tenant(
+                "John Doe",
+                "johndoe@gmail.com",
+                "1234567890",
                 Gender.MALE,
-                null);
-        List<Tenant> tenants = List.of(tenant);
+                null));
+        tenants.add(new Tenant(
+                "Jane Smith",
+                "janesmith@gmail.com",
+                "0987654321",
+                Gender.MALE,
+                null));
         when(tenantRepository.findAll()).thenReturn(tenants);
 
         // when
         List<Tenant> result = underTest.getAllTenants();
 
         // then
-        assertThat(result.size()).isEqualTo(1);
-        assertThat(result.get(0)).isEqualTo(tenant);
-        assertThat(result).isEqualTo(tenants);
-        verify(tenantRepository).findAll();
+        assertThat(result).hasSize(2);
+        assertThat(result.get(0).getName()).isEqualTo("John Doe");
+        assertThat(result.get(1).getName()).isEqualTo("Jane Smith");
+        verify(tenantRepository, times(1)).findAll();
     }
 
     @Test
     void getTenant() {
         // given
-        long id = 10;
+        long id = 1;
         Tenant tenant = new Tenant(
-                10L,
-                "John",
-                "john@gmail.com",
-                "777777777",
+                "John Doe",
+                "johndoe@gmail.com",
+                "1234567890",
                 Gender.MALE,
                 null);
-        tenantRepository.save(tenant);
-
         when(tenantRepository.findById(id)).thenReturn(Optional.of(tenant));
 
         // when
-        Tenant actual = underTest.getTenant(id);
+        Tenant result = underTest.getTenant(id);
 
         // then
-        assertThat(actual).isEqualTo(tenant);
+        assertThat(result.getName()).isEqualTo("John Doe");
+        verify(tenantRepository, times(1)).findById(id);
     }
 
     @Test
@@ -83,17 +88,14 @@ public class TenantServiceTest {
         assertThatThrownBy(() -> underTest.getTenant(id))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("tenant with id [%s] not found".formatted(id));
+        verify(tenantRepository, times(1)).findById(id);
     }
 
     @Test
     void addTenant() {
         // given
         TenantCreateRequest request = new TenantCreateRequest(
-                "Jane",
-                "jane@gmail.com",
-                "1112223333",
-                Gender.FEMALE
-        );
+                "John Doe", "johndoe@example.com", "1234567890", Gender.MALE);
 
         // when
         underTest.addTenant(request);

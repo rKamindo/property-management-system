@@ -11,18 +11,6 @@ export default function Sidebar() {
                     Dashboard
                 </NavLink>
             </ListItem>
-            <ListItem>
-                <NavLink to="/create">
-                    <ListIcon as={EditIcon} />
-                    Create
-                </NavLink>
-            </ListItem>
-            <ListItem>
-                <NavLink to="/profile">
-                    <ListIcon as={AtSignIcon} />
-                    Profile
-                </NavLink>
-            </ListItem>
         </List>
     )
 }

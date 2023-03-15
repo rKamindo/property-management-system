@@ -1,13 +1,21 @@
 import { useEffect, useState } from 'react'
 import { getTenants } from './services/client.js'
-import {Card, CardBody, CardFooter, CardHeader} from "@chakra-ui/react";
+import {Text, Spinner, Wrap, WrapItem} from "@chakra-ui/react";
+import CardWithImage from "./components/TenantCard.jsx";
+import CreateTenantDrawer from "./components/CreateTenantDrawer.jsx";
 
 const Tenant = () => {
     const [tenants, setTenants] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const fetchTenants = () => {
+        setLoading(true);
         getTenants().then(res => {
             setTenants(res.data);
+        }).catch(err => {
+            // TODO error handling
+        }).finally(() => {
+            setLoading(false);
         })
     }
 
@@ -15,27 +23,49 @@ const Tenant = () => {
         fetchTenants();
     }, [])
 
-    if(tenants.length <= 0) {
+    if (loading) {
         return (
-            <h1>No tenants available</h1>
+            <Spinner
+                thickness='4px'
+                speed='0.65s'
+                emptyColor='gray.200'
+                color='blue.500'
+                size='xl'
+            />
+        )
+    }
+
+    // TODO return error screen
+
+    if (tenants.length <= 0) {
+        return (
+            <>
+                <CreateTenantDrawer
+                    fetchTenants={fetchTenants}
+                />
+                <Text mt={5}>No tenants available</Text>
+            </>
         )
     }
 
     return (
-        tenants && tenants.map(tenant => (
-            <Card key={tenant.id} borderTop="8px" borderColor="purple.400" bg="white">
-                <CardHeader>
-                    Card Header
-                </CardHeader>
-                <CardBody>
-                    Card Body
-                </CardBody>
-                <CardFooter>
-                    Card Footer
-                </CardFooter>
-            </Card>
-        ))
-    );
+        <>
+            <CreateTenantDrawer
+                fetchTenants={fetchTenants}
+            />
+            <Wrap justify={"center"} spacing={"30px"}>
+                {tenants.map(tenant => (
+                    <WrapItem key={tenant.id}>
+                        <CardWithImage
+                            {...tenant}
+                            fetchTenants={fetchTenants}
+                        />
+                    </WrapItem>
+                ))}
+            </Wrap>
+        </>
+    )
 }
+
 
 export default Tenant;
