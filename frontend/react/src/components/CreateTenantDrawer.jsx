@@ -1,11 +1,23 @@
 import {
     Box,
     Button,
-    Drawer, DrawerBody,
+    Drawer,
+    DrawerBody,
     DrawerCloseButton,
-    DrawerContent, DrawerFooter,
+    DrawerContent,
+    DrawerFooter,
     DrawerHeader,
-    DrawerOverlay, FormLabel, Input, InputGroup, InputLeftAddon, InputRightAddon, Select, Spacer, Stack, Textarea,
+    DrawerOverlay,
+    FormLabel,
+    HStack,
+    Input,
+    InputGroup,
+    InputLeftAddon,
+    InputRightAddon,
+    Select,
+    Spacer,
+    Stack,
+    Textarea,
     useDisclosure
 } from "@chakra-ui/react";
 import {AddIcon} from "@chakra-ui/icons";

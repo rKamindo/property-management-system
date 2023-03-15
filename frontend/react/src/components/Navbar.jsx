@@ -9,7 +9,7 @@ export default function Navbar() {
             <HStack spacing="10px">
                 <Box bg="gray.200" p="10px">M</Box>
                 <Text>userthatsloggedin@email.com</Text>
-                <Button colorScheme="purple">Logout</Button>
+                <Button colorScheme='teal'>Logout</Button>
             </HStack>
         </Flex>
     )

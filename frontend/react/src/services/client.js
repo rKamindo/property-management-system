@@ -15,7 +15,17 @@ export const saveTenant = async(tenant) => {
         return await axios.post(
             `http://localhost:8080/api/v1/tenants`
         , tenant)
-    } catch (e) {
+    } catch(e) {
         throw(e);
     }
+}
+
+export const deleteTenant = async(id) => {
+    try {
+        return await axios.delete(
+            `http://localhost:8080/api/v1/tenants/${id}`
+        )
+    } catch(e) {
+            throw(e);
+        }
 }

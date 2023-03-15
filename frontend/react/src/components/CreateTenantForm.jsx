@@ -1,7 +1,8 @@
 import {Form, Formik, useField} from 'formik';
-import {Alert, AlertIcon, Box, Button, DrawerFooter, FormLabel, Input, Select, Stack} from "@chakra-ui/react";
+import {Alert, AlertIcon, Box, Button, DrawerFooter, FormLabel, Input, Select, Spacer, Stack} from "@chakra-ui/react";
 import {saveTenant} from "../services/client.js";
-import React, {useRef} from "react";
+import * as Yup from 'yup';
+import {successNotification} from "../services/notification.js";
 
 const MyTextInput = ({label, ...props}) => {
     // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -39,8 +40,7 @@ const MySelect = ({label, ...props}) => {
     );
 }
 
-const CreateTenantForm = ({onSuccess, onSubmitting}) => {
-    const formRef = useRef(null);
+const CreateTenantForm = ({onSuccess}) => {
 
     return (
         <>
@@ -51,13 +51,34 @@ const CreateTenantForm = ({onSuccess, onSubmitting}) => {
                     phone: '',
                     gender: ''
                 }}
+                validationSchema={Yup.object({
+                    name: Yup.string()
+                        .max(20, 'Must be 20 characters or less')
+                        .required('Required'),
+                    email: Yup.string()
+                        .email('Must be an email')
+                        .required('Required'),
+                    phone: Yup.string()
+                        .max(11, 'Must be 11 digits or less')
+                        .required('Required'),
+                    gender: Yup.string()
+                        .oneOf(
+                            ['MALE', 'FEMALE'],
+                            'Invalid gender'
+                        )
+                        .required('Required')
+
+                })}
                 onSubmit={(tenant, {setSubmitting}) => {
                     setSubmitting(true);
                     console.log(tenant);
                     saveTenant(tenant)
                         .then(res => {
                             console.log(res)
-                            // TODO success notification
+                            successNotification(
+                                'Tenant added',
+                                `${tenant.name} was successfully added`
+                            )
                             onSuccess();
                         }).catch(err => {
                             console.log(err);
@@ -68,32 +89,32 @@ const CreateTenantForm = ({onSuccess, onSubmitting}) => {
                 }}
             >
                 {({isSubmitting}) => (
-                <Form ref={formRef}>
+                <Form>
                     <Stack spacing={'24px'}>
                         <MyTextInput
                             label="Name"
                             name="name"
                             type="text"
-                            placeholder="John"
+                            placeholder="Enter name"
                         />
                         <MyTextInput
                             label="Email"
                             name="email"
                             type="email"
-                            placeholder="john@formik.com"
+                            placeholder="Enter email"
                         />
                         <MyTextInput
                             label="Phone"
                             name="phone"
                             type="tel"
-                            placeholder="1234567890"
+                            placeholder="Enter phone number"
                         />
                         <MySelect label="Gender" name="gender">
                             <option value="">Select gender</option>
                             <option value="MALE">Male</option>
                             <option value="FEMALE">Female</option>
                         </MySelect>
-                            <Button disabled={isSubmitting} type="submit" colorScheme='blue'>Submit</Button>
+                        <Button disabled={isSubmitting} type="submit" colorScheme='blue'>Submit</Button>
                     </Stack>
                 </Form>
                 )}

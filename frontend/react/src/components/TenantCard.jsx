@@ -9,9 +9,18 @@ import {
     Stack,
     Tag,
     useDisclosure,
-    useColorModeValue
+    useColorModeValue,
+    Button,
+    HStack,
+    VStack,
+    AlertDialogOverlay,
+    AlertDialogContent,
+    AlertDialogHeader,
+    AlertDialogBody, AlertDialogFooter, AlertDialog
 } from "@chakra-ui/react";
 import React, {useRef} from "react";
+import {deleteTenant} from "../services/client.js";
+import {errorNotification, successNotification} from "../services/notification.js";
 
 export default function CardWithImage({id, name, email, phone, gender, apartmentNumber, fetchTenants}) {
     const randomUserGender = gender === "MALE" ? "men" : "women";
@@ -46,6 +55,50 @@ export default function CardWithImage({id, name, email, phone, gender, apartment
                         <Text color={'gray.500'}>Phone {phone} | {gender}</Text>
                         <Text color={'gray.500'}>Apartment Number {apartmentNumber}</Text>
                     </Stack>
+                    <VStack>
+                        <Button colorScheme={'red'} onClick={onOpen}>
+                            Delete
+                        </Button>
+                        <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
+                            <AlertDialogOverlay>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        Delete Tenant
+                                    </AlertDialogHeader>
+                                    <AlertDialogBody>
+                                        Are you sure you want to delete this tenant?
+                                    </AlertDialogBody>
+                                    <AlertDialogFooter>
+                                        <Button ref={cancelRef} onClick={onClose}>
+                                            Cancel
+                                        </Button>
+                                        <Button colorScheme='red' onClick={() => {
+                                            deleteTenant(id).then(res => {
+                                                console.log(res);
+                                                successNotification(
+                                                    'Tenant deleted',
+                                                    `${name} was successfully deleted`
+                                                )
+                                                fetchTenants();
+
+                                            }).catch(err => {
+                                                console.log(err);
+                                                errorNotification(
+                                                    err.code,
+                                                    err.response.data.message
+                                                )
+                                            }).finally(() => {
+                                                onClose();
+                                            })
+                                            }} ml={3}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialogOverlay>
+                        </AlertDialog>
+                    </VStack>
                 </Box>
             </Box>
         </Center>
