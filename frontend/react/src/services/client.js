@@ -20,6 +20,17 @@ export const saveTenant = async(tenant) => {
     }
 }
 
+export const updateTenant = async(id, update) => {
+    try {
+        return await axios.put(
+            `http://localhost:8080/api/v1/tenants/${id}`,
+            update
+        )
+    } catch(e) {
+        throw(e);
+    }
+}
+
 export const deleteTenant = async(id) => {
     try {
         return await axios.delete(

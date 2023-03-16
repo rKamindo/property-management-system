@@ -66,8 +66,7 @@ const CreateTenantForm = ({onSuccess}) => {
                             ['MALE', 'FEMALE'],
                             'Invalid gender'
                         )
-                        .required('Required')
-
+                        .required('Required'),
                 })}
                 onSubmit={(tenant, {setSubmitting}) => {
                     setSubmitting(true);
@@ -88,7 +87,7 @@ const CreateTenantForm = ({onSuccess}) => {
                     })
                 }}
             >
-                {({isSubmitting}) => (
+                {({isValid, isSubmitting}) => (
                 <Form>
                     <Stack spacing={'24px'}>
                         <MyTextInput
@@ -114,7 +113,7 @@ const CreateTenantForm = ({onSuccess}) => {
                             <option value="MALE">Male</option>
                             <option value="FEMALE">Female</option>
                         </MySelect>
-                        <Button disabled={isSubmitting} type="submit" colorScheme='blue'>Submit</Button>
+                        <Button disabled={ !isValid || isSubmitting} type="submit" colorScheme='teal'>Submit</Button>
                     </Stack>
                 </Form>
                 )}

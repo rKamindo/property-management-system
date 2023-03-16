@@ -21,6 +21,8 @@ import {
 import React, {useRef} from "react";
 import {deleteTenant} from "../services/client.js";
 import {errorNotification, successNotification} from "../services/notification.js";
+import * as PropTypes from "prop-types";
+import UpdateTenantDrawer from "./UpdateTenantDrawer.jsx";
 
 export default function CardWithImage({id, name, email, phone, gender, apartmentNumber, fetchTenants}) {
     const randomUserGender = gender === "MALE" ? "men" : "women";
@@ -35,6 +37,8 @@ export default function CardWithImage({id, name, email, phone, gender, apartment
                 w={'full'}
                 m={'2px'}
                 bg={useColorModeValue('white', 'gray.800')}
+                boxShadow={'lg'}
+                overflow={'hidden'}
             >
                 <Image
                     h={'120px'}
@@ -56,48 +60,68 @@ export default function CardWithImage({id, name, email, phone, gender, apartment
                         <Text color={'gray.500'}>Apartment Number {apartmentNumber}</Text>
                     </Stack>
                     <VStack>
-                        <Button colorScheme={'red'} onClick={onOpen}>
-                            Delete
-                        </Button>
-                        <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
-                            <AlertDialogOverlay>
-                                <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                        Delete Tenant
-                                    </AlertDialogHeader>
-                                    <AlertDialogBody>
-                                        Are you sure you want to delete this tenant?
-                                    </AlertDialogBody>
-                                    <AlertDialogFooter>
-                                        <Button ref={cancelRef} onClick={onClose}>
-                                            Cancel
-                                        </Button>
-                                        <Button colorScheme='red' onClick={() => {
-                                            deleteTenant(id).then(res => {
-                                                console.log(res);
-                                                successNotification(
-                                                    'Tenant deleted',
-                                                    `${name} was successfully deleted`
-                                                )
-                                                fetchTenants();
+                        <Stack>
+                            <UpdateTenantDrawer
+                                initialValues={{name, email, phone}}
+                                tenantId={id}
+                                fetchTenants={fetchTenants}
+                            />
+                        </Stack>
+                        <Stack>
+                            <Button
+                                colorScheme={'red'}
+                                rounded={'full'}
+                                _hover={{
+                                    transform: 'translateY(-2px)',
+                                    boxShadow:'lg'
+                                }}
+                                _active={{
+                                    bg: 'green.500'
+                                }}
+                                onClick={onOpen}
+                            >
+                                Delete
+                            </Button>
+                            <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
+                                <AlertDialogOverlay>
+                                    <AlertDialogContent>
+                                        <AlertDialogHeader>
+                                            Delete Tenant
+                                        </AlertDialogHeader>
+                                        <AlertDialogBody>
+                                            Are you sure you want to delete this tenant?
+                                        </AlertDialogBody>
+                                        <AlertDialogFooter>
+                                            <Button ref={cancelRef} onClick={onClose}>
+                                                Cancel
+                                            </Button>
+                                            <Button colorScheme='red' onClick={() => {
+                                                deleteTenant(id).then(res => {
+                                                    console.log(res);
+                                                    successNotification(
+                                                        'Tenant deleted',
+                                                        `${name} was successfully deleted`
+                                                    )
+                                                    fetchTenants();
 
-                                            }).catch(err => {
-                                                console.log(err);
-                                                errorNotification(
-                                                    err.code,
-                                                    err.response.data.message
-                                                )
-                                            }).finally(() => {
-                                                onClose();
-                                            })
+                                                }).catch(err => {
+                                                    console.log(err);
+                                                    errorNotification(
+                                                        err.code,
+                                                        err.response.data.message
+                                                    )
+                                                }).finally(() => {
+                                                    onClose();
+                                                })
                                             }} ml={3}
-                                        >
-                                            Delete
-                                        </Button>
-                                    </AlertDialogFooter>
-                                </AlertDialogContent>
-                            </AlertDialogOverlay>
-                        </AlertDialog>
+                                            >
+                                                Delete
+                                            </Button>
+                                        </AlertDialogFooter>
+                                    </AlertDialogContent>
+                                </AlertDialogOverlay>
+                            </AlertDialog>
+                        </Stack>
                     </VStack>
                 </Box>
             </Box>

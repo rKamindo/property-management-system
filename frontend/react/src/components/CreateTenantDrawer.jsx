@@ -1,5 +1,4 @@
 import {
-    Box,
     Button,
     Drawer,
     DrawerBody,
@@ -8,19 +7,9 @@ import {
     DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
-    FormLabel,
-    HStack,
-    Input,
-    InputGroup,
-    InputLeftAddon,
-    InputRightAddon,
-    Select,
-    Spacer,
-    Stack,
-    Textarea,
     useDisclosure
 } from "@chakra-ui/react";
-import {AddIcon} from "@chakra-ui/icons";
+import {AddIcon, CloseIcon} from "@chakra-ui/icons";
 import React from "react";
 import CreateTenantForm from "./CreateTenantForm.jsx";
 
@@ -30,7 +19,11 @@ const CreateTenantDrawer = ({fetchTenants}) => {
 
     return (
         <>
-            <Button leftIcon={<AddIcon/>} colorScheme='teal' onClick={onOpen}>
+            <Button
+                leftIcon={<AddIcon/>}
+                colorScheme={"teal"}
+                onClick={onOpen}
+            >
                 Create Tenant
             </Button>
             <Drawer
@@ -51,6 +44,14 @@ const CreateTenantDrawer = ({fetchTenants}) => {
                             onSuccess={fetchTenants}
                         />
                     </DrawerBody>
+                    <DrawerFooter>
+                        <Button
+                            leftIcon={<CloseIcon/>}
+                            colorScheme={"teal"}
+                            onClick={onClose}>
+                            Close
+                        </Button>
+                    </DrawerFooter>
                 </DrawerContent>
             </Drawer>
         </>
