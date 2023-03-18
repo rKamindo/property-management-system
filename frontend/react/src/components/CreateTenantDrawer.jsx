@@ -12,6 +12,7 @@ import {
 import {AddIcon, CloseIcon} from "@chakra-ui/icons";
 import React from "react";
 import CreateTenantForm from "./CreateTenantForm.jsx";
+import {FiUserPlus} from "react-icons/fi";
 
 const CreateTenantDrawer = ({fetchTenants}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -20,7 +21,7 @@ const CreateTenantDrawer = ({fetchTenants}) => {
     return (
         <>
             <Button
-                leftIcon={<AddIcon/>}
+                leftIcon={<FiUserPlus/>}
                 colorScheme={"teal"}
                 onClick={onOpen}
             >

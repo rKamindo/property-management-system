@@ -1,9 +1,7 @@
 import {
     Text,
-    Avatar,
     Box,
     Center,
-    Flex,
     Heading,
     Image,
     Stack,
@@ -11,8 +9,6 @@ import {
     useDisclosure,
     useColorModeValue,
     Button,
-    HStack,
-    VStack,
     AlertDialogOverlay,
     AlertDialogContent,
     AlertDialogHeader,
@@ -36,6 +32,7 @@ export default function CardWithImage({id, name, email, phone, gender, apartment
                 minW={'300px'}
                 w={'full'}
                 m={'2px'}
+                rounded={'md'}
                 bg={useColorModeValue('white', 'gray.800')}
                 boxShadow={'lg'}
                 overflow={'hidden'}
@@ -48,18 +45,17 @@ export default function CardWithImage({id, name, email, phone, gender, apartment
                     }
                     objectFit={'cover'}
                 />
-                <Box p={6}
-                >
+                <Box p={6}>
                     <Stack spacing={2} align={'center'} mb={5}>
                        <Tag borderRadius={'full'}>{id}</Tag>
                        <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
                            {name}
                        </Heading>
                         <Text color={'gray.500'}>{email}</Text>
-                        <Text color={'gray.500'}>Phone {phone} | {gender}</Text>
-                        <Text color={'gray.500'}>Apartment Number {apartmentNumber}</Text>
+                        <Text color={'gray.500'}>{phone} | {gender}</Text>
+                        <Text color={'gray.500'}>Apartment # {apartmentNumber}</Text>
                     </Stack>
-                    <VStack>
+                    <Stack direction={'row'} justify={'center'} p={4}>
                         <Stack>
                             <UpdateTenantDrawer
                                 initialValues={{name, email, phone}}
@@ -122,7 +118,7 @@ export default function CardWithImage({id, name, email, phone, gender, apartment
                                 </AlertDialogOverlay>
                             </AlertDialog>
                         </Stack>
-                    </VStack>
+                    </Stack>
                 </Box>
             </Box>
         </Center>

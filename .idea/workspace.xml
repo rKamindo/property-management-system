@@ -5,15 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02ea24f2-92ea-4a2a-86d8-6d9487831ca5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/react/src/components/UpdateTenantDrawer.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/react/src/components/UpdateTenantForm.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/react/src/components/NavHoverBox.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/react/src/components/NavItem.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/react/src/pages/TenantPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/App.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/react/src/components/CreateTenantDrawer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/components/CreateTenantDrawer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/components/CreateTenantForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/components/CreateTenantForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/components/Navbar.jsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/react/src/components/Sidebar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/components/Sidebar.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/react/src/components/TenantCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/components/TenantCard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/react/src/layouts/RootLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/layouts/RootLayout.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/react/src/services/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/services/client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/react/src/pages/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/react/src/pages/Dashboard.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +94,7 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.UpdateTenantForm.jsx">
+  <component name="RunManager" selected="Application.TenantManagementSystemApplication">
     <configuration name="TenantManagementSystemApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="17" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -184,23 +188,13 @@
       <workItem from="1678885622298" duration="1481000" />
       <workItem from="1678893449695" duration="2659000" />
       <workItem from="1678902315368" duration="10032000" />
-      <workItem from="1678990674296" duration="5897000" />
+      <workItem from="1678990674296" duration="6044000" />
+      <workItem from="1679073351380" duration="511000" />
+      <workItem from="1679101534703" duration="12967000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/frontend/react/src/components/UpdateTenantForm.jsx</url>
-          <line>43</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
