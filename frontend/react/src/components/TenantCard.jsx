@@ -12,7 +12,7 @@ import {
     AlertDialogOverlay,
     AlertDialogContent,
     AlertDialogHeader,
-    AlertDialogBody, AlertDialogFooter, AlertDialog
+    AlertDialogBody, AlertDialogFooter, AlertDialog, Badge, HStack
 } from "@chakra-ui/react";
 import React, {useRef} from "react";
 import {deleteTenant} from "../services/client.js";
@@ -21,15 +21,15 @@ import * as PropTypes from "prop-types";
 import UpdateTenantDrawer from "./UpdateTenantDrawer.jsx";
 
 export default function CardWithImage({id, name, email, phone, gender, apartmentNumber, fetchTenants}) {
-    const randomUserGender = gender === "MALE" ? "men" : "women";
     const {isOpen, onOpen, onClose} = useDisclosure();
     const cancelRef = useRef();
+    const isResident = Boolean(apartmentNumber);
 
     return (
         <Center py={6}>
             <Box
-                maxW={'300px'}
-                minW={'300px'}
+                maxW={'250px'}
+                minW={'250px'}
                 w={'full'}
                 m={'2px'}
                 rounded={'md'}
@@ -38,7 +38,7 @@ export default function CardWithImage({id, name, email, phone, gender, apartment
                 overflow={'hidden'}
             >
                 <Image
-                    h={'120px'}
+                    h={'80px'}
                     w={'full'}
                     src={
                     'https://images.unsplash.com/photo-1612865547334-09cb8cb455da?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
@@ -53,9 +53,12 @@ export default function CardWithImage({id, name, email, phone, gender, apartment
                        </Heading>
                         <Text color={'gray.500'}>{email}</Text>
                         <Text color={'gray.500'}>{phone} | {gender}</Text>
-                        <Text color={'gray.500'}>Apartment # {apartmentNumber}</Text>
+                        {isResident && <HStack>
+                             <Badge colorScheme="green">Resident</Badge>
+                            <Text color={'gray.500'}>Unit {apartmentNumber}</Text>
+                        </HStack>}
                     </Stack>
-                    <Stack direction={'row'} justify={'center'} p={4}>
+                    <Stack direction={'row'} justify={'center'}>
                         <Stack>
                             <UpdateTenantDrawer
                                 initialValues={{name, email, phone}}

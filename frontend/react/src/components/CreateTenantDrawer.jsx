@@ -9,7 +9,6 @@ import {
     DrawerOverlay,
     useDisclosure
 } from "@chakra-ui/react";
-import {AddIcon, CloseIcon} from "@chakra-ui/icons";
 import React from "react";
 import CreateTenantForm from "./CreateTenantForm.jsx";
 import {FiUserPlus} from "react-icons/fi";
@@ -47,8 +46,7 @@ const CreateTenantDrawer = ({fetchTenants}) => {
                     </DrawerBody>
                     <DrawerFooter>
                         <Button
-                            leftIcon={<CloseIcon/>}
-                            colorScheme={"teal"}
+                            colorScheme={"red"}
                             onClick={onClose}>
                             Close
                         </Button>

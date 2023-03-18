@@ -75,7 +75,7 @@ export default function Sidebar() {
                 p="5%"
                 flexDir="column"
                 justify="center"
-                align={navSize === "small" ? "center" : "flex-start"}
+                align="center"
                 mb={4}
             >
                 <Divider display={navSize === "small" ? "none" : "flex"}/>

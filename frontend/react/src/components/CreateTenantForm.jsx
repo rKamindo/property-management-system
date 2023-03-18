@@ -113,7 +113,12 @@ const CreateTenantForm = ({onSuccess}) => {
                             <option value="MALE">Male</option>
                             <option value="FEMALE">Female</option>
                         </MySelect>
-                        <Button disabled={ !isValid || isSubmitting} type="submit" colorScheme='teal'>Submit</Button>
+                        <Button
+                            type="submit"
+                            disabled={ !isValid || isSubmitting}
+                            colorScheme={(!isValid || isSubmitting) ?
+                                "gray" : "teal"
+                            }>Submit</Button>
                     </Stack>
                 </Form>
                 )}

@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import {CloseIcon} from "@chakra-ui/icons";
 import UpdateTenantForm from "./UpdateTenantForm.jsx";
+import React from "react";
 
 const UpdateTenantDrawer = ({fetchTenants, initialValues, tenantId}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,10 +45,8 @@ const UpdateTenantDrawer = ({fetchTenants, initialValues, tenantId}) => {
 
                 <DrawerFooter>
                     <Button
-                        leftIcon={<CloseIcon/>}
-                        colorScheme={'teal'}
-                        onClick={onClose}
-                    >
+                        colorScheme={"red"}
+                        onClick={onClose}>
                         Close
                     </Button>
                 </DrawerFooter>
