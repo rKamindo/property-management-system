@@ -53,14 +53,12 @@ export default function Sidebar() {
                     description="View, add, edit, and remove tenants"
                 />
                 <NavItem
-                    linkTo="/apartments"
                     navSize={navSize}
                     icon={FiHome}
                     title="Apartments"
                     description="View, add, edit, and remove apartments"
                 />
                 <NavItem
-                    linkTo="/properties"
                     navSize={navSize}
                     icon={BiBuilding}
                     title="Properties"

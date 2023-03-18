@@ -1,4 +1,4 @@
-import {Text, Menu, MenuButton, Flex, MenuList} from "@chakra-ui/react";
+import {Text, Menu, MenuButton, Flex, MenuList, Link} from "@chakra-ui/react";
 import {Icon} from "@chakra-ui/icons";
 import {Link as RouterLink} from "react-router-dom"
 import NavHoverBox from "./NavHoverBox.jsx";
@@ -12,19 +12,20 @@ export default function NavItem({linkTo, navSize, title, icon, active, descripti
             alignItems={navSize === "small" ? "center" : "flex-start"}
         >
             <Menu placement="right">
-                <RouterLink
+                <Link
+                    as={RouterLink}
                     to={linkTo}
+                    bgColor={active && "#AEC8CA"}
+                    p={3}
+                    borderRadius={8}
+                    _hover={{
+                        textDecor: 'none',
+                        bgColor: "#AEC8CA"
+                    }}
+                    w={navSize === "large" && "100%"}
                 >
                     <MenuButton
                         w="100%"
-                        bgColor={active && "#AEC8CA"}
-                        p={3}
-                        borderRadius={8}
-                        _hover={{
-                            textDecor: 'none',
-                            bgColor: "#AEC8CA"
-                        }}
-                        w={navSize === "large" && "100%"}
                     >
                         <Flex
                             align="center"
@@ -33,9 +34,14 @@ export default function NavItem({linkTo, navSize, title, icon, active, descripti
                             <Text ml={5} display={navSize === "small" ? "none" : "flex"}>{title}</Text>
                         </Flex>
                     </MenuButton>
-                </RouterLink>
+                </Link>
                 <MenuList borderRadius="10px" p={0}>
-                    <NavHoverBox title={title} icon={icon} description={description} p={4}/>
+                    <NavHoverBox
+                        
+                        title={title}
+                        icon={icon}
+                        description={description}
+                        p={4}/>
                 </MenuList>
             </Menu>
         </Flex>
