@@ -39,7 +39,7 @@ const UpdateTenantForm = ({fetchTenants, initialValues, tenantId}) => {
                         .max(11, 'Must be 11 digits or less')
                         .required('Required'),
                 })}
-                onSubmit={(updatedTenant, {setSubmitting}) => {
+                onSubmit={(updatedTenant, {setSubmitting, setErrors}) => {
                     setSubmitting(true);
                     updateTenant(tenantId, updatedTenant)
                         .then(res => {
@@ -51,10 +51,14 @@ const UpdateTenantForm = ({fetchTenants, initialValues, tenantId}) => {
                             fetchTenants();
                         }).catch(err => {
                             console.log(err);
+                            const errorMessage = err.response.data.message;
                             errorNotification(
-                                err.code,
-                                err.response.data.message
-                            )
+                                "Oops! Something went wrong.",
+                                "Please check your inputs and try again"
+                            );
+                            setErrors({
+                                email: errorMessage
+                            })
                     }).finally(() => {
                         setSubmitting(false);
                     })

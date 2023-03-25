@@ -6,7 +6,6 @@ import com.example.tenantmanagementsystem.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TenantService {
@@ -33,7 +32,7 @@ public class TenantService {
         String email = tenantCreateRequest.email();
         if (tenantRepository.existsTenantByEmail(email)) {
             throw new DuplicateResourceException(
-                    "email already taken"
+                    "A tenant with this email already exists"
             );
         }
 
@@ -71,7 +70,7 @@ public class TenantService {
             // check duplicate email
             if (tenantRepository.existsTenantByEmail(updateRequest.email())) {
                 throw new DuplicateResourceException(
-                        "email already taken"
+                        "A tenant with this email already exists"
                 );
             }
             tenant.setEmail(updateRequest.email());
@@ -87,7 +86,7 @@ public class TenantService {
 
         if (!changes)
             throw new RequestValidationException(
-                    "no data changes found"
+                    "No data changes detected"
             );
 
         return tenantRepository.save(tenant);

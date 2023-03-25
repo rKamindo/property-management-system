@@ -56,7 +56,7 @@ export default function CardWithImage({id, name, email, phone, gender, apartment
                         <HStack>
                             <Badge colorScheme={isResident ? "green" : "red"}>{isResident ? "Resident" : "Non-Resident"}    </Badge>
                             {isResident && <Text color={'gray.500'}>Unit {apartmentNumber}</Text>}
-                        </HStack>}
+                        </HStack>
                     </Stack>
                     <Stack direction={'row'} justify={'center'}>
                         <Stack>

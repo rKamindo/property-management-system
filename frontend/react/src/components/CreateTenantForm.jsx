@@ -2,7 +2,7 @@ import {Form, Formik, useField} from 'formik';
 import {Alert, AlertIcon, Box, Button, DrawerFooter, FormLabel, Input, Select, Spacer, Stack} from "@chakra-ui/react";
 import {saveTenant} from "../services/client.js";
 import * as Yup from 'yup';
-import {successNotification} from "../services/notification.js";
+import {errorNotification, successNotification} from "../services/notification.js";
 
 const MyTextInput = ({label, ...props}) => {
     // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -56,7 +56,7 @@ const CreateTenantForm = ({onSuccess}) => {
                         .max(20, 'Must be 20 characters or less')
                         .required('Required'),
                     email: Yup.string()
-                        .email('Must be an email')
+                        .email('Must be a valid email')
                         .required('Required'),
                     phone: Yup.string()
                         .max(11, 'Must be 11 digits or less')
@@ -68,7 +68,7 @@ const CreateTenantForm = ({onSuccess}) => {
                         )
                         .required('Required'),
                 })}
-                onSubmit={(tenant, {setSubmitting}) => {
+                onSubmit={(tenant, {setSubmitting, setErrors}) => {
                     setSubmitting(true);
                     console.log(tenant);
                     saveTenant(tenant)
@@ -81,7 +81,14 @@ const CreateTenantForm = ({onSuccess}) => {
                             onSuccess();
                         }).catch(err => {
                             console.log(err);
-                            // TODO error notification
+                            const errorMessage = err.response.data.message;
+                            errorNotification(
+                                "Oops! Something went wrong.",
+                                "Please check your inputs and try again."
+                            );
+                            setErrors({
+                                email: errorMessage
+                            });
                     }).finally(() => {
                         setSubmitting(false);
                     })
