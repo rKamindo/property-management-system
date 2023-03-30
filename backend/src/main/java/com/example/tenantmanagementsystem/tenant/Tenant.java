@@ -36,6 +36,7 @@ public class Tenant {
     @Column(nullable = false)
     private String phone;
     @NotBlank
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @OneToOne(mappedBy = "tenant")
