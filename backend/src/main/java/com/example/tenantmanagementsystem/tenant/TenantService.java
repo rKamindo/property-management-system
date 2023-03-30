@@ -27,7 +27,7 @@ public class TenantService {
         return tenant;
     }
 
-    public Tenant addTenant(TenantCreateRequest tenantCreateRequest) {
+    public Tenant createTenant(TenantCreateRequest tenantCreateRequest) {
         // check if email exists
         String email = tenantCreateRequest.email();
         if (tenantRepository.existsTenantByEmail(email)) {
@@ -37,13 +37,7 @@ public class TenantService {
         }
 
         // create tenant
-        Tenant tenant = new Tenant(
-                tenantCreateRequest.name(),
-                tenantCreateRequest.email(),
-                tenantCreateRequest.phone(),
-                tenantCreateRequest.gender(),
-                null
-        );
+        Tenant tenant = new Tenant(tenantCreateRequest);
 
         // add
         return tenantRepository.save(tenant);

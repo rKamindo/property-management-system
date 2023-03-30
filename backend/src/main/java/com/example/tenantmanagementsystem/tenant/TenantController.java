@@ -31,7 +31,7 @@ public class TenantController {
     }
     @PostMapping
     public ResponseEntity<TenantDTO> createTenant(@RequestBody TenantCreateRequest request) {
-        Tenant tenant = tenantService.addTenant(request);
+        Tenant tenant = tenantService.createTenant(request);
         return new ResponseEntity<>(tenantDTOMapper.apply(tenant), HttpStatus.CREATED);
     }
 

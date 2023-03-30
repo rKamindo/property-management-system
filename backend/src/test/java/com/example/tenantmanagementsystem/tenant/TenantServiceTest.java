@@ -92,13 +92,13 @@ public class TenantServiceTest {
     }
 
     @Test
-    void addTenant() {
+    void createTenant() {
         // given
         TenantCreateRequest request = new TenantCreateRequest(
                 "John Doe", "johndoe@example.com", "1234567890", Gender.MALE);
 
         // when
-        underTest.addTenant(request);
+        underTest.createTenant(request);
 
         // then
         ArgumentCaptor<Tenant> tenantArgumentCaptor =
@@ -131,7 +131,7 @@ public class TenantServiceTest {
                 .thenReturn(true);
 
         // then
-        assertThatThrownBy(() -> underTest.addTenant(tenant))
+        assertThatThrownBy(() -> underTest.createTenant(tenant))
                 .isInstanceOf(DuplicateResourceException.class)
                         .hasMessage("email already taken");
 

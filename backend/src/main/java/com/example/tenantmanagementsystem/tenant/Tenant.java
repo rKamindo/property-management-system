@@ -62,6 +62,13 @@ public class Tenant {
         this.apartment = apartment;
     }
 
+    public Tenant(TenantCreateRequest tenantCreateRequest) {
+        this.name = tenantCreateRequest.name();
+        this.email = tenantCreateRequest.email();
+        this.phone = tenantCreateRequest.phone();
+        this.gender = tenantCreateRequest.gender();
+    }
+
     public Long getId() {
         return id;
     }
