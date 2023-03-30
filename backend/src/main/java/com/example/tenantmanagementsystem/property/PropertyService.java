@@ -1,5 +1,6 @@
 package com.example.tenantmanagementsystem.property;
 
+import com.example.tenantmanagementsystem.exception.DuplicateResourceException;
 import com.example.tenantmanagementsystem.exception.RequestValidationException;
 import com.example.tenantmanagementsystem.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -37,12 +38,22 @@ public class PropertyService {
         Property property = getProperty(id);
         // update fields, throw exception if no changes were made
         boolean changes = false;
-        property.setName(updateRequest.name());
+        if (updateRequest.name() != null && updateRequest.name() != property.getName()) {
+            property.setName(updateRequest.name());
+            changes = true;
+        }
 
         // check for duplicate address
-        property.setAddress(updateRequest.address());
+        if (updateRequest.address() != null && updateRequest.address() != property.getAddress()) {
+            if (propertyRepository.existsPropertyByAddress(updateRequest.address()))
+                throw new DuplicateResourceException(
+                        "A property with this address already exists"
+                );
+            property.setAddress(updateRequest.address());
+            changes = true;
+        }
 
-        // if no changes were mad throw exception
+        // if no changes were made throw exception
         if (!changes) {
             throw new RequestValidationException(
                     "No changes were detected"
@@ -50,7 +61,7 @@ public class PropertyService {
         }
 
         // save
-        propertyRepository.save(property);
+        return propertyRepository.save(property);
     }
 
     public void deletePropertyById(Long id) {
