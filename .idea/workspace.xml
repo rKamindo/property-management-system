@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02ea24f2-92ea-4a2a-86d8-6d9487831ca5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/Property.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyCreateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +188,7 @@
       <workItem from="1680035298119" duration="17000" />
       <workItem from="1680117258267" duration="318000" />
       <workItem from="1680136860874" duration="11000" />
-      <workItem from="1680197919096" duration="1902000" />
+      <workItem from="1680197919096" duration="2538000" />
     </task>
     <servers />
   </component>

@@ -14,8 +14,10 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank
+    @Column(nullable = false)
     private String name;
     @NotBlank
+    @Column(unique = true, nullable = false)
     private String address;
     @OneToMany
     private Set<Apartment> apartments = new HashSet<>();
@@ -32,6 +34,11 @@ public class Property {
     public Property(String name, String address) {
         this.name = name;
         this.address = address;
+    }
+
+    public Property(PropertyCreateRequest request) {
+        this.name = request.name();
+        this.address = request.address();
     }
 
     public Long getId() {
