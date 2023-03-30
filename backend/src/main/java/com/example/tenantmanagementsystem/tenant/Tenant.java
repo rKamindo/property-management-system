@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -22,10 +23,19 @@ public class Tenant {
             strategy = GenerationType.SEQUENCE,
     generator = "tenant_id_seq")
     private Long id;
+    @NotBlank
+
     private String name;
-    @Column(unique = true)
+    @NotBlank
+    @Email
+    @Column(unique = true, nullable = false)
     private String email;
+    @NotBlank
+    @Pattern(regexp = "\\d+", message = "Phone number should contain only digits")
+    @Size(min = 3, max = 14, message = "Phone number should between 3 and 14 digits")
+    @Column(nullable = false)
     private String phone;
+    @NotBlank
     @Enumerated(EnumType.STRING)
     private Gender gender;
     @OneToOne(mappedBy = "tenant")
