@@ -27,9 +27,9 @@ public class TenantService {
         return tenant;
     }
 
-    public Tenant createTenant(TenantCreateRequest tenantCreateRequest) {
+    public Tenant createTenant(TenantCreateRequest createRequest) {
         // check if email exists
-        String email = tenantCreateRequest.email();
+        String email = createRequest.email();
         if (tenantRepository.existsTenantByEmail(email)) {
             throw new DuplicateResourceException(
                     "A tenant with this email already exists"
@@ -37,7 +37,7 @@ public class TenantService {
         }
 
         // create tenant
-        Tenant tenant = new Tenant(tenantCreateRequest);
+        Tenant tenant = new Tenant(createRequest);
 
         // add
         return tenantRepository.save(tenant);
@@ -80,7 +80,7 @@ public class TenantService {
 
         if (!changes)
             throw new RequestValidationException(
-                    "No data changes detected"
+                    "No changes were detected"
             );
 
         return tenantRepository.save(tenant);

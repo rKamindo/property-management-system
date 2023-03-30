@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02ea24f2-92ea-4a2a-86d8-6d9487831ca5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyCreateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyUpdateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,9 +18,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Record" />
         <option value="JavaScript File" />
         <option value="Class" />
+        <option value="Record" />
       </list>
     </option>
   </component>
@@ -69,6 +71,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.example.tenantmanagementsystem.property" />
       <recent name="com.example.tenantmanagementsystem.apartment" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -188,7 +191,7 @@
       <workItem from="1680035298119" duration="17000" />
       <workItem from="1680117258267" duration="318000" />
       <workItem from="1680136860874" duration="11000" />
-      <workItem from="1680197919096" duration="2538000" />
+      <workItem from="1680197919096" duration="3327000" />
     </task>
     <servers />
   </component>
