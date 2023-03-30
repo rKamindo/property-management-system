@@ -53,6 +53,12 @@ public class Apartment {
         this.isOccupied = isOccupied;
     }
 
+    public Apartment(ApartmentCreateRequest apartmentCreateRequest) {
+        this.apartmentNumber = apartmentCreateRequest.apartmentNumber();
+        this.numberOfRooms = apartmentCreateRequest.numberOfRooms();
+        this.rent = apartmentCreateRequest.rent();
+    }
+
     public Long getId() {
         return id;
     }
