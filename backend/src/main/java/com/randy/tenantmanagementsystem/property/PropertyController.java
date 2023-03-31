@@ -23,7 +23,7 @@ public class PropertyController {
     public ResponseEntity<List<PropertyDTO>> getProperties() {
         List<PropertyDTO> propertyDTOS = propertyService.getAllProperties()
                 .stream()
-                .map(property -> propertyDTOMapper.apply(property))
+                .map(propertyDTOMapper::apply)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(propertyDTOS);
     }
