@@ -21,6 +21,10 @@ public class PropertyController {
 
     @GetMapping
     public ResponseEntity<List<PropertyDTO>> getProperties() {
+
+        // TODO retrieve the client associated with the current request
+
+        // TODO     retrieve the properties associated with the client
         List<PropertyDTO> propertyDTOS = propertyService.getAllProperties()
                 .stream()
                 .map(propertyDTOMapper::apply)
