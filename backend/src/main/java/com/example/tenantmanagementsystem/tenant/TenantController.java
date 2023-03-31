@@ -19,20 +19,24 @@ public class TenantController {
     @GetMapping
     public ResponseEntity<List<TenantDTO>> getTenants() {
         List<TenantDTO> tenantDTOS = tenantService.getAllTenants()
-                .stream().map(tenant -> tenantDTOMapper.apply(tenant))
+                .stream()
+                .map(tenant -> tenantDTOMapper.apply(tenant))
                 .collect(Collectors.toList());
-        return new ResponseEntity<>(tenantDTOS, HttpStatus.OK);
+        return ResponseEntity.ok(tenantDTOS);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<TenantDTO> getTenant(@PathVariable("id") Long tenantId) {
-        Tenant tenant = tenantService.getTenant(tenantId);
-        return new ResponseEntity<>(tenantDTOMapper.apply(tenant), HttpStatus.OK);
+        TenantDTO tenantDTO = tenantDTOMapper
+                .apply(tenantService.getTenant(tenantId));
+        return new ResponseEntity<>(tenantDTO, HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<TenantDTO> createTenant(@RequestBody TenantCreateRequest request) {
-        Tenant tenant = tenantService.createTenant(request);
-        return new ResponseEntity<>(tenantDTOMapper.apply(tenant), HttpStatus.CREATED);
+        TenantDTO tenantDTO = tenantDTOMapper.apply(
+                tenantService.createTenant(request)
+        );
+        return new ResponseEntity<>(tenantDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")

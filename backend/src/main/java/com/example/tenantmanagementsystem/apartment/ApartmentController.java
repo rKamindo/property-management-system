@@ -18,7 +18,7 @@ public class ApartmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ApartmentDTO>> getAllApartments() {
+    public ResponseEntity<List<ApartmentDTO>> getApartments() {
         List<ApartmentDTO> apartmentDTOS = apartmentService.getAllApartments()
                 .stream()
                 .map(apartmentDTOMapper::apply)
