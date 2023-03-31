@@ -30,32 +30,23 @@ public class ApartmentService {
 
     public Apartment addApartment(ApartmentCreateRequest request) {
         // check if duplicate apartment number exists
-        Apartment apartment = new Apartment(
-                request.apartmentNumber(),
-                request.numberOfRooms(),
-                request.rent(),
-                null,
-                request.isAvailable(),
-                request.isOccupied()
-        );
+        Apartment apartment = new Apartment(request);
         
         return apartmentRepository.save(apartment);
     }
 
     public Apartment updateApartment(Long id, ApartmentUpdateRequest updateRequest) {
-        // check if apartment exists
         Apartment apartment = apartmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "apartment with id [%s] not found".formatted(id)
                 ));
-        // check if apartment number is duplicate
+
         if (updateRequest.apartmentNumber() == apartment.getApartmentNumber()) {
             throw new DuplicateResourceException(
                     "apartment number already taken"
             );
         }
 
-        // update apartment
         return apartmentRepository.save(apartment);
     }
 

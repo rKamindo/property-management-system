@@ -1,8 +1,10 @@
 package com.example.tenantmanagementsystem.apartment;
 
+import com.example.tenantmanagementsystem.property.Property;
 import com.example.tenantmanagementsystem.tenant.Tenant;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -31,26 +33,31 @@ public class Apartment {
     @JoinColumn(name = "tenant_id")
     @OneToOne(cascade = CascadeType.PERSIST)
     private Tenant tenant;
+    @ManyToOne
+    @JoinColumn(name = "property_id")
+    private Property property;
+    public Apartment() {
+    }
 
-    public Apartment() {}
+    public Apartment(String apartmentNumber, int numberOfRooms, double rent, boolean isAvailable, boolean isOccupied, Tenant tenant, Property property) {
+        this.apartmentNumber = apartmentNumber;
+        this.numberOfRooms = numberOfRooms;
+        this.rent = rent;
+        this.isAvailable = isAvailable;
+        this.isOccupied = isOccupied;
+        this.tenant = tenant;
+        this.property = property;
+    }
 
-    public Apartment(Long id, String apartmentNumber, int numberOfRooms, double rent, Tenant tenant, boolean isAvailable, boolean isOccupied) {
+    public Apartment(Long id, String apartmentNumber, int numberOfRooms, double rent, boolean isAvailable, boolean isOccupied, Tenant tenant, Property property) {
         this.id = id;
         this.apartmentNumber = apartmentNumber;
         this.numberOfRooms = numberOfRooms;
         this.rent = rent;
-        this.tenant = tenant;
         this.isAvailable = isAvailable;
         this.isOccupied = isOccupied;
-    }
-
-    public Apartment(String apartmentNumber, int numberOfRooms, double rent, Tenant tenant, boolean isAvailable, boolean isOccupied) {
-        this.apartmentNumber = apartmentNumber;
-        this.numberOfRooms = numberOfRooms;
-        this.rent = rent;
         this.tenant = tenant;
-        this.isAvailable = isAvailable;
-        this.isOccupied = isOccupied;
+        this.property = property;
     }
 
     public Apartment(ApartmentCreateRequest apartmentCreateRequest) {
@@ -101,12 +108,19 @@ public class Apartment {
                 this.tenant.setApartment(null);
                 isOccupied = false;
             }
-        }
-        else {
+        } else {
             tenant.setApartment(this);
             isOccupied = true;
         }
         this.tenant = tenant;
+    }
+
+    public Property getProperty() {
+        return property;
+    }
+
+    public void setProperty(Property property) {
+        this.property = property;
     }
 
     public boolean isAvailable() {
