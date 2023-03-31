@@ -1,5 +1,6 @@
-package com.randy.tenantmanagementsystem.property;
+package com.randy.propertymanagementsystem.property;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -8,23 +9,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
+@RequiredArgsConstructor
 @RequestMapping("api/v1/properties")
 public class PropertyController {
     private final PropertyService propertyService;
     private final PropertyDTOMapper propertyDTOMapper;
-
-    public PropertyController(PropertyService propertyService, PropertyDTOMapper propertyDTOMapper) {
-        this.propertyService = propertyService;
-        this.propertyDTOMapper = propertyDTOMapper;
-    }
 
     @GetMapping
     public ResponseEntity<List<PropertyDTO>> getProperties() {
 
         // TODO retrieve the client associated with the current request
 
-        // TODO     retrieve the properties associated with the client
+        // TODO retrieve the properties associated with the client
         List<PropertyDTO> propertyDTOS = propertyService.getAllProperties()
                 .stream()
                 .map(propertyDTOMapper::apply)
@@ -32,7 +29,7 @@ public class PropertyController {
         return ResponseEntity.ok(propertyDTOS);
     }
 
-    @GetMapping("{id]")
+    @GetMapping("{id}")
     public ResponseEntity<PropertyDTO> getProperty(@PathVariable("id") Long id) {
         PropertyDTO propertyDTO = propertyDTOMapper.apply(
                 propertyService.getProperty(id)

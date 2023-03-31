@@ -1,4 +1,4 @@
-package com.randy.tenantmanagementsystem.property;
+package com.randy.propertymanagementsystem.property;
 
 public record PropertyDTO(
         String name,

@@ -1,4 +1,4 @@
-package com.randy.tenantmanagementsystem.tenant;
+package com.randy.propertymanagementsystem.tenant;
 
 import org.springframework.stereotype.Service;
 

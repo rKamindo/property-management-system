@@ -1,4 +1,4 @@
-package com.randy.tenantmanagementsystem.tenant;
+package com.randy.propertymanagementsystem.tenant;
 
 public record TenantCreateRequest(
         String name,

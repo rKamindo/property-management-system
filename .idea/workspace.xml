@@ -5,39 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02ea24f2-92ea-4a2a-86d8-6d9487831ca5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/TenantManagementSystemApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/TenantManagementSystemApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/Apartment.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/apartment/Apartment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/apartment/ApartmentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/apartment/ApartmentCreateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/apartment/ApartmentDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentDTOMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/apartment/ApartmentDTOMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/apartment/ApartmentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/apartment/ApartmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/apartment/ApartmentUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/apartment/ApartmentUpdateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/config/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/exception/DuplicateResourceException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/exception/DuplicateResourceException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/exception/RequestValidationException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/exception/RequestValidationException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/exception/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/exception/ResourceNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/property/Property.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/property/PropertyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/property/PropertyCreateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/property/PropertyDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyDTOMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/property/PropertyDTOMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/property/PropertyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/property/PropertyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/property/PropertyUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/property/PropertyUpdateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/Gender.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/tenant/Gender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/Tenant.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/tenant/Tenant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/tenant/TenantController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/tenant/TenantCreateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/tenant/TenantDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantDTOMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/tenant/TenantDTOMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/tenant/TenantRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/tenant/TenantService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/tenantmanagementsystem/tenant/TenantUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/tenantmanagementsystem/tenant/TenantUpdateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/example/tenantmanagementsystem/TenantManagementSystemApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/randy/tenantmanagementsystem/TenantManagementSystemApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/example/tenantmanagementsystem/tenant/TenantRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/randy/tenantmanagementsystem/tenant/TenantRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/example/tenantmanagementsystem/tenant/TenantServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/randy/tenantmanagementsystem/tenant/TenantServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/TenantManagementSystemApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/PropertyManagementSystemApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/Apartment.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/Apartment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentCreateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentDTOMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentDTOMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/apartment/ApartmentUpdateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/config/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/exception/DuplicateResourceException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/exception/DuplicateResourceException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/exception/RequestValidationException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/exception/RequestValidationException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/exception/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/exception/ResourceNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/Property.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyCreateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyDTOMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyDTOMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/property/PropertyUpdateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/Gender.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/Gender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/Tenant.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/Tenant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantCreateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantCreateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantDTOMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantDTOMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/randy/propertymanagementsystem/tenant/TenantUpdateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/randy/propertymanagementsystem/TenantManagementSystemApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/randy/propertymanagementsystem/TenantManagementSystemApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/randy/propertymanagementsystem/tenant/TenantRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/randy/propertymanagementsystem/tenant/TenantRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/com/randy/propertymanagementsystem/tenant/TenantServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/com/randy/propertymanagementsystem/tenant/TenantServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,8 +53,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="Class" />
         <option value="Record" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -74,30 +79,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/randy/intellij_projects/DSA&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.28571427&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;b48a12f4c902e46c12df9d67bbb829a4&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/randy/intellij_projects/property-management-system",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.28571427",
+    "settings.editor.selected.configurable": "configurable.group.editor",
+    "spring.configuration.checksum": "69b71e9240ec596207a3dbefa5a0ff10",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2022.3.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.example.tenantmanagementsystem.property" />
@@ -115,12 +120,19 @@
       <command value="mvn clean" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.TenantManagementSystemApplication">
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.PropertyManagementSystemApplication">
     <configuration name="TenantManagementSystemApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="17" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.example.tenantmanagementsystem.TenantManagementSystemApplication" />
-      <module name="tenant-management-system" />
+      <module name="property-management-system" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend" />
       <extension name="coverage">
         <pattern>
@@ -133,7 +145,7 @@
       </method>
     </configuration>
     <configuration name="TenantServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tenant-management-system" />
+      <module name="property-management-system" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.tenantmanagementsystem.tenant.*" />
@@ -148,7 +160,7 @@
       </method>
     </configuration>
     <configuration name="TenantServiceTest.getAllTenants" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="tenant-management-system" />
+      <module name="property-management-system" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.tenantmanagementsystem.tenant.*" />
@@ -166,9 +178,23 @@
     <configuration name="UpdateTenantForm.jsx" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/frontend/react/src/components/UpdateTenantForm.jsx" working-dir="$PROJECT_DIR$/frontend/react/src/components">
       <method v="2" />
     </configuration>
+    <configuration name="PropertyManagementSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="property-management-system" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.randy.propertymanagementsystem.PropertyManagementSystemApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TenantManagementSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="tenant-management-system" />
+      <module name="property-management-system" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.tenantmanagementsystem.TenantManagementSystemApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TenantManagementSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="property-management-system" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.randy.propertymanagementsystem.TenantManagementSystemApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -222,11 +248,24 @@
       <workItem from="1680136860874" duration="11000" />
       <workItem from="1680197919096" duration="3327000" />
       <workItem from="1680208982004" duration="791000" />
-      <workItem from="1680216879472" duration="7595000" />
+      <workItem from="1680216879472" duration="7906000" />
+      <workItem from="1680291470273" duration="123000" />
+      <workItem from="1680291692818" duration="1939000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -1,8 +1,8 @@
-package com.randy.tenantmanagementsystem.property;
+package com.randy.propertymanagementsystem.property;
 
-import com.randy.tenantmanagementsystem.exception.DuplicateResourceException;
-import com.randy.tenantmanagementsystem.exception.RequestValidationException;
-import com.randy.tenantmanagementsystem.exception.ResourceNotFoundException;
+import com.randy.propertymanagementsystem.exception.DuplicateResourceException;
+import com.randy.propertymanagementsystem.exception.RequestValidationException;
+import com.randy.propertymanagementsystem.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

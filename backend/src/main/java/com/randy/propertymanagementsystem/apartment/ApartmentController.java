@@ -1,5 +1,6 @@
-package com.randy.tenantmanagementsystem.apartment;
+package com.randy.propertymanagementsystem.apartment;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,14 +9,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("api/v1/apartments")
 public class ApartmentController {
-    public ApartmentService apartmentService;
-    public ApartmentDTOMapper apartmentDTOMapper;
-    public ApartmentController(ApartmentService apartmentService, ApartmentDTOMapper apartmentDTOMapper) {
-        this.apartmentService = apartmentService;
-        this.apartmentDTOMapper = apartmentDTOMapper;
-    }
+    private final ApartmentService apartmentService;
+    private final ApartmentDTOMapper apartmentDTOMapper;
 
     @GetMapping
     public ResponseEntity<List<ApartmentDTO>> getApartments() {

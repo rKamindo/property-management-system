@@ -1,4 +1,4 @@
-package com.randy.tenantmanagementsystem.property;
+package com.randy.propertymanagementsystem.property;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

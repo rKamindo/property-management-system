@@ -1,21 +1,18 @@
-package com.randy.tenantmanagementsystem.apartment;
+package com.randy.propertymanagementsystem.apartment;
 
-import com.randy.tenantmanagementsystem.exception.DuplicateResourceException;
-import com.randy.tenantmanagementsystem.exception.ResourceNotFoundException;
-import com.randy.tenantmanagementsystem.tenant.Tenant;
-import com.randy.tenantmanagementsystem.tenant.TenantService;
+import com.randy.propertymanagementsystem.exception.DuplicateResourceException;
+import com.randy.propertymanagementsystem.exception.ResourceNotFoundException;
+import com.randy.propertymanagementsystem.tenant.Tenant;
+import com.randy.propertymanagementsystem.tenant.TenantService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ApartmentService {
     private final ApartmentRepository apartmentRepository;
     private final TenantService tenantService;
-
-    public ApartmentService(ApartmentRepository apartmentRepository, TenantService tenantService) {
-        this.apartmentRepository = apartmentRepository;
-        this.tenantService = tenantService;
-    }
 
     public List<Apartment> getAllApartments() {
         return apartmentRepository.findAll();

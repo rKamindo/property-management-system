@@ -1,6 +1,6 @@
-package com.randy.tenantmanagementsystem.apartment;
+package com.randy.propertymanagementsystem.apartment;
 
-import com.randy.tenantmanagementsystem.tenant.TenantDTO;
+import com.randy.propertymanagementsystem.tenant.TenantDTO;
 
 public record ApartmentDTO (
         Long id,

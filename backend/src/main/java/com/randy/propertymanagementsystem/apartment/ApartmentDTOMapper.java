@@ -1,6 +1,6 @@
-package com.randy.tenantmanagementsystem.apartment;
+package com.randy.propertymanagementsystem.apartment;
 
-import com.randy.tenantmanagementsystem.tenant.TenantDTOMapper;
+import com.randy.propertymanagementsystem.tenant.TenantDTOMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Function;

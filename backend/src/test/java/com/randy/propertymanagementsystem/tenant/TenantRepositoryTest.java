@@ -1,4 +1,4 @@
-package com.randy.tenantmanagementsystem.tenant;
+package com.randy.propertymanagementsystem.tenant;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

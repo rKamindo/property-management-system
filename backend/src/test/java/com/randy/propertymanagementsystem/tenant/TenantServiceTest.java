@@ -1,8 +1,8 @@
-package com.randy.tenantmanagementsystem.tenant;
+package com.randy.propertymanagementsystem.tenant;
 
-import com.randy.tenantmanagementsystem.exception.DuplicateResourceException;
-import com.randy.tenantmanagementsystem.exception.RequestValidationException;
-import com.randy.tenantmanagementsystem.exception.ResourceNotFoundException;
+import com.randy.propertymanagementsystem.exception.DuplicateResourceException;
+import com.randy.propertymanagementsystem.exception.RequestValidationException;
+import com.randy.propertymanagementsystem.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

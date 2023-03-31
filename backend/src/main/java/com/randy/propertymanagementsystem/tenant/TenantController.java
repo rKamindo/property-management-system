@@ -1,4 +1,4 @@
-package com.randy.tenantmanagementsystem.tenant;
+package com.randy.propertymanagementsystem.tenant;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -6,15 +6,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("api/v1/tenants")
+@RequiredArgsConstructor
 public class TenantController {
     private final TenantService tenantService;
     private final TenantDTOMapper tenantDTOMapper;
-    public TenantController(TenantService tenantService, TenantDTOMapper tenantDTOMapper) {
-        this.tenantService = tenantService;
-        this.tenantDTOMapper = tenantDTOMapper;
-    }
 
     @GetMapping
     public ResponseEntity<List<TenantDTO>> getTenants() {
@@ -31,6 +30,7 @@ public class TenantController {
                 .apply(tenantService.getTenant(tenantId));
         return new ResponseEntity<>(tenantDTO, HttpStatus.OK);
     }
+
     @PostMapping
     public ResponseEntity<TenantDTO> createTenant(@RequestBody TenantCreateRequest request) {
         TenantDTO tenantDTO = tenantDTOMapper.apply(
@@ -52,6 +52,4 @@ public class TenantController {
         Tenant tenant = tenantService.updateTenant(tenantId, updateRequest);
         return new ResponseEntity<>(tenantDTOMapper.apply(tenant), HttpStatus.OK);
     }
-
-
 }

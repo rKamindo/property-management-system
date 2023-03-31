@@ -1,4 +1,4 @@
-package com.randy.tenantmanagementsystem.apartment;
+package com.randy.propertymanagementsystem.apartment;
 
 public record ApartmentCreateRequest (
         String apartmentNumber,

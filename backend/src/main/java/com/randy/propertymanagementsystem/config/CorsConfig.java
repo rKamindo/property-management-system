@@ -1,4 +1,4 @@
-package com.randy.tenantmanagementsystem.config;
+package com.randy.propertymanagementsystem.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
