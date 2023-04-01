@@ -22,11 +22,11 @@ public class PropertyController {
         // TODO retrieve the client associated with the current request
 
         // TODO retrieve the properties associated with the client
-        List<PropertyDTO> propertyDTOS = propertyService.getAllProperties()
+        List<PropertyDTO> propertyDTOs = propertyService.getAllProperties()
                 .stream()
                 .map(propertyDTOMapper::apply)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(propertyDTOS);
+        return ResponseEntity.ok(propertyDTOs);
     }
 
     @GetMapping("{id}")
@@ -54,4 +54,6 @@ public class PropertyController {
         );
         return ResponseEntity.ok(propertyDTO);
     }
+
+
 }

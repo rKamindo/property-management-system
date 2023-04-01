@@ -1,5 +1,6 @@
 package com.randy.propertymanagementsystem.apartment;
 
+import com.randy.propertymanagementsystem.client.Client;
 import com.randy.propertymanagementsystem.property.Property;
 import com.randy.propertymanagementsystem.tenant.Tenant;
 import jakarta.persistence.*;
@@ -42,6 +43,9 @@ public class Apartment {
     @ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
+    @Setter(AccessLevel.NONE)
+    @Column(name = "client_id")
+    private Long clientId;
 
     public Apartment(ApartmentCreateRequest apartmentCreateRequest) {
         this.apartmentNumber = apartmentCreateRequest.apartmentNumber();
@@ -59,5 +63,12 @@ public class Apartment {
             isOccupied = true;
         }
         this.tenant = tenant;
+    }
+
+    public void setClientId(Client client) {
+        if (client == null)
+            clientId = null;
+        else
+            clientId = client.getId();
     }
 }

@@ -24,11 +24,22 @@ public class Property {
     @NotBlank
     @Column(unique = true, nullable = false)
     private String address;
+    @Setter(AccessLevel.NONE)
     @OneToMany
     private Set<Apartment> apartments = new HashSet<>();
+
+    @Setter(AccessLevel.NONE)
+    private Long clientId;
 
     public Property(PropertyCreateRequest request) {
         this.name = request.name();
         this.address = request.address();
     }
+
+    public void setClientId(Long clientId) {
+        if (clientId == null)
+            throw new IllegalArgumentException("clientId cannot be null");
+        this.clientId = clientId;
+    }
+
 }

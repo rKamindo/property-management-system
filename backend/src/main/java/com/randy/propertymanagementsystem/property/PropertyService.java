@@ -3,17 +3,15 @@ package com.randy.propertymanagementsystem.property;
 import com.randy.propertymanagementsystem.exception.DuplicateResourceException;
 import com.randy.propertymanagementsystem.exception.RequestValidationException;
 import com.randy.propertymanagementsystem.exception.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PropertyService {
     private final PropertyRepository propertyRepository;
-
-    public PropertyService(PropertyRepository propertyRepository) {
-        this.propertyRepository = propertyRepository;
-    }
 
     public List<Property> getAllProperties() {
         return propertyRepository.findAll();
@@ -24,6 +22,10 @@ public class PropertyService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "property with id [%s] not found".formatted(id)
                 ));
+    }
+
+    public boolean existsById(Long propertyId) {
+        return propertyRepository.existsById(propertyId);
     }
 
     public Property createProperty(PropertyCreateRequest request) {
@@ -63,7 +65,7 @@ public class PropertyService {
         return propertyRepository.save(property);
     }
 
-    public void deletePropertyById(Long id) {
+    public void deleteProperty(Long id) {
         if (!propertyRepository.existsById(id)) {
             throw new ResourceNotFoundException(
                     "property with id [%s] not found".formatted(id)
