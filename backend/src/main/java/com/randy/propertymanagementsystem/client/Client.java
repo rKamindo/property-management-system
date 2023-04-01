@@ -14,6 +14,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -34,8 +35,6 @@ public class Client implements UserDetails {
     private String firstName;
     @Column(nullable = false)
     private String lastName;
-    @Column(nullable = false)
-    private String phone;
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
