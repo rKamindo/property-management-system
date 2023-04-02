@@ -21,6 +21,11 @@ public class TenantService {
         return tenantRepository.findAllByClient(client);
     }
 
+    public boolean doesTenantBelongToUser(Tenant tenant, String userEmail) {
+        Client client = clientService.findByEmail(userEmail);
+        return tenant.getClient().equals(client);
+    }
+
     public Tenant getTenant(Long id) {
         return tenantRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
