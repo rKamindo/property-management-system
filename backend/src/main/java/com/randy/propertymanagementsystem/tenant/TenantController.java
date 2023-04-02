@@ -1,10 +1,13 @@
 package com.randy.propertymanagementsystem.tenant;
 
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,8 +23,8 @@ public class TenantController {
 
     @GetMapping
     public ResponseEntity<List<TenantDTO>> getTenantsForCurrentUser(
-            @AuthenticationPrincipal Authentication authentication) {
-        String userEmail = authentication.getName();
+            @AuthenticationPrincipal UserDetails userDetails) {
+        String userEmail = userDetails.getUsername();
         // use the userEmail to retrieve list of tenants for the current
         List<TenantDTO> tenantDTOS = tenantService.getTenantsForUser(userEmail)
                 .stream()
@@ -40,9 +43,9 @@ public class TenantController {
     @PostMapping
     public ResponseEntity<TenantDTO> createTenant(
             @RequestBody TenantCreateRequest request,
-            @AuthenticationPrincipal Authentication authentication
-    ) {
-        String userEmail = authentication.getName();
+            @AuthenticationPrincipal UserDetails userDetails
+            ) {
+        String userEmail = userDetails.getUsername();
         TenantDTO tenantDTO = tenantDTOMapper.apply(
                 tenantService.createTenantForUser(request, userEmail)
         );
@@ -58,7 +61,8 @@ public class TenantController {
     @PutMapping("{id}")
     public ResponseEntity<TenantDTO> updateTenant(
             @PathVariable("id") Long tenantId,
-            @RequestBody TenantUpdateRequest updateRequest) {
+            @RequestBody TenantUpdateRequest updateRequest,
+            @AuthenticationPrincipal UserDetails userDetails) {
         Tenant tenant = tenantService.updateTenant(tenantId, updateRequest);
         return new ResponseEntity<>(tenantDTOMapper.apply(tenant), HttpStatus.OK);
     }

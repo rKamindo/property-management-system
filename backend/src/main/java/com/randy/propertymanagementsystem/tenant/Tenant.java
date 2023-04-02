@@ -35,10 +35,7 @@ public class Tenant {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @NotBlank
-    @Pattern(regexp = "\\d+", message = "Phone number should contain only digits")
-    @Size(min = 3, max = 14, message = "Phone number should between 3 and 14 digits")
-    @Column(nullable = false)
+
     private String phone;
 
     @NotNull
