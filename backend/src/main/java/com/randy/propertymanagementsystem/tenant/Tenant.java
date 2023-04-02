@@ -1,6 +1,7 @@
 package com.randy.propertymanagementsystem.tenant;
 
 import com.randy.propertymanagementsystem.apartment.Apartment;
+import com.randy.propertymanagementsystem.client.Client;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -8,6 +9,7 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -47,10 +49,7 @@ public class Tenant {
     @OneToOne(mappedBy = "tenant")
     private Apartment apartment;
 
-    public Tenant(TenantCreateRequest tenantCreateRequest) {
-        this.name = tenantCreateRequest.name();
-        this.email = tenantCreateRequest.email();
-        this.phone = tenantCreateRequest.phone();
-        this.gender = tenantCreateRequest.gender();
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private Client client;
 }

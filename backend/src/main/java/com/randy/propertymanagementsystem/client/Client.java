@@ -1,9 +1,9 @@
 package com.randy.propertymanagementsystem.client;
 
 import com.randy.propertymanagementsystem.property.Property;
+import com.randy.propertymanagementsystem.tenant.Tenant;
 import jakarta.persistence.*;
 import lombok.*;
-import org.apache.catalina.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,7 +18,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-
 public class Client implements UserDetails {
     @Id
     @SequenceGenerator(
@@ -46,6 +45,9 @@ public class Client implements UserDetails {
     @OneToMany(mappedBy = "clientId", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Property> properties = new HashSet<>();
 
+    @OneToMany(mappedBy = "client")
+    private Set<Tenant> tenants = new HashSet<>();
+
     public void addProperty(Property property) {
         properties.add(property);
         property.setClientId(id);
@@ -54,6 +56,16 @@ public class Client implements UserDetails {
     public void removeProperty(Property property) {
         properties.remove(property);
         property.setClientId(null);
+    }
+
+    public void addTenant(Tenant tenant) {
+        tenants.add(tenant);
+        tenant.setClient(this);
+    }
+
+    public void removeTenant(Tenant tenant) {
+        tenants.remove(tenant);
+        tenant.setClient(null);
     }
 
     @Override

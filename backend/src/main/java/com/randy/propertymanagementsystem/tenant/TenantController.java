@@ -2,6 +2,9 @@ package com.randy.propertymanagementsystem.tenant;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,8 +19,11 @@ public class TenantController {
     private final TenantDTOMapper tenantDTOMapper;
 
     @GetMapping
-    public ResponseEntity<List<TenantDTO>> getTenants() {
-        List<TenantDTO> tenantDTOS = tenantService.getAllTenants()
+    public ResponseEntity<List<TenantDTO>> getTenantsForCurrentUser(
+            @AuthenticationPrincipal Authentication authentication) {
+        String userEmail = authentication.getName();
+        // use the userEmail to retrieve list of tenants for the current
+        List<TenantDTO> tenantDTOS = tenantService.getTenantsForUser(userEmail)
                 .stream()
                 .map(tenant -> tenantDTOMapper.apply(tenant))
                 .collect(Collectors.toList());
@@ -28,13 +34,17 @@ public class TenantController {
     public ResponseEntity<TenantDTO> getTenant(@PathVariable("id") Long tenantId) {
         TenantDTO tenantDTO = tenantDTOMapper
                 .apply(tenantService.getTenant(tenantId));
-        return new ResponseEntity<>(tenantDTO, HttpStatus.OK);
+        return new ResponseEntity<>(    tenantDTO, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<TenantDTO> createTenant(@RequestBody TenantCreateRequest request) {
+    public ResponseEntity<TenantDTO> createTenant(
+            @RequestBody TenantCreateRequest request,
+            @AuthenticationPrincipal Authentication authentication
+    ) {
+        String userEmail = authentication.getName();
         TenantDTO tenantDTO = tenantDTOMapper.apply(
-                tenantService.createTenant(request)
+                tenantService.createTenantForUser(request, userEmail)
         );
         return new ResponseEntity<>(tenantDTO, HttpStatus.OK);
     }

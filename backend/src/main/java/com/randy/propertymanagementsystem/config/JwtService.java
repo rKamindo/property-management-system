@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +37,9 @@ public class JwtService {
             Map<String, Object> extraClaims,
             UserDetails userDetails
             ) {
+
+        System.out.println(System.currentTimeMillis());
+        System.out.println(System.currentTimeMillis());
         return Jwts
                 .builder()
                 .setClaims(extraClaims)

@@ -1,4 +1,4 @@
-package com.randy.propertymanagementsystem.apartment.auth;
+package com.randy.propertymanagementsystem.auth;
 
 import com.randy.propertymanagementsystem.client.Client;
 import com.randy.propertymanagementsystem.client.ClientRepository;

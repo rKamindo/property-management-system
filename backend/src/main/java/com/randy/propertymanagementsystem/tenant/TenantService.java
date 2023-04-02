@@ -1,5 +1,7 @@
 package com.randy.propertymanagementsystem.tenant;
 
+import com.randy.propertymanagementsystem.client.Client;
+import com.randy.propertymanagementsystem.client.ClientService;
 import com.randy.propertymanagementsystem.exception.DuplicateResourceException;
 import com.randy.propertymanagementsystem.exception.RequestValidationException;
 import com.randy.propertymanagementsystem.exception.ResourceNotFoundException;
@@ -12,9 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TenantService {
     private final TenantRepository tenantRepository;
+    private final ClientService clientService;
 
-    public List<Tenant> getAllTenants() {
-        return tenantRepository.findAll();
+    public List<Tenant> getTenantsForUser(String userEmail) {
+        Client client = clientService.findByEmail(userEmail);
+        return tenantRepository.findAllByClient(client);
     }
 
     public Tenant getTenant(Long id) {
@@ -24,14 +28,20 @@ public class TenantService {
                 ));
     }
 
-    public Tenant createTenant(TenantCreateRequest createRequest) {
-        String email = createRequest.email();
-        if (tenantRepository.existsTenantByEmail(email)) {
+    public Tenant createTenantForUser(TenantCreateRequest request, String userEmail) {
+        Client client = clientService.findByEmail(userEmail);
+        if (tenantRepository.existsTenantByEmail(request.email())) {
             throw new DuplicateResourceException(
                     "A tenant with this email already exists"
             );
         }
-        Tenant tenant = new Tenant(createRequest);
+        Tenant tenant = Tenant.builder()
+                .client(client)
+                .name(request.name())
+                .email(request.email())
+                .phone(request.phone())
+                .build();
+        client.addTenant(tenant);
         return tenantRepository.save(tenant);
     }
 
