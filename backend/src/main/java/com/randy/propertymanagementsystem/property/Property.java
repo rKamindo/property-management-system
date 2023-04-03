@@ -1,6 +1,7 @@
 package com.randy.propertymanagementsystem.property;
 
 import com.randy.propertymanagementsystem.apartment.Apartment;
+import com.randy.propertymanagementsystem.client.Client;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -28,18 +30,14 @@ public class Property {
     @OneToMany
     private Set<Apartment> apartments = new HashSet<>();
 
-    @Setter(AccessLevel.NONE)
-    private Long clientId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     public Property(PropertyCreateRequest request) {
         this.name = request.name();
         this.address = request.address();
     }
 
-    public void setClientId(Long clientId) {
-        if (clientId == null)
-            throw new IllegalArgumentException("clientId cannot be null");
-        this.clientId = clientId;
-    }
 
 }

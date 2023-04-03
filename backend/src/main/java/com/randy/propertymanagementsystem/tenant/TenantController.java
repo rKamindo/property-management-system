@@ -1,12 +1,8 @@
 package com.randy.propertymanagementsystem.tenant;
 
-import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -22,11 +18,9 @@ public class TenantController {
     private final TenantDTOMapper tenantDTOMapper;
 
     @GetMapping
-    public ResponseEntity<List<TenantDTO>> getTenantsForCurrentUser(
+    public ResponseEntity<List<TenantDTO>> getTenantsForUser(
             @AuthenticationPrincipal UserDetails userDetails) {
-        String userEmail = userDetails.getUsername();
-        // use the userEmail to retrieve list of tenants for the current
-        List<TenantDTO> tenantDTOS = tenantService.getTenantsForUser(userEmail)
+        List<TenantDTO> tenantDTOS = tenantService.getTenantsForUser(userDetails.getUsername())
                 .stream()
                 .map(tenant -> tenantDTOMapper.apply(tenant))
                 .collect(Collectors.toList());
@@ -46,12 +40,11 @@ public class TenantController {
 
     @PostMapping
     public ResponseEntity<TenantDTO> createTenant(
-            @RequestBody TenantCreateRequest request,
+            @RequestBody CreateTenantRequest request,
             @AuthenticationPrincipal UserDetails userDetails
             ) {
-        String userEmail = userDetails.getUsername();
         TenantDTO tenantDTO = tenantDTOMapper.apply(
-                tenantService.createTenantForUser(request, userEmail)
+                tenantService.createTenantForUser(request, userDetails.getUsername())
         );
         return new ResponseEntity<>(tenantDTO, HttpStatus.CREATED);
     }

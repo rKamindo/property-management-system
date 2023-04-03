@@ -42,7 +42,7 @@ public class Client implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "clientId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Property> properties = new HashSet<>();
 
     @OneToMany(mappedBy = "client")
@@ -50,12 +50,12 @@ public class Client implements UserDetails {
 
     public void addProperty(Property property) {
         properties.add(property);
-        property.setClientId(id);
+        property.setClient(this);
     }
 
     public void removeProperty(Property property) {
         properties.remove(property);
-        property.setClientId(null);
+        property.setClient(null);
     }
 
     public void addTenant(Tenant tenant) {

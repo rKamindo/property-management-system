@@ -3,7 +3,8 @@ package com.randy.propertymanagementsystem.property;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,12 +18,12 @@ public class PropertyController {
     private final PropertyDTOMapper propertyDTOMapper;
 
     @GetMapping
-    public ResponseEntity<List<PropertyDTO>> getProperties() {
-
-        // TODO retrieve the client associated with the current request
-
-        // TODO retrieve the properties associated with the client
-        List<PropertyDTO> propertyDTOs = propertyService.getAllProperties()
+    public ResponseEntity<List<PropertyDTO>> getPropertiesForUser(
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        String userEmail = userDetails.getUsername();
+        List<Property> properties = propertyService.getAllPropertiesForUser(userEmail);
+        List<PropertyDTO> propertyDTOs = properties
                 .stream()
                 .map(propertyDTOMapper::apply)
                 .collect(Collectors.toList());
@@ -30,17 +31,24 @@ public class PropertyController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PropertyDTO> getProperty(@PathVariable("id") Long id) {
-        PropertyDTO propertyDTO = propertyDTOMapper.apply(
-                propertyService.getProperty(id)
-        );
+    public ResponseEntity<PropertyDTO> getProperty(
+            @PathVariable("id") Long id,
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        Property property = propertyService.getProperty(id);
+        if (!propertyService.doesPropertyBelongToUser(property, userDetails.getUsername())) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        PropertyDTO propertyDTO = propertyDTOMapper.apply(property);
         return ResponseEntity.ok(propertyDTO);
     }
 
     @PostMapping
-    public ResponseEntity<PropertyDTO> createProperty(@RequestBody PropertyCreateRequest createRequest) {
+    public ResponseEntity<PropertyDTO> createProperty(
+            @RequestBody PropertyCreateRequest request,
+            @AuthenticationPrincipal UserDetails userDetails) {
         PropertyDTO propertyDTO = propertyDTOMapper.apply(
-                propertyService.createProperty(createRequest)
+                propertyService.createPropertyForUser(request, userDetails.getUsername())
         );
         return new ResponseEntity<>(propertyDTO, HttpStatus.CREATED);
     }
@@ -48,12 +56,23 @@ public class PropertyController {
     @PutMapping("{id}")
     public ResponseEntity<PropertyDTO> updateProperty(
             @PathVariable("id") Long id,
-            @RequestBody PropertyUpdateRequest updateRequest) {
+            @RequestBody UpdatePropertyRequest updateRequest,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        Property property = propertyService.getProperty(id);
+        if (!propertyService.doesPropertyBelongToUser(property, userDetails.getUsername())) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         PropertyDTO propertyDTO = propertyDTOMapper.apply(
                 propertyService.updateProperty(id, updateRequest)
         );
         return ResponseEntity.ok(propertyDTO);
     }
 
-
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteProperty(
+            @PathVariable("id") Long id,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        propertyService.deleteProperty(id, userDetails.getUsername());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

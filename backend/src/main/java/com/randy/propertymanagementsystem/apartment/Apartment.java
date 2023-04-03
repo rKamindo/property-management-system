@@ -30,11 +30,15 @@ public class Apartment {
     @Column(nullable = false, unique = true)
     private String apartmentNumber;
     @Column(nullable = false)
-    private int numberOfRooms;
+    private int bedrooms;
+    @Column(nullable = false)
+    private int bathrooms;
     @Column(nullable = false)
     private double rent;
+    @Column(nullable = false)
 
     private boolean isAvailable;
+    @Column(nullable = false)
     private boolean isOccupied;
     @Setter(AccessLevel.NONE)
     @JoinColumn(name = "tenant_id")
@@ -46,12 +50,6 @@ public class Apartment {
     @Setter(AccessLevel.NONE)
     @Column(name = "client_id")
     private Long clientId;
-
-    public Apartment(ApartmentCreateRequest apartmentCreateRequest) {
-        this.apartmentNumber = apartmentCreateRequest.apartmentNumber();
-        this.numberOfRooms = apartmentCreateRequest.numberOfRooms();
-        this.rent = apartmentCreateRequest.rent();
-    }
     public void setTenant(Tenant tenant) {
         if (tenant == null) {
             if (this.tenant != null) {
@@ -63,12 +61,5 @@ public class Apartment {
             isOccupied = true;
         }
         this.tenant = tenant;
-    }
-
-    public void setClientId(Client client) {
-        if (client == null)
-            clientId = null;
-        else
-            clientId = client.getId();
     }
 }

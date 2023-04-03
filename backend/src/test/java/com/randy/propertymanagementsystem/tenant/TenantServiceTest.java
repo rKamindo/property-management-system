@@ -94,7 +94,7 @@ public class TenantServiceTest {
     @Test
     void createTenant() {
         // given
-        TenantCreateRequest request = new TenantCreateRequest(
+        CreateTenantRequest request = new CreateTenantRequest(
                 "John Doe", "johndoe@example.com", "1234567890", Gender.MALE);
 
         // when
@@ -119,7 +119,7 @@ public class TenantServiceTest {
     @Test
     void willThrowWhenEmailIsTaken() {
         // given
-        TenantCreateRequest tenant = new TenantCreateRequest(
+        CreateTenantRequest tenant = new CreateTenantRequest(
                 "Jane",
                 "jane@gmail.com",
                 "1112223333",

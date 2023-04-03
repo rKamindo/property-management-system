@@ -1,6 +1,6 @@
 package com.randy.propertymanagementsystem.property;
 
-public record PropertyUpdateRequest(
+public record UpdatePropertyRequest(
         String name,
         String address
 ) {

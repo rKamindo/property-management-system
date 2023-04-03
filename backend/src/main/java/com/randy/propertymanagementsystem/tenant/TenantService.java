@@ -33,7 +33,7 @@ public class TenantService {
                 ));
     }
 
-    public Tenant createTenantForUser(TenantCreateRequest request, String userEmail) {
+    public Tenant createTenantForUser(CreateTenantRequest request, String userEmail) {
         Client client = clientService.findByEmail(userEmail);
         if (tenantRepository.existsTenantByEmail(request.email())) {
             throw new DuplicateResourceException(
