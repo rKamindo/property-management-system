@@ -18,7 +18,7 @@ public class TenantController {
     private final TenantDTOMapper tenantDTOMapper;
 
     @GetMapping
-    public ResponseEntity<List<TenantDTO>> getTenantsForUser(
+    public ResponseEntity<List<TenantDTO>> getAllTenantsForUser(
             @AuthenticationPrincipal UserDetails userDetails) {
         List<TenantDTO> tenantDTOS = tenantService.getTenantsForUser(userDetails.getUsername())
                 .stream()
@@ -29,9 +29,9 @@ public class TenantController {
 
     @GetMapping("{id}")
     public ResponseEntity<TenantDTO> getTenant(
-            @PathVariable("id") Long tenantId,
+            @PathVariable("id") Long id,
             @AuthenticationPrincipal UserDetails userDetails) {
-        Tenant tenant = tenantService.getTenant(tenantId);
+        Tenant tenant = tenantService.getTenant(id);
         if (!tenantService.doesTenantBelongToUser(tenant, userDetails.getUsername()))
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         TenantDTO tenantDTO = tenantDTOMapper.apply(tenant);
@@ -51,26 +51,26 @@ public class TenantController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteTenant(
-            @PathVariable("id") Long tenantId,
+            @PathVariable("id") Long id,
             @AuthenticationPrincipal UserDetails userDetails) {
-        Tenant tenant = tenantService.getTenant(tenantId);
+        Tenant tenant = tenantService.getTenant(id);
         if (!tenantService.doesTenantBelongToUser(tenant, userDetails.getUsername())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        tenantService.deleteTenantById(tenantId);
+        tenantService.deleteTenantById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("{id}")
     public ResponseEntity<TenantDTO> updateTenant(
-            @PathVariable("id") Long tenantId,
+            @PathVariable("id") Long id,
             @RequestBody TenantUpdateRequest updateRequest,
             @AuthenticationPrincipal UserDetails userDetails) {
-        Tenant tenant = tenantService.getTenant(tenantId);
+        Tenant tenant = tenantService.getTenant(id);
         if (!tenantService.doesTenantBelongToUser(tenant, userDetails.getUsername())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        tenant = tenantService.updateTenant(tenantId, updateRequest);
+        tenant = tenantService.updateTenant(id, updateRequest);
         return new ResponseEntity<>(tenantDTOMapper.apply(tenant), HttpStatus.OK);
     }
 }

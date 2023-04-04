@@ -3,6 +3,8 @@ package com.randy.propertymanagementsystem.apartment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,14 +20,14 @@ public class ApartmentController {
     // TODO NEST ENDPOINTS so APARTMENTS are in the context of a PROPERTY
     // POSSIBLY ADD A QUERY FILTER ? TO FILTER ALL APARTMENTS BY PROPERTY IN THE getApartments()
 
-    @GetMapping("?propertyId=")
-    public ResponseEntity<List<ApartmentDTO>> getApartments(
-            @RequestParam Long propertyId
+    @GetMapping()
+    public ResponseEntity<List<ApartmentDTO>> getApartmentsForUser(
+            @AuthenticationPrincipal UserDetails userDetails
     ) {
-        // TODO GET ALL APARTMENTS THAT HAVE THIS PROPERTY ID
-        List<ApartmentDTO> apartmentDTOS = apartmentService.getAllApartments()
+        List<ApartmentDTO> apartmentDTOS = apartmentService
+                .getApartmentsForUser(userDetails.getUsername())
                 .stream()
-                .map(apartmentDTOMapper::apply)
+                .map(apartmentDTOMapper)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(apartmentDTOS, HttpStatus.OK);
     }
@@ -38,12 +40,15 @@ public class ApartmentController {
         return new ResponseEntity<>(apartmentDTO, HttpStatus.OK);
     }
 
-    @PostMapping("?propertyId=")
+    @PostMapping()
     public ResponseEntity<ApartmentDTO> createApartment(
-            @RequestParam Long propertyId,
-            @RequestBody ApartmentCreateRequest request) {
-        Apartment apartment = apartmentService.addApartment(propertyId, request);
-        return new ResponseEntity<>(apartmentDTOMapper.apply(apartment), HttpStatus.CREATED);
+            @RequestBody CreateApartmentRequest request,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        Apartment apartment = apartmentService.createApartmentForUser(
+                request,
+                userDetails.getUsername());
+        ApartmentDTO apartmentDTO = apartmentDTOMapper.apply(apartment);
+        return new ResponseEntity<>(apartmentDTO, HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
@@ -56,5 +61,27 @@ public class ApartmentController {
     public ResponseEntity<?> deleteApartment(@PathVariable("id") Long id) {
         apartmentService.deleteApartment(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("{apartmentId}/tenant/{tenantid}")
+    public ResponseEntity<?> addTenantToApartment(
+            @PathVariable("apartmentId") Long apartmentId,
+            @PathVariable("tenantId") Long tenantId,
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        // todo verify tenant and apartment belong to user?
+        apartmentService.addTenantToApartment(tenantId, apartmentId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("{apartmentId}/tenant")
+    public ResponseEntity<?> deleteTenantFromApartment(
+            @PathVariable("apartmentId") Long apartmentId,
+            @PathVariable("tenantId") Long tenantId,
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        // todo verify tenant and apartment belong to user?
+        apartmentService.removeTenantFromApartment(apartmentId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

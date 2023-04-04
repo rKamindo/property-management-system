@@ -2,6 +2,7 @@ package com.randy.propertymanagementsystem.property;
 
 import com.randy.propertymanagementsystem.apartment.Apartment;
 import com.randy.propertymanagementsystem.client.Client;
+import com.randy.propertymanagementsystem.tenant.Tenant;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -26,18 +27,22 @@ public class Property {
     @NotBlank
     @Column(unique = true, nullable = false)
     private String address;
-    @Setter(AccessLevel.NONE)
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<Apartment> apartments = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Tenant> tenants = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
 
-    public Property(PropertyCreateRequest request) {
-        this.name = request.name();
-        this.address = request.address();
+    public void addApartment(Apartment apartment) {
+        apartments.add(apartment);
+        apartment.setProperty(this);
     }
 
-
+    public void removeApartment(Apartment apartment) {
+        apartments.remove(apartment);
+        apartment.setTenant(null);
+    }
 }

@@ -5,9 +5,12 @@ import com.randy.propertymanagementsystem.client.ClientService;
 import com.randy.propertymanagementsystem.exception.DuplicateResourceException;
 import com.randy.propertymanagementsystem.exception.RequestValidationException;
 import com.randy.propertymanagementsystem.exception.ResourceNotFoundException;
+import com.randy.propertymanagementsystem.property.Property;
+import com.randy.propertymanagementsystem.property.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -15,6 +18,7 @@ import java.util.List;
 public class TenantService {
     private final TenantRepository tenantRepository;
     private final ClientService clientService;
+    private final PropertyService propertyService;
 
     public List<Tenant> getTenantsForUser(String userEmail) {
         Client client = clientService.findByEmail(userEmail);
@@ -26,10 +30,10 @@ public class TenantService {
         return tenant.getClient().equals(client);
     }
 
-    public Tenant getTenant(Long id) {
-        return tenantRepository.findById(id)
+    public Tenant getTenant(Long tenantId) {
+        return tenantRepository.findById(tenantId)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "tenant with id [%s] not found".formatted(id)
+                        "tenant with id [%s] not found".formatted(tenantId)
                 ));
     }
 
@@ -50,10 +54,10 @@ public class TenantService {
         return tenantRepository.save(tenant);
     }
 
-    public Tenant updateTenant(Long id, TenantUpdateRequest updateRequest) {
-        Tenant tenant = tenantRepository.findById(id)
+    public Tenant updateTenant(Long tenantId, TenantUpdateRequest updateRequest) {
+        Tenant tenant = tenantRepository.findById(tenantId)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "tenant with id [%s] not found".formatted(id)
+                        "tenant with id [%s] not found".formatted(tenantId)
                 ));
 
         boolean changes = false;
@@ -86,12 +90,17 @@ public class TenantService {
         return tenantRepository.save(tenant);
     }
 
-    public void deleteTenantById(Long id) {
-        if (!tenantRepository.existsById(id)) {
+    public void deleteTenantById(Long tenantId) {
+        if (!tenantRepository.existsById(tenantId)) {
             throw new ResourceNotFoundException(
-                    "tenant with id [%s] not found".formatted(id)
+                    "tenant with id [%s] not found".formatted(tenantId)
             );
         }
-        tenantRepository.deleteById(id);
+        tenantRepository.deleteById(tenantId);
+    }
+
+    public List<Tenant> getTenantsForProperty(Long propertyId) {
+        Property property = propertyService.getProperty(propertyId);
+        return tenantRepository.findAllByProperty(property);
     }
 }

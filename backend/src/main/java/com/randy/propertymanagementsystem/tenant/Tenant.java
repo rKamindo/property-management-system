@@ -2,6 +2,7 @@ package com.randy.propertymanagementsystem.tenant;
 
 import com.randy.propertymanagementsystem.apartment.Apartment;
 import com.randy.propertymanagementsystem.client.Client;
+import com.randy.propertymanagementsystem.property.Property;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -27,24 +28,19 @@ public class Tenant {
             generator = "tenant_id_seq")
     private Long id;
 
-    @NotBlank
     private String name;
-
-    @NotBlank
-    @Email
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String email;
-
-
     private String phone;
 
-    @NotNull
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @OneToOne(mappedBy = "tenant")
     private Apartment apartment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Property property;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")

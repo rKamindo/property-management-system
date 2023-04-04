@@ -1,5 +1,6 @@
 package com.randy.propertymanagementsystem.client;
 
+import com.randy.propertymanagementsystem.apartment.Apartment;
 import com.randy.propertymanagementsystem.property.Property;
 import com.randy.propertymanagementsystem.tenant.Tenant;
 import jakarta.persistence.*;
@@ -42,8 +43,11 @@ public class Client implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "client")
     private Set<Property> properties = new HashSet<>();
+
+    @OneToMany(mappedBy = "client")
+    private Set<Apartment> apartments = new HashSet<>();
 
     @OneToMany(mappedBy = "client")
     private Set<Tenant> tenants = new HashSet<>();
@@ -56,6 +60,16 @@ public class Client implements UserDetails {
     public void removeProperty(Property property) {
         properties.remove(property);
         property.setClient(null);
+    }
+
+    public void addApartment(Apartment apartment) {
+        apartments.add(apartment);
+        apartment.setClient(this);
+    }
+
+    public void removeApartment(Apartment apartment) {
+        apartments.remove(apartment);
+        apartment.setClient(null);
     }
 
     public void addTenant(Tenant tenant) {

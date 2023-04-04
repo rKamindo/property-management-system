@@ -5,6 +5,7 @@ import com.randy.propertymanagementsystem.property.Property;
 import com.randy.propertymanagementsystem.tenant.Tenant;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Objects;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -30,36 +32,26 @@ public class Apartment {
     @Column(nullable = false, unique = true)
     private String apartmentNumber;
     @Column(nullable = false)
-    private int bedrooms;
-    @Column(nullable = false)
-    private int bathrooms;
-    @Column(nullable = false)
-    private double rent;
-    @Column(nullable = false)
+    private double rent; // todo validate
 
-    private boolean isAvailable;
-    @Column(nullable = false)
-    private boolean isOccupied;
-    @Setter(AccessLevel.NONE)
+    // todo ApartmentStatus ENUM?
     @JoinColumn(name = "tenant_id")
     @OneToOne(cascade = CascadeType.PERSIST)
     private Tenant tenant;
-    @ManyToOne
     @JoinColumn(name = "property_id")
+    @OneToOne
     private Property property;
-    @Setter(AccessLevel.NONE)
-    @Column(name = "client_id")
-    private Long clientId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private Client client;
+
     public void setTenant(Tenant tenant) {
         if (tenant == null) {
-            if (this.tenant != null) {
-                this.tenant.setApartment(null);
-                isOccupied = false;
-            }
-        } else {
-            tenant.setApartment(this);
-            isOccupied = true;
+            this.tenant = null;
         }
-        this.tenant = tenant;
+        else {
+            this.tenant = tenant;
+        }
     }
+
 }

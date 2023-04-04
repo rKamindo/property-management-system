@@ -1,6 +1,13 @@
 package com.randy.propertymanagementsystem.property;
 
+import com.randy.propertymanagementsystem.apartment.ApartmentDTO;
+import com.randy.propertymanagementsystem.apartment.ApartmentDTOMapper;
+import com.randy.propertymanagementsystem.apartment.ApartmentService;
+import com.randy.propertymanagementsystem.tenant.TenantDTO;
+import com.randy.propertymanagementsystem.tenant.TenantDTOMapper;
+import com.randy.propertymanagementsystem.tenant.TenantService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +23,10 @@ import java.util.stream.Collectors;
 public class PropertyController {
     private final PropertyService propertyService;
     private final PropertyDTOMapper propertyDTOMapper;
+    private final TenantService tenantService;
+    private final TenantDTOMapper tenantDTOMapper;
+    private final ApartmentService apartmentService;
+    private final ApartmentDTOMapper apartmentDTOMapper;
 
     @GetMapping
     public ResponseEntity<List<PropertyDTO>> getPropertiesForUser(
@@ -41,6 +52,27 @@ public class PropertyController {
         }
         PropertyDTO propertyDTO = propertyDTOMapper.apply(property);
         return ResponseEntity.ok(propertyDTO);
+    }
+
+    @GetMapping("{propertyId}/tenants")
+    public ResponseEntity<List<TenantDTO>> getTenantsForProperty(
+            @PathVariable Long propertyId) {
+        List<TenantDTO> tenantDTOs = tenantService.getTenantsForProperty(propertyId)
+                .stream()
+                .map(tenant -> tenantDTOMapper.apply(tenant))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(tenantDTOs);
+    }
+
+    @GetMapping("{propertyId}/apartments")
+    public ResponseEntity<List<ApartmentDTO>> getApartmentsForProperty(
+            @PathVariable("propertyId") Long propertyId
+    ) {
+        List<ApartmentDTO> apartmentDTOs = apartmentService.getApartmentsForProperty(propertyId)
+                .stream()
+                .map(apartment -> apartmentDTOMapper.apply(apartment))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(apartmentDTOs);
     }
 
     @PostMapping
