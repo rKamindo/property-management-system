@@ -53,28 +53,6 @@ public class PropertyController {
         PropertyDTO propertyDTO = propertyDTOMapper.apply(property);
         return ResponseEntity.ok(propertyDTO);
     }
-
-    @GetMapping("{propertyId}/tenants")
-    public ResponseEntity<List<TenantDTO>> getTenantsForProperty(
-            @PathVariable Long propertyId) {
-        List<TenantDTO> tenantDTOs = tenantService.getTenantsForProperty(propertyId)
-                .stream()
-                .map(tenant -> tenantDTOMapper.apply(tenant))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(tenantDTOs);
-    }
-
-    @GetMapping("{propertyId}/apartments")
-    public ResponseEntity<List<ApartmentDTO>> getApartmentsForProperty(
-            @PathVariable("propertyId") Long propertyId
-    ) {
-        List<ApartmentDTO> apartmentDTOs = apartmentService.getApartmentsForProperty(propertyId)
-                .stream()
-                .map(apartment -> apartmentDTOMapper.apply(apartment))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(apartmentDTOs);
-    }
-
     @PostMapping
     public ResponseEntity<PropertyDTO> createProperty(
             @RequestBody PropertyCreateRequest request,
@@ -107,4 +85,26 @@ public class PropertyController {
         propertyService.deleteProperty(id, userDetails.getUsername());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("{propertyId}/apartments")
+    public ResponseEntity<List<ApartmentDTO>> getApartmentsForProperty(
+            @PathVariable("propertyId") Long propertyId
+    ) {
+        List<ApartmentDTO> apartmentDTOs = apartmentService.getApartmentsForProperty(propertyId)
+                .stream()
+                .map(apartment -> apartmentDTOMapper.apply(apartment))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(apartmentDTOs);
+    }
+
+    @GetMapping("{propertyId}/tenants")
+    public ResponseEntity<List<TenantDTO>> getTenantsForProperty(
+            @PathVariable Long propertyId) {
+        List<TenantDTO> tenantDTOs = tenantService.getTenantsForProperty(propertyId)
+                .stream()
+                .map(tenant -> tenantDTOMapper.apply(tenant))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(tenantDTOs);
+    }
+
 }

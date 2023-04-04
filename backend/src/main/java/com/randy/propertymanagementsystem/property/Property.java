@@ -21,11 +21,11 @@ public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
+
     @Column(nullable = false)
     private String name;
-    @NotBlank
-    @Column(unique = true, nullable = false)
+
+    @Column(unique = true)
     private String address;
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Apartment> apartments = new HashSet<>();
@@ -35,11 +35,6 @@ public class Property {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
-
-    public void addApartment(Apartment apartment) {
-        apartments.add(apartment);
-        apartment.setProperty(this);
-    }
 
     public void removeApartment(Apartment apartment) {
         apartments.remove(apartment);

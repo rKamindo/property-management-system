@@ -77,10 +77,9 @@ public class ApartmentController {
     @DeleteMapping("{apartmentId}/tenant")
     public ResponseEntity<?> deleteTenantFromApartment(
             @PathVariable("apartmentId") Long apartmentId,
-            @PathVariable("tenantId") Long tenantId,
             @AuthenticationPrincipal UserDetails userDetails
     ) {
-        // todo verify tenant and apartment belong to user?
+        // todo verify apartment belongs to user
         apartmentService.removeTenantFromApartment(apartmentId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
