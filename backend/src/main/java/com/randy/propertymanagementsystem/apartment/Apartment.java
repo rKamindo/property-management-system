@@ -1,13 +1,11 @@
 package com.randy.propertymanagementsystem.apartment;
 
 import com.randy.propertymanagementsystem.client.Client;
+import com.randy.propertymanagementsystem.ownership.IClientResource;
 import com.randy.propertymanagementsystem.property.Property;
 import com.randy.propertymanagementsystem.tenant.Tenant;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Objects;
 
 
 @Entity
@@ -17,7 +15,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Apartment {
+public class Apartment implements IClientResource {
 
     @Id
     @SequenceGenerator(

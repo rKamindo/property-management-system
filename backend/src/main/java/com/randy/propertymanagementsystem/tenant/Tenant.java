@@ -1,10 +1,10 @@
 package com.randy.propertymanagementsystem.tenant;
 
+import com.randy.propertymanagementsystem.ownership.IClientResource;
 import com.randy.propertymanagementsystem.apartment.Apartment;
 import com.randy.propertymanagementsystem.client.Client;
 import com.randy.propertymanagementsystem.property.Property;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Entity
@@ -15,7 +15,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 
-public class Tenant {
+public class Tenant implements IClientResource {
 
     @Id
     @SequenceGenerator(

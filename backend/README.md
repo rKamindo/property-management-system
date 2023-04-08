@@ -18,7 +18,7 @@ Features:
 To-do -
 
 Backend:
-- Complete update resource functionality
+- Complete update IClientResource functionality
 - Request Validation
 - Unit tests
 - Integration tests

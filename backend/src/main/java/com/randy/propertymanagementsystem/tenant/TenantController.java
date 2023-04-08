@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,48 +31,34 @@ public class TenantController {
 
     @GetMapping("{id}")
     public ResponseEntity<TenantDTO> getTenant(
-            @PathVariable("id") Long id,
-            @AuthenticationPrincipal UserDetails userDetails) {
-        Tenant tenant = tenantService.getTenant(id);
-        if (!tenantService.doesTenantBelongToUser(tenant, userDetails.getUsername()))
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        TenantDTO tenantDTO = tenantDTOMapper.apply(tenant);
+            @PathVariable("id") Long id) {
+        TenantDTO tenantDTO = tenantDTOMapper.apply(
+                tenantService.getTenant(id)
+        );
         return new ResponseEntity<>(tenantDTO, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<TenantDTO> createTenant(
-            @RequestBody CreateTenantRequest request,
-            @AuthenticationPrincipal UserDetails userDetails
-            ) {
+            @RequestBody CreateTenantRequest request) {
         TenantDTO tenantDTO = tenantDTOMapper.apply(
-                tenantService.createTenantForUser(request, userDetails.getUsername())
+                tenantService.createTenantForUser(request)
         );
         return new ResponseEntity<>(tenantDTO, HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteTenant(
-            @PathVariable("id") Long id,
-            @AuthenticationPrincipal UserDetails userDetails) {
-        Tenant tenant = tenantService.getTenant(id);
-        if (!tenantService.doesTenantBelongToUser(tenant, userDetails.getUsername())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        tenantService.deleteTenantById(id);
+            @PathVariable("id") Long id) {
+        tenantService.deleteTenant(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("{id}")
     public ResponseEntity<TenantDTO> updateTenant(
             @PathVariable("id") Long id,
-            @RequestBody TenantUpdateRequest updateRequest,
-            @AuthenticationPrincipal UserDetails userDetails) {
-        Tenant tenant = tenantService.getTenant(id);
-        if (!tenantService.doesTenantBelongToUser(tenant, userDetails.getUsername())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        tenant = tenantService.updateTenant(id, updateRequest);
+            @RequestBody TenantUpdateRequest updateRequest) {
+        Tenant tenant = tenantService.updateTenant(id, updateRequest);
         return new ResponseEntity<>(tenantDTOMapper.apply(tenant), HttpStatus.OK);
     }
 }

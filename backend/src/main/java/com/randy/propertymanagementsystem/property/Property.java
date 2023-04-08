@@ -35,9 +35,4 @@ public class Property {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
-
-    public void removeApartment(Apartment apartment) {
-        apartments.remove(apartment);
-        apartment.setTenant(null);
-    }
 }

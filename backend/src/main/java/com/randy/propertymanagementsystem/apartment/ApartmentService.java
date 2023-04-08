@@ -48,6 +48,9 @@ public class ApartmentService {
                 .apartmentNumber(request.apartmentNumber())
                 .rent(request.rent())
                 .build();
+
+        // add apartment to the list of apartments
+        property.getApartments().add(apartment);
         
         return apartmentRepository.save(apartment);
     }

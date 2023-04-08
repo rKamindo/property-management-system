@@ -1,22 +1,24 @@
 package com.randy.propertymanagementsystem.tenant;
 
+import com.randy.propertymanagementsystem.exception.UserNotAuthorizedException;
 import com.randy.propertymanagementsystem.client.Client;
 import com.randy.propertymanagementsystem.client.ClientService;
 import com.randy.propertymanagementsystem.exception.DuplicateResourceException;
 import com.randy.propertymanagementsystem.exception.RequestValidationException;
 import com.randy.propertymanagementsystem.exception.ResourceNotFoundException;
+import com.randy.propertymanagementsystem.ownership.OwnershipService;
 import com.randy.propertymanagementsystem.property.Property;
 import com.randy.propertymanagementsystem.property.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class TenantService {
     private final TenantRepository tenantRepository;
+    private final OwnershipService ownershipService;
     private final ClientService clientService;
     private final PropertyService propertyService;
 
@@ -25,20 +27,20 @@ public class TenantService {
         return tenantRepository.findAllByClient(client);
     }
 
-    public boolean doesTenantBelongToUser(Tenant tenant, String userEmail) {
-        Client client = clientService.findByEmail(userEmail);
-        return tenant.getClient().equals(client);
-    }
-
-    public Tenant getTenant(Long tenantId) {
-        return tenantRepository.findById(tenantId)
+    public Tenant getTenant(Long tenantId){
+        Tenant tenant = tenantRepository.findById(tenantId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "tenant with id [%s] not found".formatted(tenantId)
                 ));
+        if(!ownershipService.belongsToUser(tenant)) {
+            throw new UserNotAuthorizedException(
+                    "user does not have permission to access this resource");
+        }
+        return tenant;
     }
 
-    public Tenant createTenantForUser(CreateTenantRequest request, String userEmail) {
-        Client client = clientService.findByEmail(userEmail);
+    public Tenant createTenantForUser(CreateTenantRequest request) {
+        Client client = clientService.getCurrentClient();
         if (tenantRepository.existsTenantByEmail(request.email())) {
             throw new DuplicateResourceException(
                     "A tenant with this email already exists"
@@ -60,6 +62,11 @@ public class TenantService {
                         "tenant with id [%s] not found".formatted(tenantId)
                 ));
 
+        if(!ownershipService.belongsToUser(tenant)) {
+            throw new UserNotAuthorizedException(
+                    "user does not have permission to access this resource");
+        }
+
         boolean changes = false;
 
         if (updateRequest.name() != null && !updateRequest.name().equals(tenant.getName())) {
@@ -70,7 +77,7 @@ public class TenantService {
         if (updateRequest.email() != null && !updateRequest.email().equals(tenant.getEmail())) {
             if (tenantRepository.existsTenantByEmail(updateRequest.email())) {
                 throw new DuplicateResourceException(
-                        "A tenant with this email already exists"
+                        "a tenant with this email already exists"
                 );
             }
             tenant.setEmail(updateRequest.email());
@@ -84,23 +91,18 @@ public class TenantService {
 
         if (!changes)
             throw new RequestValidationException(
-                    "No changes were detected"
+                    "no changes were detected"
             );
 
         return tenantRepository.save(tenant);
     }
 
-    public void deleteTenantById(Long tenantId) {
-        if (!tenantRepository.existsById(tenantId)) {
-            throw new ResourceNotFoundException(
-                    "tenant with id [%s] not found".formatted(tenantId)
-            );
+    public void deleteTenant(Long tenantId) {
+        Tenant tenant = getTenant(tenantId);
+        if(!ownershipService.belongsToUser(tenant)) {
+            throw new UserNotAuthorizedException(
+                    "user does not have permission to access this resource");
         }
         tenantRepository.deleteById(tenantId);
-    }
-
-    public List<Tenant> getTenantsForProperty(Long propertyId) {
-        Property property = propertyService.getProperty(propertyId);
-        return tenantRepository.findAllByProperty(property);
     }
 }
