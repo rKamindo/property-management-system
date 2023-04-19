@@ -1,11 +1,13 @@
 package com.randy.propertymanagementsystem.property;
 
+import com.randy.propertymanagementsystem.apartment.Apartment;
+import com.randy.propertymanagementsystem.apartment.ApartmentService;
+import com.randy.propertymanagementsystem.apartment.IApartmentService;
 import com.randy.propertymanagementsystem.client.Client;
 import com.randy.propertymanagementsystem.client.ClientService;
-import com.randy.propertymanagementsystem.exception.DuplicateResourceException;
-import com.randy.propertymanagementsystem.exception.RequestValidationException;
-import com.randy.propertymanagementsystem.exception.ResourceNotFoundException;
-import com.randy.propertymanagementsystem.exception.ResourceOwnershipException;
+import com.randy.propertymanagementsystem.exception.*;
+import com.randy.propertymanagementsystem.ownership.OwnershipService;
+import com.randy.propertymanagementsystem.tenant.Tenant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,32 +16,32 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class PropertyService {
+public class PropertyService implements IPropertyService {
     private final PropertyRepository propertyRepository;
     private final ClientService clientService;
+    private final OwnershipService ownershipService;
+    private final IPropertyApartmentService propertyApartmentService;
+    private final IPropertyTenantService propertyTenantService;
 
-    public List<Property> getAllPropertiesForUser(String userEmail) {
-        Client client = clientService.findByEmail(userEmail);
+    public List<Property> getPropertiesForUser() {
+        Client client = clientService.getCurrentClient();
         return propertyRepository.findAllByClient(client);
     }
 
-    public boolean doesPropertyBelongToUser(Property property, String userEmail) {
-        Client client = clientService.findByEmail(userEmail);
-        return property
-                .getClient()
-                .getId()
-                .equals(client.getId());
-    }
-
     public Property getProperty(Long id) {
-        return propertyRepository.findById(id)
+        Property property =  propertyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "property with id [%s] not found".formatted(id)
                 ));
+        if(!ownershipService.belongsToUser(property)) {
+            throw new UserNotAuthorizedException(
+                    "user does not have permission to access this resource");
+        }
+        return property;
     }
 
-    public Property createPropertyForUser(PropertyCreateRequest request, String userEmail) {
-        Client client = clientService.findByEmail(userEmail);
+    public Property createPropertyForUser(PropertyCreateRequest request) {
+        Client client = clientService.getCurrentClient();
         // todo check if address exists to prevent duplicate address
         if (propertyRepository.existsPropertyByAddress(request.address())) {
             throw new DuplicateResourceException(
@@ -51,13 +53,14 @@ public class PropertyService {
                 .name(request.name())
                 .address(request.address())
                 .build();
-        client.addProperty(property);
         return propertyRepository.save(property);
     }
 
     public Property updateProperty(Long id, UpdatePropertyRequest updateRequest) {
         // get property
         Property property = getProperty(id);
+        // check ownership
+        ownershipService.belongsToUser(property);
         // update fields, throw exception if no changes were made
         boolean changes = false;
         if (updateRequest.name() != null && updateRequest.name() != property.getName()) {
@@ -86,17 +89,29 @@ public class PropertyService {
         return propertyRepository.save(property);
     }
 
-    public void deleteProperty(Long id, String userEmail) {
-        Client client = clientService.findByEmail(userEmail);
+    public void deleteProperty(Long id) {
+        Client client = clientService.getCurrentClient();
         Property property = getProperty(id);
-        if (!doesPropertyBelongToUser(property, userEmail)) {
-           throw new ResourceOwnershipException(
-                   "property with id [%s] does not belong to user with email '[%s]'"
-                           .formatted(id, userEmail)
-           );
+
+        // check ownership
+        if(!ownershipService.belongsToUser(property)) {
+            throw new UserNotAuthorizedException(
+                    "user does not have permission to access this resource");
         }
-        // if the property belongs to the user, delete it
+
         client.removeProperty(property);
         propertyRepository.deleteById(id);
+    }
+
+    public List<Tenant> getAllTenants(Long propertyId) {
+        return propertyTenantService.getTenantsForProperty(
+                getProperty(propertyId)
+        );
+    }
+
+    public List<Apartment> getAllApartments(Long propertyId) {
+        return propertyApartmentService.getApartmentsForProperty(
+                getProperty(propertyId)
+        );
     }
 }

@@ -21,19 +21,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("api/v1/properties")
 public class PropertyController {
-    private final PropertyService propertyService;
+    private final IPropertyService propertyService;
     private final PropertyDTOMapper propertyDTOMapper;
-    private final TenantService tenantService;
     private final TenantDTOMapper tenantDTOMapper;
-    private final ApartmentService apartmentService;
     private final ApartmentDTOMapper apartmentDTOMapper;
 
     @GetMapping
-    public ResponseEntity<List<PropertyDTO>> getPropertiesForUser(
-            @AuthenticationPrincipal UserDetails userDetails
-    ) {
-        String userEmail = userDetails.getUsername();
-        List<Property> properties = propertyService.getAllPropertiesForUser(userEmail);
+    public ResponseEntity<List<PropertyDTO>> getPropertiesForUser() {
+        List<Property> properties = propertyService.getPropertiesForUser();
         List<PropertyDTO> propertyDTOs = properties
                 .stream()
                 .map(propertyDTOMapper::apply)
@@ -41,48 +36,36 @@ public class PropertyController {
         return ResponseEntity.ok(propertyDTOs);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("{propertyId}")
     public ResponseEntity<PropertyDTO> getProperty(
-            @PathVariable("id") Long id,
-            @AuthenticationPrincipal UserDetails userDetails
-    ) {
-        Property property = propertyService.getProperty(id);
-        if (!propertyService.doesPropertyBelongToUser(property, userDetails.getUsername())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
+            @PathVariable("propertyId") Long propertyId) {
+        Property property = propertyService.getProperty(propertyId);
         PropertyDTO propertyDTO = propertyDTOMapper.apply(property);
         return ResponseEntity.ok(propertyDTO);
     }
     @PostMapping
     public ResponseEntity<PropertyDTO> createProperty(
-            @RequestBody PropertyCreateRequest request,
-            @AuthenticationPrincipal UserDetails userDetails) {
+            @RequestBody PropertyCreateRequest request) {
         PropertyDTO propertyDTO = propertyDTOMapper.apply(
-                propertyService.createPropertyForUser(request, userDetails.getUsername())
+                propertyService.createPropertyForUser(request)
         );
         return new ResponseEntity<>(propertyDTO, HttpStatus.CREATED);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("{propertyId}")
     public ResponseEntity<PropertyDTO> updateProperty(
-            @PathVariable("id") Long id,
-            @RequestBody UpdatePropertyRequest updateRequest,
-            @AuthenticationPrincipal UserDetails userDetails) {
-        Property property = propertyService.getProperty(id);
-        if (!propertyService.doesPropertyBelongToUser(property, userDetails.getUsername())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
+            @PathVariable("propertyId") Long propertyId,
+            @RequestBody UpdatePropertyRequest updateRequest) {
         PropertyDTO propertyDTO = propertyDTOMapper.apply(
-                propertyService.updateProperty(id, updateRequest)
+                propertyService.updateProperty(propertyId, updateRequest)
         );
         return ResponseEntity.ok(propertyDTO);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{propertyId}")
     public ResponseEntity<?> deleteProperty(
-            @PathVariable("id") Long id,
-            @AuthenticationPrincipal UserDetails userDetails) {
-        propertyService.deleteProperty(id, userDetails.getUsername());
+            @PathVariable("propertyId") Long propertyId) {
+        propertyService.deleteProperty(propertyId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -90,7 +73,7 @@ public class PropertyController {
     public ResponseEntity<List<ApartmentDTO>> getApartmentsForProperty(
             @PathVariable("propertyId") Long propertyId
     ) {
-        List<ApartmentDTO> apartmentDTOs = apartmentService.getApartmentsForProperty(propertyId)
+        List<ApartmentDTO> apartmentDTOs = propertyService.getAllApartments(propertyId)
                 .stream()
                 .map(apartment -> apartmentDTOMapper.apply(apartment))
                 .collect(Collectors.toList());
@@ -100,11 +83,10 @@ public class PropertyController {
     @GetMapping("{propertyId}/tenants")
     public ResponseEntity<List<TenantDTO>> getTenantsForProperty(
             @PathVariable Long propertyId) {
-        List<TenantDTO> tenantDTOs = tenantService.getTenantsForProperty(propertyId)
+        List<TenantDTO> tenantDTOs = propertyService.getAllTenants(propertyId)
                 .stream()
                 .map(tenant -> tenantDTOMapper.apply(tenant))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(tenantDTOs);
     }
-
 }

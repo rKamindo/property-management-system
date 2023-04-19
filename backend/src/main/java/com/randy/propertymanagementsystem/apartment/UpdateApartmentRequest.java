@@ -1,10 +1,8 @@
 package com.randy.propertymanagementsystem.apartment;
 
-public record ApartmentUpdateRequest(
+public record UpdateApartmentRequest(
         String apartmentNumber,
         int numberOfRooms,
-        double rent,
-        boolean isOccupied,
-        boolean isAvailable
+        double rent
 ) {
 }

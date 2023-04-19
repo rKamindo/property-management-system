@@ -8,7 +8,6 @@ import com.randy.propertymanagementsystem.exception.RequestValidationException;
 import com.randy.propertymanagementsystem.exception.ResourceNotFoundException;
 import com.randy.propertymanagementsystem.ownership.OwnershipService;
 import com.randy.propertymanagementsystem.property.Property;
-import com.randy.propertymanagementsystem.property.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +15,15 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TenantService {
+public class TenantService implements ITenantService {
     private final TenantRepository tenantRepository;
     private final OwnershipService ownershipService;
     private final ClientService clientService;
-    private final PropertyService propertyService;
 
-    public List<Tenant> getTenantsForUser(String userEmail) {
-        Client client = clientService.findByEmail(userEmail);
-        return tenantRepository.findAllByClient(client);
+    public List<Tenant> getTenantsForUser() {
+        return tenantRepository.findAllByClient(
+                clientService.getCurrentClient()
+        );
     }
 
     public Tenant getTenant(Long tenantId){
@@ -51,6 +50,7 @@ public class TenantService {
                 .name(request.name())
                 .email(request.email())
                 .phone(request.phone())
+                .gender(request.gender())
                 .build();
         client.addTenant(tenant);
         return tenantRepository.save(tenant);
@@ -104,5 +104,9 @@ public class TenantService {
                     "user does not have permission to access this resource");
         }
         tenantRepository.deleteById(tenantId);
+    }
+
+    public List<Tenant> getTenantsForProperty(Property property) {
+        return tenantRepository.findAllByProperty(property);
     }
 }

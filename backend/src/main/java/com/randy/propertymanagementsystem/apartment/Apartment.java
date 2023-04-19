@@ -33,23 +33,13 @@ public class Apartment implements IClientResource {
     private double rent; // todo validate
 
     // todo ApartmentStatus ENUM?
-    @JoinColumn(name = "tenant_id")
     @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "tenant_id")
     private Tenant tenant;
-    @JoinColumn(name = "property_id")
     @OneToOne
+    @JoinColumn(name = "property_id")
     private Property property;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
-
-    public void setTenant(Tenant tenant) {
-        if (tenant == null) {
-            this.tenant = null;
-        }
-        else {
-            this.tenant = tenant;
-        }
-    }
-
 }

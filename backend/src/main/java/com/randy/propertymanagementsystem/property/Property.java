@@ -2,6 +2,7 @@ package com.randy.propertymanagementsystem.property;
 
 import com.randy.propertymanagementsystem.apartment.Apartment;
 import com.randy.propertymanagementsystem.client.Client;
+import com.randy.propertymanagementsystem.ownership.IClientResource;
 import com.randy.propertymanagementsystem.tenant.Tenant;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -17,7 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Property {
+public class Property implements IClientResource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

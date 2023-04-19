@@ -12,6 +12,7 @@ const Tenant = () => {
         setLoading(true);
         getTenants().then(res => {
             setTenants(res.data);
+            console.log(res.data);
         }).catch(err => {
             // TODO error handling
         }).finally(() => {

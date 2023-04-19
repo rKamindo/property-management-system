@@ -20,9 +20,8 @@ public class TenantController {
     private final TenantDTOMapper tenantDTOMapper;
 
     @GetMapping
-    public ResponseEntity<List<TenantDTO>> getAllTenantsForUser(
-            @AuthenticationPrincipal UserDetails userDetails) {
-        List<TenantDTO> tenantDTOS = tenantService.getTenantsForUser(userDetails.getUsername())
+    public ResponseEntity<List<TenantDTO>> getAllTenantsForUser() {
+        List<TenantDTO> tenantDTOS = tenantService.getTenantsForUser()
                 .stream()
                 .map(tenant -> tenantDTOMapper.apply(tenant))
                 .collect(Collectors.toList());

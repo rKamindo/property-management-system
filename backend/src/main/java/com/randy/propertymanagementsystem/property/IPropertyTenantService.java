@@ -4,6 +4,6 @@ import com.randy.propertymanagementsystem.tenant.Tenant;
 
 import java.util.List;
 
-public interface PropertyTenantServiceImpl {
+public interface IPropertyTenantService {
     List<Tenant> getTenantsForProperty(Property property);
 }

@@ -4,42 +4,46 @@ import com.randy.propertymanagementsystem.client.Client;
 import com.randy.propertymanagementsystem.client.ClientService;
 import com.randy.propertymanagementsystem.exception.DuplicateResourceException;
 import com.randy.propertymanagementsystem.exception.ResourceNotFoundException;
+import com.randy.propertymanagementsystem.exception.UserNotAuthorizedException;
+import com.randy.propertymanagementsystem.ownership.OwnershipService;
 import com.randy.propertymanagementsystem.property.Property;
-import com.randy.propertymanagementsystem.property.PropertyService;
-import com.randy.propertymanagementsystem.tenant.Tenant;
-import com.randy.propertymanagementsystem.tenant.TenantRepository;
-import com.randy.propertymanagementsystem.tenant.TenantService;
+import com.randy.propertymanagementsystem.tenant.ITenantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ApartmentService {
+public class ApartmentService implements IApartmentService {
     private final ApartmentRepository apartmentRepository;
+    private final OwnershipService ownershipService;
     private final ClientService clientService;
-    private final PropertyService propertyService;
-    private final TenantService tenantService;
+
+    public List<Apartment> getApartmentsForUser() {
+        Client client = clientService.getCurrentClient();
+        return apartmentRepository.findAllByClient(client);
+    }
 
     public Apartment getApartment(Long id) {
-        return apartmentRepository.findById(id)
+        Apartment apartment =  apartmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "apartment with id [%s] not found".formatted(id)
                 ));
+        if (!ownershipService.belongsToUser(apartment)) {
+            throw new UserNotAuthorizedException(
+                    "user does not have permission to access this resource");
+        }
+        return apartment;
     }
 
     public Apartment createApartmentForUser(
             CreateApartmentRequest request,
-            String userEmail) {
+            Property property) {
         // todo check if duplicate apartment number exists
 
         // get user who made request
-        Client client = clientService.findByEmail(userEmail);
-
-        // get property associated with property id
-        Property property = propertyService.getProperty(request.propertyId());
+        Client client = clientService.getCurrentClient();
 
         // build apartment
         Apartment apartment = Apartment.builder()
@@ -49,20 +53,19 @@ public class ApartmentService {
                 .rent(request.rent())
                 .build();
 
-        // add apartment to the list of apartments
-        property.getApartments().add(apartment);
-        
         return apartmentRepository.save(apartment);
     }
 
-    public Apartment updateApartment(Long id, ApartmentUpdateRequest updateRequest) {
+    public Apartment updateApartment(Long id, UpdateApartmentRequest updateRequest) {
         Apartment apartment = apartmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "apartment with id [%s] not found".formatted(id)
                 ));
 
+        ownershipService.belongsToUser(apartment);
+
         // update apartment number
-        if (updateRequest.apartmentNumber() == apartment.getApartmentNumber()) {
+        if (updateRequest.apartmentNumber().equals(apartment.getApartmentNumber())) {
             throw new DuplicateResourceException(
                     "apartment number already taken"
             );
@@ -72,29 +75,15 @@ public class ApartmentService {
     }
 
     public void deleteApartment(Long id) {
+        Apartment apartment = getApartment(id);
+        if (!ownershipService.belongsToUser(apartment)) {
+            throw new UserNotAuthorizedException(
+                    "user does not have permission to access this resource");
+        }
         apartmentRepository.deleteById(id);
     }
 
-    public List<Apartment> getApartmentsForUser(String userEmail) {
-        Client client = clientService.findByEmail(userEmail);
-        return apartmentRepository.findAllByClient(client);
-    }
-
-    public List<Apartment> getApartmentsForProperty(Long propertyId) {
-        Property property = propertyService.getProperty(propertyId);
+    public List<Apartment> getApartmentsForProperty(Property property) {
         return apartmentRepository.findAllByProperty(property);
-    }
-
-    public void addTenantToApartment(Long tenantId, Long apartmentId) {
-        Tenant tenant = tenantService.getTenant(tenantId);
-        Apartment apartment = getApartment(apartmentId);
-        apartment.setTenant(tenant);
-        tenant.setApartment(apartment);
-        apartmentRepository.save(apartment);
-    }
-    public void removeTenantFromApartment(Long apartmentId) {
-        Apartment apartment = getApartment(apartmentId);
-        apartment.setTenant(null);
-        apartmentRepository.save(apartment);
     }
 }

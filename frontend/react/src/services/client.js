@@ -1,5 +1,22 @@
 import axios from 'axios'
 
+const getAuthConfig = () => ({
+    headers: {
+        Authorization: `Bearer`
+    }
+})
+
+export const registerUser = async(user) => {
+    try {
+        return await axios.post(
+            `http://localhost:8080/api/v1/register`,
+            user
+        )
+    } catch (e) {
+        throw e;
+    }
+}
+
 export const getTenants = async() => {
     try {
         return await axios.get(
